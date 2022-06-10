@@ -4,6 +4,8 @@ import { createPinia } from "pinia";
 // Imports Bootstrap
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap";
+import "sweetalert2/dist/sweetalert2.all.min.js";
+// import "sweetalert2/dist/sweetalert2.min.css";
 
 import App from "./App.vue";
 import router from "./router";
