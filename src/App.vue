@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router";
-import NavBar from "./components/NavBar.vue";
+import { RouterView } from 'vue-router';
+import NavBar from './components/NavBar.vue';
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import NavBar from "./components/NavBar.vue";
 </template>
 
 <style>
-@import "@/assets/base.css";
+@import '@/assets/base.css';
 
 #app {
   margin: 0 auto;

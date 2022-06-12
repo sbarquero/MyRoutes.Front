@@ -6,11 +6,11 @@
 
 <script lang="ts">
 export default {
-  name: "OptionBtn",
+  name: 'OptionBtn',
   props: {
     tooltip: {
       type: String,
-      default: "",
+      default: '',
     },
     onClickHandler: {
       type: Function,

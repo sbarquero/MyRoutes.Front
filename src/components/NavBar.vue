@@ -15,21 +15,13 @@
           >
             <LoginIcon class="icon" />
           </OptionBtn>
-          <div
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="dropdownMenuOffset"
-          >
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuOffset">
             <LoginView />
           </div>
         </div>
 
         <!-- Logout Button -->
-        <OptionBtn
-          v-if="auth.isAuthenticated"
-          class="button"
-          tooltip="Logout"
-          @click="onLogout"
-        >
+        <OptionBtn v-if="auth.isAuthenticated" class="button" tooltip="Logout" @click="onLogout">
           <LogoutIcon class="icon" />
         </OptionBtn>
 
@@ -45,10 +37,7 @@
           >
             <span class="navbar-toggler-icon icon"></span>
           </OptionBtn>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="dropdownMenuButton"
-          >
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
             <li>
               <h2 class="dropdown-header bg-secondary text-light">Menu</h2>
             </li>
@@ -94,41 +83,41 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
-import Swal from "sweetalert2";
+import { RouterLink } from 'vue-router';
+import Swal from 'sweetalert2';
 
-import GearIcon from "./icons/IconGear.vue";
-import InfoIcon from "./icons/IconInfo.vue";
-import LoginIcon from "./icons/IconLogin.vue";
-import LoginView from "./LoginForm.vue";
-import LogoutIcon from "./icons/IconLogout.vue";
-import MapIcon from "./icons/IconMap.vue";
-import OptionBtn from "./OptionBtn.vue";
-import PeopleIcon from "./icons/IconPeople.vue";
-import { useAuthStore } from "../stores/authStore";
-import router from "../router";
+import GearIcon from './icons/IconGear.vue';
+import InfoIcon from './icons/IconInfo.vue';
+import LoginIcon from './icons/IconLogin.vue';
+import LoginView from './LoginForm.vue';
+import LogoutIcon from './icons/IconLogout.vue';
+import MapIcon from './icons/IconMap.vue';
+import OptionBtn from './OptionBtn.vue';
+import PeopleIcon from './icons/IconPeople.vue';
+import { useAuthStore } from '../stores/authStore';
+import router from '../router';
 
 const auth = useAuthStore();
 
 function onLogout() {
   Swal.fire({
-    title: "Are you sure you want to logout?",
-    text: "Your user will be logged out.",
-    icon: "question",
+    title: 'Are you sure you want to logout?',
+    text: 'Your user will be logged out.',
+    icon: 'question',
     showCancelButton: true,
-    confirmButtonColor: "#d33",
-    cancelButtonColor: "#3085d6",
-    confirmButtonText: "Yes, logout!",
-  }).then((result) => {
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, logout!',
+  }).then(result => {
     if (result.isConfirmed) {
       Swal.fire({
-        title: "You are logged out.",
-        icon: "success",
+        title: 'You are logged out.',
+        icon: 'success',
         showConfirmButton: false,
         timer: 1500,
       });
       auth.logout();
-      router.push("/");
+      router.push('/');
     }
   });
 }

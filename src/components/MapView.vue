@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import { useMapStore } from "@/stores/mapStore";
-import { onMounted } from "vue";
+import { useMapStore } from '@/stores/mapStore';
+import { onMounted } from 'vue';
 
 const map = useMapStore();
 

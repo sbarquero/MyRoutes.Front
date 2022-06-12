@@ -23,14 +23,10 @@
     <div class="mb-3">
       <div class="form-check">
         <input type="checkbox" class="form-check-input" id="dropdownCheck" />
-        <label class="form-check-label" for="dropdownCheck">
-          Remember me
-        </label>
+        <label class="form-check-label" for="dropdownCheck"> Remember me </label>
       </div>
     </div>
-    <button @click.prevent="onLogin" type="submit" class="btn btn-secondary">
-      Sign in
-    </button>
+    <button @click.prevent="onLogin" type="submit" class="btn btn-secondary">Sign in</button>
   </form>
   <div class="dropdown-divider"></div>
   <a class="dropdown-item" href="#">New around here? Sign up</a>
@@ -38,9 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import Swal from "sweetalert2";
-import { useAuthStore } from "@/stores/authStore";
-import { ref } from "vue";
+import Swal from 'sweetalert2';
+import { useAuthStore } from '@/stores/authStore';
+import { ref } from 'vue';
 
 interface User {
   email: string;
@@ -49,8 +45,8 @@ interface User {
 
 const auth = useAuthStore();
 const userForm = ref({
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 });
 
 async function onLogin() {
@@ -61,7 +57,7 @@ async function onLogin() {
   const { ok, message } = await auth.login(user);
 
   if (!ok) {
-    Swal.fire({ title: "Error", text: message, icon: "error", timer: 3000 });
+    Swal.fire({ title: 'Error', text: message, icon: 'error', timer: 3000 });
   }
 }
 </script>
