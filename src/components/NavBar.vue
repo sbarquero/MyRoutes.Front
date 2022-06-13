@@ -99,7 +99,7 @@ import router from '../router';
 
 const auth = useAuthStore();
 
-function onLogout() {
+async function onLogout() {
   Swal.fire({
     title: 'Are you sure you want to logout?',
     text: 'Your user will be logged out.',
@@ -108,15 +108,24 @@ function onLogout() {
     confirmButtonColor: '#d33',
     cancelButtonColor: '#3085d6',
     confirmButtonText: 'Yes, logout!',
-  }).then(result => {
+  }).then(async result => {
     if (result.isConfirmed) {
-      Swal.fire({
-        title: 'You are logged out.',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      auth.logout();
+      const result = await auth.logout();
+      if (result.ok) {
+        Swal.fire({
+          title: 'You are logged out.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          title: result.message,
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      }
       router.push('/');
     }
   });
@@ -126,10 +135,12 @@ function onLogout() {
 .button {
   margin-left: 1rem;
 }
+
 .icon {
   width: 1.2rem;
   height: 1.2rem;
 }
+
 .menu-label {
   align-items: cente;
   margin-left: 1rem;

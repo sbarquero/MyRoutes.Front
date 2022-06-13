@@ -14,7 +14,10 @@ export const useAuthStore = defineStore({
     email: '',
     rol: '',
     token: '',
+    userId: '',
+    sessionId: '',
     refreshToken: '',
+    expireAt: null,
   }),
   getters: {
     currentState: state => state.status,
@@ -26,14 +29,17 @@ export const useAuthStore = defineStore({
       const { email, password } = user;
       try {
         const { data } = await authApi.post('/login', { email, password });
-        const { userName, token, refreshToken } = data;
+        const { userName, rol, token, userId, sessionId, refreshToken, expireAt } = data;
 
         if (token) {
           this.userName = userName;
           this.email = email;
-          this.token = data.token;
-          this.rol = data.rol;
+          this.token = token;
+          this.rol = rol;
+          this.userId = userId;
+          this.sessionId = sessionId;
           this.refreshToken = refreshToken;
+          this.expireAt = expireAt;
           localStorage.setItem('token', token);
           this.status = 'authenticated';
         }
@@ -44,14 +50,29 @@ export const useAuthStore = defineStore({
         return { ok: false, message: error.response.data.message };
       }
     },
-    logout() {
-      this.userName = '';
-      this.email = '';
-      this.token = '';
-      this.rol = '';
-      this.refreshToken = '';
-      localStorage.removeItem('token');
-      this.status = 'not-authenticated';
+    async logout() {
+      try {
+        await authApi.post('/logout', {
+          userId: this.userId,
+          sessionId: this.sessionId,
+          refreshToken: this.refreshToken,
+        });
+
+        return { ok: true, message: 'Successfully logged out' }
+      } catch (error: any) {
+        return { ok: false, message: error.response.data.message };
+      } finally {
+        this.userName = '';
+        this.email = '';
+        this.token = '';
+        this.rol = '';
+        this.userId = '';
+        this.sessionId = '';
+        this.expireAt = null;
+        this.refreshToken = '';
+        localStorage.removeItem('token');
+        this.status = 'not-authenticated';
+      }
     },
   },
 });
