@@ -83,9 +83,11 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
 import Swal from 'sweetalert2';
 
+import { useAuthStore } from '../stores/authStore';
 import GearIcon from './icons/IconGear.vue';
 import InfoIcon from './icons/IconInfo.vue';
 import LoginIcon from './icons/IconLogin.vue';
@@ -94,10 +96,18 @@ import LogoutIcon from './icons/IconLogout.vue';
 import MapIcon from './icons/IconMap.vue';
 import OptionBtn from './OptionBtn.vue';
 import PeopleIcon from './icons/IconPeople.vue';
-import { useAuthStore } from '../stores/authStore';
 import router from '../router';
 
 const auth = useAuthStore();
+
+onMounted(async () => {
+  if (!localStorage.getItem('refreshToken')) return;
+
+  const result = await auth.refresh();
+  if (!result?.ok) {
+    console.log(result?.message);
+  }
+});
 
 async function onLogout() {
   Swal.fire({
