@@ -3,6 +3,7 @@
     <div class="container-fluid">
       <RouterLink to="/" class="navbar-brand mb-0 h1">MyRoutes</RouterLink>
       <div class="d-flex">
+        <div class="mt-1">{{ auth.userName }}</div>
         <!-- User Dropdown -->
         <div v-if="!auth.isAuthenticated" class="dropdown">
           <OptionBtn

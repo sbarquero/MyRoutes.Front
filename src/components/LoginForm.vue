@@ -10,7 +10,7 @@
         v-model="userForm.email"
       />
     </div>
-    <div class="mb-3">
+    <div class="mb-4">
       <label for="password" class="form-label">Password</label>
       <input
         type="password"
@@ -19,12 +19,6 @@
         placeholder="Password"
         v-model="userForm.password"
       />
-    </div>
-    <div class="mb-3">
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="dropdownCheck" />
-        <label class="form-check-label" for="dropdownCheck"> Remember me </label>
-      </div>
     </div>
     <button @click.prevent="onLogin" type="submit" class="btn btn-secondary">Sign in</button>
   </form>
