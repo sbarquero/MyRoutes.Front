@@ -1,0 +1,38 @@
+{
+  "appName": "MyRoutes",
+  "loginForm": {
+    "emailAddress": "Email address",
+    "emailPlaceholder": "email@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "Password",
+    "loginButton": "Login",
+    "registerLink": "New around here? Register",
+    "forgotPassword": "Forgot password?"
+  },
+  "mapView": {
+    "pleaseWait": "Please wait!!",
+    "locating": "Locating..."
+  },
+  "navBar": {
+    "home": "Home",
+    "usersManagement": "Users management",
+    "configuration": "Configuration",
+    "about": "About",
+    "tooltip": {
+      "login": "Login",
+      "logout": "Logout",
+      "menu": "Menu"
+    },
+    "onLogout": {
+      "question": {
+        "title": "Are you sure you want to logout?",
+        "text": "Your user will be logged out. ",
+        "confirmButtonText": "Yes, logout!",
+        "cancelButtonText": "Cancel"
+      },
+      "success": {
+        "title": "You are logged out."
+      }
+    }
+  }
+}

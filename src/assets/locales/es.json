@@ -1,0 +1,38 @@
+{
+  "appName": "MyRoutes",
+  "loginForm": {
+    "emailAddress": "Dirección Email",
+    "emailPlaceholder": "email@ejemplo.com",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Contraseña",
+    "loginButton": "Iniciar sesión",
+    "registerLink": "¿Nuevo por aquí? Regístrate",
+    "forgotPassword": "¿Olvidaste la contraseña?"
+  },
+  "mapView": {
+    "pleaseWait": "¡¡Espere por favor!!",
+    "locating": "Localizando..."
+  },
+  "navBar": {
+    "home": "Inicio",
+    "usersManagement": "Gestión de usuarios",
+    "configuration": "Configuración",
+    "about": "Acerca de",
+    "tooltip": {
+      "login": "Iniciar sesión",
+      "logout": "Cerrar sesión",
+      "menu": "Menú"
+    },
+    "onLogout": {
+      "question": {
+        "title": "¿Seguro que quiere cerrar sesión?",
+        "text": "Su usuario será desconectado.",
+        "confirmButtonText": "Sí, cerrar sesión!",
+        "cancelButtonText": "Cancelar"
+      },
+      "success": {
+        "title": "Estás desconectado."
+      }
+    }
+  }
+}

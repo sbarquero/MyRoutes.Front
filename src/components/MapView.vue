@@ -1,8 +1,8 @@
 <template>
   <div v-if="!map.isUserLocationReady" class="loading-map">
     <div class="text-center">
-      <h3>Please wait!!</h3>
-      <span>Locating...</span>
+      <h3>{{ t('mapView.pleaseWait') }}</h3>
+      <span>{{ t('mapView.locating') }}</span>
     </div>
   </div>
   <div v-show="map.isUserLocationReady" class="map-container">
@@ -11,9 +11,12 @@
 </template>
 
 <script setup lang="ts">
-import { useMapStore } from '@/stores/mapStore';
 import { onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 
+import { useMapStore } from '@/stores/mapStore';
+
+const { t } = useI18n();
 const map = useMapStore();
 
 onMounted(() => {

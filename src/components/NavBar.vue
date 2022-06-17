@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-      <RouterLink to="/" class="navbar-brand mb-0 h1">MyRoutes</RouterLink>
+      <RouterLink to="/" class="navbar-brand mb-0 h1">{{ t('appName') }}</RouterLink>
       <div class="d-flex">
         <div class="mt-1">{{ auth.userName }}</div>
         <!-- User Dropdown -->
@@ -12,7 +12,7 @@
             data-bs-toggle="dropdown"
             data-bs-auto-close="inside"
             aria-expanded="false"
-            tooltip="Login"
+            :tooltip="t('navBar.tooltip.login')"
           >
             <LoginIcon class="icon" />
           </OptionBtn>
@@ -22,7 +22,12 @@
         </div>
 
         <!-- Logout Button -->
-        <OptionBtn v-if="auth.isAuthenticated" class="button" tooltip="Logout" @click="onLogout">
+        <OptionBtn
+          v-if="auth.isAuthenticated"
+          class="button"
+          :tooltip="t('navBar.tooltip.logout')"
+          @click="onLogout"
+        >
           <LogoutIcon class="icon" />
         </OptionBtn>
 
@@ -33,7 +38,7 @@
             id="dropdownMenuButton"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            tooltip="Menu"
+            :tooltip="t('navBar.tooltip.menu')"
             @click="$emit('selectedOptionLogin')"
           >
             <span class="navbar-toggler-icon icon"></span>
@@ -45,7 +50,7 @@
             <li>
               <RouterLink :to="{ name: 'home' }" class="dropdown-item">
                 <MapIcon class="icon" />
-                <span class="menu-label">Home</span>
+                <span class="menu-label">{{ t('navBar.home') }}</span>
               </RouterLink>
             </li>
             <li>
@@ -58,13 +63,13 @@
                 :class="auth.rol != 'admin' ? 'disabled' : ''"
               >
                 <PeopleIcon class="icon" />
-                <span class="menu-label">Users management</span>
+                <span class="menu-label">{{ t('navBar.usersManagement') }}</span>
               </RouterLink>
             </li>
             <li>
               <RouterLink :to="{ name: 'configuration' }" class="dropdown-item">
                 <GearIcon class="icon" />
-                <span class="menu-label">Configuration</span>
+                <span class="menu-label">{{ t('navBar.configuration') }}</span>
               </RouterLink>
             </li>
             <li>
@@ -73,7 +78,7 @@
             <li>
               <RouterLink :to="{ name: 'about' }" class="dropdown-item">
                 <InfoIcon class="icon" />
-                <span class="menu-label">About</span>
+                <span class="menu-label">{{ t('navBar.about') }}</span>
               </RouterLink>
             </li>
           </ul>
@@ -86,6 +91,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import Swal from 'sweetalert2';
 
 import { useAuthStore } from '../stores/authStore';
@@ -99,6 +105,7 @@ import OptionBtn from './OptionBtn.vue';
 import PeopleIcon from './icons/IconPeople.vue';
 import router from '../router';
 
+const { t } = useI18n();
 const auth = useAuthStore();
 
 onMounted(async () => {
@@ -112,19 +119,20 @@ onMounted(async () => {
 
 async function onLogout() {
   Swal.fire({
-    title: 'Are you sure you want to logout?',
-    text: 'Your user will be logged out.',
+    title: t('navBar.onLogout.question.title'),
+    text: t('navBar.onLogout.question.text'),
     icon: 'question',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Yes, logout!',
+    confirmButtonText: t('navBar.onLogout.question.confirmButtonText'),
+    cancelButtonText: t('navBar.onLogout.question.cancelButtonText'),
   }).then(async result => {
     if (result.isConfirmed) {
       const result = await auth.logout();
       if (result.ok) {
         Swal.fire({
-          title: 'You are logged out.',
+          title: t('navBar.onLogout.success.title'),
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,
