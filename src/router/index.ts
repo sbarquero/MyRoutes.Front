@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
+import { useAuthStore } from '../stores/authStore';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,11 +14,25 @@ const router = createRouter({
       path: '/configuration',
       name: 'configuration',
       component: () => import('../views/ConfigurationView.vue'),
+      meta: {
+        requiresAuth: true,
+        authorizedRol: 'user',
+      },
     },
     {
       path: '/users',
       name: 'users',
       component: () => import('../views/UsersView.vue'),
+      meta: {
+        requiresAuth: true,
+        authorizedRol: 'admin',
+      },
+      // beforeEnter: to => {
+      //   console.log('beforeEnter', to);
+      //   const auth = useAuthStore();
+      //   if (auth.rol === 'admin') return true;
+      //   else return { name: 'notAuthorized' };
+      // },
     },
     {
       path: '/about',
@@ -27,7 +42,21 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
+    {
+      path: '/not-authorized',
+      name: 'not-authorized',
+      component: () => import('../views/NotAuthorizedView.vue'),
+    },
   ],
+});
+
+router.beforeEach(async to => {
+  const auth = useAuthStore();
+  if (to.meta.requiresAuth) {
+    if (auth.rol != 'admin' && to.meta.authorizedRol !== auth.rol) {
+      return { name: 'not-authorized' };
+    }
+  }
 });
 
 export default router;
