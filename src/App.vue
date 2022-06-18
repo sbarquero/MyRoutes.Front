@@ -9,7 +9,7 @@ import NavBar from './components/NavBar.vue';
 </template>
 
 <style>
-@import '@/assets/base.css';
+@import '@/assets/css/base.css';
 
 #app {
   margin: 0 auto;
