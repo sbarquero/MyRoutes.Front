@@ -1,5 +1,10 @@
 {
   "appName": "MyRoutes",
+  "language": "Español",
+  "configurationView": {
+    "title": "Configuración",
+    "language": "Idioma"
+  },
   "loginForm": {
     "emailAddress": "Dirección Email",
     "emailPlaceholder": "email@ejemplo.com",
