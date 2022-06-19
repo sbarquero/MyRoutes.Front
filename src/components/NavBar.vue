@@ -150,6 +150,7 @@ async function onLogout() {
   });
 }
 </script>
+
 <style scoped>
 .button {
   margin-left: 1rem;
