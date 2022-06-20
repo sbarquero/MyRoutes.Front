@@ -60,14 +60,18 @@
               <RouterLink
                 :to="{ name: 'users' }"
                 class="dropdown-item"
-                :class="auth.rol != 'admin' ? 'disabled' : ''"
+                :class="!auth.isAdmin ? 'disabled' : ''"
               >
                 <PeopleIcon class="icon" />
                 <span class="menu-label">{{ t('navBar.usersManagement') }}</span>
               </RouterLink>
             </li>
             <li>
-              <RouterLink :to="{ name: 'configuration' }" class="dropdown-item">
+              <RouterLink
+                :to="{ name: 'configuration' }"
+                class="dropdown-item"
+                :class="!auth.isAuthenticated ? 'disabled' : ''"
+              >
                 <GearIcon class="icon" />
                 <span class="menu-label">{{ t('navBar.configuration') }}</span>
               </RouterLink>
@@ -89,7 +93,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import Swal from 'sweetalert2';
@@ -107,15 +110,6 @@ import router from '../router';
 
 const { t } = useI18n();
 const auth = useAuthStore();
-
-onMounted(async () => {
-  if (!localStorage.getItem('refreshToken')) return;
-
-  const result = await auth.refresh();
-  if (!result?.ok) {
-    console.log(result?.message);
-  }
-});
 
 async function onLogout() {
   Swal.fire({
