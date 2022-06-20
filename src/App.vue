@@ -1,12 +1,20 @@
-<script setup lang="ts">
-import { RouterView } from 'vue-router';
-import NavBar from './components/NavBar.vue';
-</script>
-
 <template>
   <NavBar />
   <RouterView />
 </template>
+
+<script setup lang="ts">
+import { onMounted } from 'vue';
+import { RouterView } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
+import NavBar from './components/NavBar.vue';
+
+const auth = useAuthStore();
+
+onMounted(async () => {
+  auth.init();
+});
+</script>
 
 <style>
 @import '@/assets/css/base.css';

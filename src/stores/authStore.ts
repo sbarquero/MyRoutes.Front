@@ -1,5 +1,5 @@
 import authApi from '@/api/authApi';
-import { defineStore } from 'pinia';
+import { defineStore, storeToRefs } from 'pinia';
 
 export interface LoginUserDto {
   email: string;
@@ -39,8 +39,15 @@ export const useAuthStore = defineStore({
   getters: {
     currentState: state => state.status,
     isAuthenticated: state => state.status === 'authenticated',
+    isAdmin: state => state.rol === 'admin',
   },
   actions: {
+    async init() {
+      this.userId = localStorage.getItem('userId') || '';
+      this.sessionId = localStorage.getItem('sessionId') || '';
+      this.refreshToken = localStorage.getItem('refreshToken') || '';
+      this.rol = localStorage.getItem('rol') || '';
+    },
     async login(user: LoginUserDto) {
       this.status = 'authenticating';
       const { email, password } = user;
@@ -107,6 +114,7 @@ export const useAuthStore = defineStore({
         localStorage.setItem('userId', userId);
         localStorage.setItem('sessionId', sessionId);
         localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('rol', rol);
         this.status = 'authenticated';
       }
     },
@@ -123,6 +131,7 @@ export const useAuthStore = defineStore({
       localStorage.removeItem('userId');
       localStorage.removeItem('sessionId');
       localStorage.removeItem('refreshToken');
+      localStorage.removeItem('rol');
     },
   },
 });
