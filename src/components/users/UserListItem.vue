@@ -1,17 +1,11 @@
 <template>
   <div class="list-group-item list-group-item-action">
-    <h5>{{ userData?.name }}</h5>
-    <h6>{{ userData?.email }}</h6>
+    <h5 class="ms-1 text-capitalize"><slot name="name"></slot></h5>
+    <h6 class="ms-1 text-lowercase fst-italic"><slot name="email"></slot></h6>
   </div>
 </template>
 
-<script setup lang="ts">
-import type { UserListDto } from '@/interfaces/user.interface';
-
-defineProps<{
-  userData: UserListDto;
-}>();
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 div.list-group-item {

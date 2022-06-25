@@ -5,8 +5,10 @@
       <UserListItem
         @click="onUserSelect(user._id)"
         :class="user._id === userStore.state._id ? 'disabled' : ''"
-        :user-data="user"
-      />
+      >
+        <template #name>{{ user.name }}</template>
+        <template #email>{{ user.email }}</template>
+      </UserListItem>
     </template>
   </div>
 </template>
