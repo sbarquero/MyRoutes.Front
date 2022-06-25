@@ -39,5 +39,22 @@
         "title": "Estás desconectado."
       }
     }
+  },
+  "userView": {
+    "title": "Gestión Usuarios",
+    "userList": {
+      "title": "Listado Usuarios"
+    },
+    "userCard": {
+      "title": "Ficha Usuario",
+      "selectUser": "¡Selecciona un usuario del listado!",
+      "id": "ID Usuario",
+      "name": "Nombre",
+      "email": "Email",
+      "rol": "Rol",
+      "createAt": "Creado",
+      "updateAt": "Actualizado",
+      "sessions": "Sesiones"
+    }
   }
 }

@@ -1,5 +1,5 @@
 import authApi from '@/api/authApi';
-import { defineStore, storeToRefs } from 'pinia';
+import { defineStore } from 'pinia';
 
 export interface LoginUserDto {
   email: string;

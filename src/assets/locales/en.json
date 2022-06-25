@@ -39,5 +39,22 @@
         "title": "You are logged out."
       }
     }
+  },
+  "userView": {
+    "title": "Users Management",
+    "userList": {
+      "title": "Users List"
+    },
+    "userCard": {
+      "title": "User Card",
+      "selectUser": "¡Selecciona un usuario de listado!",
+      "id": "User ID",
+      "name": "Name",
+      "email": "Email",
+      "rol": "Role",
+      "createAt": "Create at",
+      "updateAt": "Update at",
+      "sessions": "Sessions"
+    }
   }
 }
