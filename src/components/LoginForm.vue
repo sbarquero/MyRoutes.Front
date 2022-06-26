@@ -30,9 +30,10 @@
 </template>
 
 <script setup lang="ts">
-import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import router from '@/router';
+import Swal from 'sweetalert2';
 
 import { useAuthStore } from '@/stores/authStore';
 
@@ -57,6 +58,10 @@ async function onLogin() {
 
   if (!ok) {
     Swal.fire({ title: 'Error', text: message, icon: 'error', timer: 3000 });
+  }
+  const currentRoute = router.currentRoute.value.name;
+  if (currentRoute === 'not-authorized') {
+    router.push('/');
   }
 }
 </script>
