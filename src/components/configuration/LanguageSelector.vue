@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
-import languages from '@/assets/locales/languages.json';
+import languages from '@/i18n/messages/languages.json';
 
 const { locale } = useI18n();
 

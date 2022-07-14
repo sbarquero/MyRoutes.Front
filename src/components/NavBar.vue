@@ -107,9 +107,12 @@ import MapIcon from './icons/IconMap.vue';
 import OptionBtn from './OptionBtn.vue';
 import PeopleIcon from './icons/IconPeople.vue';
 import router from '../router';
+import { useUserStore } from '@/stores/userStore';
+import { showError, showOk } from '@/utils/messages';
 
 const { t } = useI18n();
 const auth = useAuthStore();
+const userStore = useUserStore();
 
 async function onLogout() {
   Swal.fire({
@@ -124,20 +127,11 @@ async function onLogout() {
   }).then(async result => {
     if (result.isConfirmed) {
       const result = await auth.logout();
+      userStore.$reset();
       if (result.ok) {
-        Swal.fire({
-          title: t('navBar.onLogout.success.title'),
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        showOk(t('navBar.onLogout.success.title'));
       } else {
-        Swal.fire({
-          title: result.message,
-          icon: 'error',
-          showConfirmButton: false,
-          timer: 3000,
-        });
+        showError(result.message);
       }
       router.push('/');
     }

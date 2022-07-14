@@ -1,11 +1,13 @@
 {
   "appName": "MyRoutes",
   "language": "English",
+  "error": "Error",
   "configurationView": {
     "title": "Configuration",
     "language": "Language"
   },
   "loginForm": {
+    "loginError": "Login error",
     "emailAddress": "Email address",
     "emailPlaceholder": "email@example.com",
     "password": "Password",
@@ -42,6 +44,9 @@
   },
   "userView": {
     "title": "Users Management",
+    "addButton": {
+      "tooltip": "Add new user"
+    },
     "userList": {
       "title": "Users List"
     },
@@ -52,9 +57,41 @@
       "name": "Name",
       "email": "Email",
       "rol": "Role",
+      "password": "New Password",
+      "confirmPassword": "Repeat Password",
       "createAt": "Create at",
       "updateAt": "Update at",
-      "sessions": "Sessions"
+      "sessions": "Sessions",
+      "active": "Active",
+      "save": "Save",
+      "cancel": "Cancel",
+      "roles": {
+        "admin": "Administrator",
+        "user": "User"
+      },
+      "cancellation": {
+        "title": "Are you sure you want to cancel the changes made?",
+        "text": "Changes made to the user will be lost",
+        "confirmButtonText": "Yes, abandon changes!",
+        "cancelButtonText": "Cancel"
+      },
+      "errorMsg": {
+        "nameRequired": "Name is required",
+        "nameMinLength": "The name should be at least 3 characters long",
+        "emailRequired": "Email is required",
+        "emailValid": "Value is not a valid email address",
+        "passwordRequired": "Password is required",
+        "passwordMinLength": "The password should be at least 3 characters long",
+        "passwordDifferent": "Passwords are different"
+      },
+      "formValidation": {
+        "errorTitle": "Form error",
+        "errorText": "Check the errors in the form",
+        "createTitle": "Created",
+        "createText": "User created successfully",
+        "updateTitle": "Updated",
+        "updateText": "User updated successfully"
+      }
     }
   }
 }

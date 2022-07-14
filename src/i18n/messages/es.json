@@ -1,11 +1,13 @@
 {
   "appName": "MyRoutes",
   "language": "Español",
+  "error": "Error",
   "configurationView": {
     "title": "Configuración",
     "language": "Idioma"
   },
   "loginForm": {
+    "loginError": "Error en login",
     "emailAddress": "Dirección Email",
     "emailPlaceholder": "email@ejemplo.com",
     "password": "Contraseña",
@@ -42,6 +44,9 @@
   },
   "userView": {
     "title": "Gestión Usuarios",
+    "addButton": {
+      "tooltip": "Añade nuevo usuario"
+    },
     "userList": {
       "title": "Listado Usuarios"
     },
@@ -52,9 +57,41 @@
       "name": "Nombre",
       "email": "Email",
       "rol": "Rol",
+      "password": "Nueva Contraseña",
+      "confirmPassword": "Repite Contraseña",
       "createAt": "Creado",
       "updateAt": "Actualizado",
-      "sessions": "Sesiones"
+      "sessions": "Sesiones",
+      "active": "Activo",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "roles": {
+        "admin": "Administrador",
+        "user": "Usuario"
+      },
+      "cancellation": {
+        "title": "¿Seguro que desea cancelar los cambios realizados?",
+        "text": "Se perderán los cambios realizados al usuario",
+        "confirmButtonText": "Sí, abandonar cambios!",
+        "cancelButtonText": "Cancelar"
+      },
+      "errorMsg": {
+        "nameRequired": "Se necesita el nombre",
+        "nameMinLength": "El nombre debe tener 3 caracteres como mínimo",
+        "emailRequired": "Se necesita el email",
+        "emailValid": "El valor debe ser un email válido",
+        "passwordRequired": "Se necesita la contraseña",
+        "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+        "passwordDifferent": "Las contraseñas no son iguales"
+      },
+      "formValidation": {
+        "errorTitle": "Error en el formulario",
+        "errorText": "Revise los errores en el formulario",
+        "createTitle": "Creado",
+        "createText": "Usuario creado correctamente",
+        "updateTitle": "Actualizado",
+        "updateText": "Usuario actualizado correctamente"
+      }
     }
   }
 }

@@ -32,10 +32,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import router from '@/router';
-import Swal from 'sweetalert2';
 
+import { showError } from '@/utils/messages';
 import { useAuthStore } from '@/stores/authStore';
+import router from '@/router';
 
 interface User {
   email: string;
@@ -57,7 +57,7 @@ async function onLogin() {
   const { ok, message } = await auth.login(user);
 
   if (!ok) {
-    Swal.fire({ title: 'Error', text: message, icon: 'error', timer: 3000 });
+    showError(t('loginForm.loginError'), message);
   }
   const currentRoute = router.currentRoute.value.name;
   if (currentRoute === 'not-authorized') {

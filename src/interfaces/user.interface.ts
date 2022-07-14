@@ -17,3 +17,19 @@ export interface UserListDto {
   name: string;
   email: string;
 }
+
+export interface CreateUserDto {
+  name: string;
+  email: string;
+  password: string;
+  rol: string;
+  active: boolean;
+}
+
+export interface UpdateUserDto {
+  name: string;
+  email: string;
+  password: string;
+  rol: string;
+  active: boolean;
+}
