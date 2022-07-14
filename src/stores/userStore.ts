@@ -4,7 +4,6 @@ import type { User } from '@/interfaces/user.interface';
 import { useAuthStore } from '@/stores/authStore';
 import userApi from '@/api/userApi';
 
-
 export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
@@ -32,7 +31,7 @@ export const useUserStore = defineStore({
       this.selectedUser._id = id;
       try {
         const authStore = useAuthStore();
-        authStore.refresh();
+        await authStore.refresh();
         const token = localStorage.getItem('token');
         const path = '/' + id;
         const { data } = await userApi.get(path, {
@@ -62,7 +61,7 @@ export const useUserStore = defineStore({
     async postUser() {
       try {
         const authStore = useAuthStore();
-        authStore.refresh();
+        await authStore.refresh();
         const token = localStorage.getItem('token');
         const path = '';
         await userApi.post(
@@ -90,7 +89,7 @@ export const useUserStore = defineStore({
     async updateUser(id: string, user: any) {
       try {
         const authStore = useAuthStore();
-        authStore.refresh();
+        await authStore.refresh();
         const token = localStorage.getItem('token');
         const path = '/' + id;
         await userApi.put(path, user, {
