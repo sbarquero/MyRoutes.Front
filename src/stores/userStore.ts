@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import type { User } from '@/interfaces/user.interface';
+import type { User, UpdateUserDto } from '@/interfaces/user.interface';
 import { useAuthStore } from '@/stores/authStore';
 import userApi from '@/api/userApi';
 
@@ -48,7 +48,9 @@ export const useUserStore = defineStore({
     },
     clearUser() {
       this.isNewUser = false;
+      this.userEditing = false;
       this.selectedUser = {} as User;
+      this.userInitialState = '';
     },
     newUser() {
       this.isNewUser = true;
@@ -58,25 +60,22 @@ export const useUserStore = defineStore({
       this.selectedUser.rol = 'user';
       this.userInitialState = this.getUserState;
     },
-    async postUser() {
+    async createUser() {
       try {
         const authStore = useAuthStore();
+        const user = {
+          name: this.selectedUser.name,
+          email: this.selectedUser.email,
+          password: this.selectedUser.password,
+          rol: this.selectedUser.rol,
+          active: this.selectedUser.active,
+        };
         await authStore.refresh();
         const token = localStorage.getItem('token');
         const path = '';
-        await userApi.post(
-          path,
-          {
-            name: this.selectedUser.name,
-            email: this.selectedUser.email,
-            password: this.selectedUser.password,
-            rol: this.selectedUser.rol,
-            active: this.selectedUser.active,
-          },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
+        await userApi.post(path, user, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         this.isNewUser = false;
         this.userEditing = false;
         return { ok: true };
@@ -86,12 +85,18 @@ export const useUserStore = defineStore({
         return { ok: false, message: error.response.data.message };
       }
     },
-    async updateUser(id: string, user: any) {
+    async updateUser() {
       try {
         const authStore = useAuthStore();
-        await authStore.refresh();
+        const user: UpdateUserDto = {
+          name: this.selectedUser.name,
+          rol: this.selectedUser.rol,
+          active: this.selectedUser.active,
+          password: this.selectedUser.password == '' ? undefined : this.selectedUser.password,
+        };
         const token = localStorage.getItem('token');
-        const path = '/' + id;
+        const path = '/' + this.selectedUser._id;
+        await authStore.refresh();
         await userApi.put(path, user, {
           headers: { Authorization: `Bearer ${token}` },
         });

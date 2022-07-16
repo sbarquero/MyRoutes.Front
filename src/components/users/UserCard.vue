@@ -318,7 +318,7 @@ const confirmUserCancellation = () => {
 
 const createUser = async () => {
   userStore.selectedUser.password = state.password;
-  const result = await userStore.postUser();
+  const result = await userStore.createUser();
   if (result.ok) {
     showOk(
       t('userView.userCard.formValidation.createTitle'),
@@ -327,16 +327,11 @@ const createUser = async () => {
   } else {
     showError(t('error'), result.message);
   }
-};
+}
 
 const updateUser = async () => {
-  const user = {
-    name: selectedUser.value.name,
-    rol: selectedUser.value.rol,
-    active: selectedUser.value.active,
-    password: state.password == '' ? undefined : state.password,
-  };
-  const result = await userStore.updateUser(selectedUser.value._id, user);
+  userStore.selectedUser.password = state.password;
+  const result = await userStore.updateUser();
   if (result.ok) {
     showOk(
       t('userView.userCard.formValidation.updateTitle'),

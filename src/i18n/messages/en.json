@@ -52,7 +52,7 @@
     },
     "userCard": {
       "title": "User Card",
-      "selectUser": "¡Selecciona un usuario de listado!",
+      "selectUser": "Select a user from the list!",
       "id": "User ID",
       "name": "Name",
       "email": "Email",
