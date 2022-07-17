@@ -36,7 +36,7 @@ const onAddUser = async () => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .dark {
   background-color: rgba(0, 0, 0, 0.2);
   pointer-events: none;
@@ -48,11 +48,7 @@ const onAddUser = async () => {
 }
 .add-button {
   bottom: 1.25rem;
-  box-shadow: var(--btn-shadow);
-  position: absolute;
   right: 1.5rem;
-  &:hover {
-    box-shadow: var(--btn-shadow-hover);
-  }
+  position: absolute;
 }
 </style>
