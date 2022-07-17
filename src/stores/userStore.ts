@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import type { User, UpdateUserDto } from '@/interfaces/user.interface';
+import type { User, UpdateUserDto, CreateUserDto, UserListDto } from '@/interfaces/user.interface';
 import { useAuthStore } from '@/stores/authStore';
 import userApi from '@/api/userApi';
 
@@ -11,6 +11,7 @@ export const useUserStore = defineStore({
     userEditing: false,
     selectedUser: {} as User,
     userInitialState: '',
+    users: [] as UserListDto[],
   }),
   getters: {
     user: state => state.selectedUser,
@@ -63,7 +64,7 @@ export const useUserStore = defineStore({
     async createUser() {
       try {
         const authStore = useAuthStore();
-        const user = {
+        const user: CreateUserDto = {
           name: this.selectedUser.name,
           email: this.selectedUser.email,
           password: this.selectedUser.password,
@@ -108,6 +109,15 @@ export const useUserStore = defineStore({
         console.log('error', error.message);
         return { ok: false, message: error.response.data.message };
       }
+    },
+    async getUserList() {
+      const authStore = useAuthStore();
+      await authStore.refresh();
+      const token = localStorage.getItem('token');
+      const response = await userApi.get('', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      this.users = response.data;
     },
   },
 });

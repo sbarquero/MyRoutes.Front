@@ -175,8 +175,8 @@ import { useUserStore } from '@/stores/userStore';
 import { showError, showOk } from '@/utils/messages';
 
 const { t, d } = useI18n();
-const userStore = useUserStore();
 
+const userStore = useUserStore();
 const { selectedUser } = storeToRefs(userStore);
 
 const state = reactive({
@@ -274,10 +274,11 @@ const onSaveUser = async () => {
     return;
   }
   if (userStore.isNewUser) {
-    createUser();
+    await createUser();
   } else {
-    updateUser();
+    await updateUser();
   }
+  await userStore.getUserList();
   initialize();
 };
 
@@ -327,7 +328,7 @@ const createUser = async () => {
   } else {
     showError(t('error'), result.message);
   }
-}
+};
 
 const updateUser = async () => {
   userStore.selectedUser.password = state.password;
