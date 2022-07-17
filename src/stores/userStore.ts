@@ -32,9 +32,8 @@ export const useUserStore = defineStore({
       this.selectedUser._id = id;
       try {
         const authStore = useAuthStore();
-        await authStore.refresh();
-        const token = localStorage.getItem('token');
         const path = '/' + id;
+        const token = await authStore.getToken();
         const { data } = await userApi.get(path, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -71,9 +70,8 @@ export const useUserStore = defineStore({
           rol: this.selectedUser.rol,
           active: this.selectedUser.active,
         };
-        await authStore.refresh();
-        const token = localStorage.getItem('token');
         const path = '';
+        const token = await authStore.getToken();
         await userApi.post(path, user, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -95,9 +93,8 @@ export const useUserStore = defineStore({
           active: this.selectedUser.active,
           password: this.selectedUser.password == '' ? undefined : this.selectedUser.password,
         };
-        const token = localStorage.getItem('token');
         const path = '/' + this.selectedUser._id;
-        await authStore.refresh();
+        const token = await authStore.getToken();
         await userApi.put(path, user, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -112,8 +109,7 @@ export const useUserStore = defineStore({
     },
     async getUserList() {
       const authStore = useAuthStore();
-      await authStore.refresh();
-      const token = localStorage.getItem('token');
+      const token = await authStore.getToken();
       const response = await userApi.get('', {
         headers: { Authorization: `Bearer ${token}` },
       });

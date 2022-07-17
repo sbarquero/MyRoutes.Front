@@ -1,27 +1,6 @@
-import authApi from '@/api/authApi';
 import { defineStore } from 'pinia';
-
-export interface LoginUserDto {
-  email: string;
-  password: string;
-}
-
-export interface RefreshTokenDto {
-  userId: string;
-  sessionId: string;
-  refreshToken: string;
-}
-
-export interface AuthResponseDto {
-  userId: string;
-  userName: string;
-  email: string;
-  rol: string;
-  token: string;
-  sessionId: string;
-  refreshToken: string;
-  expireAt: Date;
-}
+import type { AuthResponseDto, LoginUserDto, RefreshTokenDto } from '@/interfaces/auth.interface';
+import authApi from '@/api/authApi';
 
 export const useAuthStore = defineStore({
   id: 'auth',
@@ -37,7 +16,6 @@ export const useAuthStore = defineStore({
     expireAt: new Date(0),
   }),
   getters: {
-    currentState: state => state.status,
     isAuthenticated: state => state.status === 'authenticated',
     isAdmin: state => state.rol === 'admin',
   },
@@ -78,6 +56,12 @@ export const useAuthStore = defineStore({
         this.status = 'not-authenticated';
       }
     },
+    async getToken() {
+      if (isTokenExpired(this.token)) {
+        await this.refresh();
+      }
+      return this.token;
+    },
     async refresh() {
       this.status = 'authenticating';
       const hasRefreshToken = localStorage.getItem('refreshToken') != '';
@@ -87,7 +71,7 @@ export const useAuthStore = defineStore({
           userId: localStorage.getItem('userId'),
           sessionId: localStorage.getItem('sessionId'),
           refreshToken: localStorage.getItem('refreshToken'),
-        });
+        } as RefreshTokenDto);
 
         this.createSession(data);
 
@@ -135,3 +119,8 @@ export const useAuthStore = defineStore({
     },
   },
 });
+
+function isTokenExpired(token: string) {
+  const expiry = JSON.parse(atob(token.split('.')[1])).exp;
+  return Math.floor(new Date().getTime() / 1000) >= expiry;
+}
