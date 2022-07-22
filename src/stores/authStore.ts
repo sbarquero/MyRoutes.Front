@@ -14,6 +14,7 @@ export const useAuthStore = defineStore({
     sessionId: '',
     refreshToken: '',
     expireAt: new Date(0),
+    form: 'login',
   }),
   getters: {
     isAuthenticated: state => state.status === 'authenticated',

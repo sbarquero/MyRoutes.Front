@@ -1,17 +1,18 @@
 <template>
   <form class="px-4 py-3" style="min-width: 300px">
-    <div class="mb-3">
-      <label for="email" class="form-label">{{ t('loginForm.emailAddress') }}</label>
+    <div class="form-floating mb-4 mt-2">
+      <!-- Email -->
       <input
         type="email"
         class="form-control"
         id="email"
-        :placeholder="t('loginForm.emailAddress')"
+        :placeholder="t('loginForm.emailPlaceholder')"
         v-model="userForm.email"
       />
+      <label for="email" class="form-label">{{ t('loginForm.emailAddress') }}</label>
     </div>
-    <div class="mb-4">
-      <label for="password" class="form-label">{{ t('loginForm.password') }}</label>
+    <!-- Password -->
+    <div class="form-floating mb-4">
       <input
         type="password"
         class="form-control"
@@ -19,14 +20,18 @@
         :placeholder="t('loginForm.passwordPlaceholder')"
         v-model="userForm.password"
       />
+      <label for="password" class="form-label">{{ t('loginForm.password') }}</label>
     </div>
+    <!-- Login button -->
     <button @click.prevent="onLogin" type="submit" class="btn btn-secondary">
       {{ t('loginForm.loginButton') }}
     </button>
   </form>
   <div class="dropdown-divider"></div>
-  <a class="dropdown-item" href="#">{{ t('loginForm.registerLink') }}</a>
-  <a class="dropdown-item" href="#">{{ t('loginForm.forgotPassword') }}</a>
+  <div class="dropdown-item">{{ t('loginForm.registerLink') }}</div>
+  <div class="dropdown-item" @click="auth.form = 'recover'">
+    {{ t('loginForm.forgotPassword') }}
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -66,4 +71,8 @@ async function onLogin() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.dropdown-item {
+  cursor: pointer;
+}
+</style>

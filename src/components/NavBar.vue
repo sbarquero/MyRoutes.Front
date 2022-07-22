@@ -10,14 +10,19 @@
             class="button"
             id="dropdownLoginButton"
             data-bs-toggle="dropdown"
-            data-bs-auto-close="inside"
+            data-bs-auto-close="false"
             aria-expanded="false"
             :tooltip="t('navBar.tooltip.login')"
           >
             <LoginIcon class="icon" />
           </OptionBtn>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuOffset">
-            <LoginView />
+            <div v-if="auth.form === 'login'">
+              <LoginForm />
+            </div>
+            <div v-else-if="auth.form === 'recover'">
+              <RecoverForm />
+            </div>
           </div>
         </div>
 
@@ -101,11 +106,12 @@ import { useAuthStore } from '../stores/authStore';
 import GearIcon from './icons/IconGear.vue';
 import InfoIcon from './icons/IconInfo.vue';
 import LoginIcon from './icons/IconLogin.vue';
-import LoginView from './LoginForm.vue';
+import LoginForm from './authentication/LoginForm.vue';
 import LogoutIcon from './icons/IconLogout.vue';
 import MapIcon from './icons/IconMap.vue';
 import OptionBtn from './OptionBtn.vue';
 import PeopleIcon from './icons/IconPeople.vue';
+import RecoverForm from './authentication/RecoverForm.vue';
 import router from '../router';
 import { useUserStore } from '@/stores/userStore';
 import { showError, showOk } from '@/utils/messages';

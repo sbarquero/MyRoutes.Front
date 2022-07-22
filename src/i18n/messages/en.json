@@ -9,12 +9,22 @@
   "loginForm": {
     "loginError": "Login error",
     "emailAddress": "Email address",
-    "emailPlaceholder": "email@example.com",
+    "emailPlaceholder": "Email address",
     "password": "Password",
     "passwordPlaceholder": "Password",
     "loginButton": "Login",
     "registerLink": "New around here? Register",
     "forgotPassword": "Forgot password?"
+  },
+  "recoverForm": {
+    "title": "Password Recover",
+    "emailAddress": "Email address",
+    "emailPlaceholder": "Email address",
+    "emailRequired": "Email is required",
+    "recoverButton": "Recuperar contraseña",
+    "cancelButton": "Cancelar",
+    "instruction": "You will receive an email with instructions to recover the password",
+    "emailValid": "Value is not a valid email address"
   },
   "mapView": {
     "pleaseWait": "Please wait!!",

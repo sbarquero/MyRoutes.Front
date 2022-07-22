@@ -1,0 +1,71 @@
+<template>
+  <form class="px-4 py-3" @submit.prevent novalidate style="min-width: 350px">
+    <h5>{{ t('recoverForm.title') }}</h5>
+    <div class="form-floating mb-4 mt-2">
+      <!-- Email -->
+      <input
+        type="email"
+        class="form-control"
+        :class="v$.email.$error ? 'is-invalid' : ''"
+        id="email"
+        :placeholder="t('recoverForm.emailPlaceholder')"
+        v-model="userForm.email"
+      />
+      <label for="email" class="form-label">{{ t('recoverForm.emailAddress') }}</label>
+      <div v-if="v$.email.$error" class="invalid-feedback">
+        {{ v$.email.$errors[0].$message }}
+      </div>
+    </div>
+    <!-- Recover button -->
+    <button @click="onRecover" class="btn btn-secondary me-3">
+      {{ t('recoverForm.recoverButton') }}
+    </button>
+    <!-- Cancel button -->
+    <button @click="auth.form = 'login'" class="btn btn-light border-secondary">
+      {{ t('recoverForm.cancelButton') }}
+    </button>
+  </form>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import useVuelidate from '@vuelidate/core';
+
+import { showError, showOk } from '@/utils/messages';
+import { useAuthStore } from '@/stores/authStore';
+import authApi from '@/api/authApi';
+import { email, helpers, required } from '@vuelidate/validators';
+
+const auth = useAuthStore();
+
+const { t } = useI18n();
+const userForm = ref({
+  email: '',
+});
+
+const rules = {
+  email: {
+    required: helpers.withMessage(t('recoverForm.emailRequired'), required),
+    email: helpers.withMessage(t('recoverForm.emailValid'), email),
+  },
+};
+
+const v$ = useVuelidate(rules, userForm);
+
+async function onRecover() {
+  const validEmail = await v$.value.$validate();
+  if (validEmail) {
+    const { status, data } = await authApi.post('/recover', { email: userForm.value.email });
+    console.log('response', data);
+    if (status === 200) {
+      showOk(t('recoverForm.instruction'));
+    } else {
+      showError(data.message);
+    }
+    auth.form = 'login';
+  }
+}
+</script>
+
+<style scoped></style>
