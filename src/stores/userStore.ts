@@ -42,7 +42,7 @@ export const useUserStore = defineStore({
         return { ok: true };
       } catch (error: any) {
         this.clearUser();
-        console.log('error', error.message);
+        console.error('error', error.message);
         return { ok: false, message: error.response.data.message };
       }
     },
@@ -80,7 +80,7 @@ export const useUserStore = defineStore({
         return { ok: true };
       } catch (error: any) {
         this.clearUser();
-        console.log('error', error.message);
+        console.error('error', error.message);
         return { ok: false, message: error.response.data.message };
       }
     },
@@ -103,7 +103,7 @@ export const useUserStore = defineStore({
         return { ok: true };
       } catch (error: any) {
         this.clearUser();
-        console.log('error', error.message);
+        console.error('error', error.message);
         return { ok: false, message: error.response.data.message };
       }
     },

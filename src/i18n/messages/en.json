@@ -103,5 +103,19 @@
         "updateText": "User updated successfully"
       }
     }
+  },
+  "resetView": {
+    "title": "Reset Passwrod",
+    "password": "New Password",
+    "confirmPassword": "Repeat Password",
+    "resetButton": "Reset Password",
+    "cancelButton": "Cancel",
+    "formValidation": {
+      "errorTitle": "Check the errors"
+    },
+    "resetPassword": {
+      "errorTitle": "Failed to reset password",
+      "okTitle": "Password reset successful"
+    }
   }
 }

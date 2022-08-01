@@ -57,7 +57,6 @@ async function onRecover() {
   const validEmail = await v$.value.$validate();
   if (validEmail) {
     const { status, data } = await authApi.post('/recover', { email: userForm.value.email });
-    console.log('response', data);
     if (status === 200) {
       showOk(t('recoverForm.instruction'));
     } else {

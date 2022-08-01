@@ -146,6 +146,10 @@ async function onLogout() {
 </script>
 
 <style scoped>
+.navbar {
+  z-index: 2;
+}
+
 .button {
   margin-left: 1rem;
 }

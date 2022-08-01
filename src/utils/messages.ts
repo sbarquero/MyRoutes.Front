@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 
 export const showError = (title: string, text = '') => {
-  Swal.fire({ title, text, icon: 'error', timer: 3000 });
+  Swal.fire({ title, text, icon: 'error' });
 };
 
 export function showOk(title: string, text = '') {

@@ -17,7 +17,7 @@ export const useMapStore = defineStore({
       navigator.geolocation.getCurrentPosition(
         ({ coords }) => (this.userLocation = [coords.longitude, coords.latitude]),
         err => {
-          console.log(err);
+          console.error(err);
           throw new Error('No geolocation :( ');
         },
       );

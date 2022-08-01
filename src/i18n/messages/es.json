@@ -103,5 +103,19 @@
         "updateText": "Usuario actualizado correctamente"
       }
     }
+  },
+  "resetView": {
+    "title": "Restablecer contraseña",
+    "password": "Nueva Contraseña",
+    "confirmPassword": "Repite Contraseña",
+    "resetButton": "Restablecer contraseña",
+    "cancelButton": "Cancelar",
+    "formValidation": {
+      "errorTitle": "Revise los errores"
+    },
+    "resetPassword": {
+      "errorTitle": "Error al restablecer la contraseña",
+      "okTitle": "Contraseña restablecida correctamente"
+    }
   }
 }
