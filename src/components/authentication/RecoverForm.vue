@@ -1,6 +1,6 @@
 <template>
   <form class="px-4 py-3" @submit.prevent novalidate style="min-width: 350px">
-    <h5>{{ t('recoverForm.title') }}</h5>
+    <h5 class="mb-4">{{ t('recoverForm.title') }}</h5>
     <div class="form-floating mb-4 mt-2">
       <!-- Email -->
       <input
@@ -16,14 +16,16 @@
         {{ v$.email.$errors[0].$message }}
       </div>
     </div>
-    <!-- Recover button -->
-    <button @click="onRecover" class="btn btn-secondary me-3">
-      {{ t('recoverForm.recoverButton') }}
-    </button>
-    <!-- Cancel button -->
-    <button @click="auth.form = 'login'" class="btn btn-light border-secondary">
-      {{ t('recoverForm.cancelButton') }}
-    </button>
+    <div class="d-flex justify-content-between">
+      <!-- Recover button -->
+      <button @click.prevent="onRecover" class="btn btn-secondary me-3">
+        {{ t('recoverForm.recoverButton') }}
+      </button>
+      <!-- Cancel button -->
+      <button @click.prevent="auth.form = 'login'" class="btn btn-light border-secondary">
+        {{ t('recoverForm.cancelButton') }}
+      </button>
+    </div>
   </form>
 </template>
 
