@@ -64,7 +64,7 @@ router.beforeEach(async to => {
   const auth = useAuthStore();
 
   // Refresh token if exist refreshToken
-  if (localStorage.getItem('refreshToken')) {
+  if (sessionStorage.getItem('refreshToken')) {
     const result = await auth.refresh();
     if (!result?.ok) {
       console.log(result?.message);

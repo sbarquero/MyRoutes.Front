@@ -27,10 +27,10 @@ export const useAuthStore = defineStore({
   },
   actions: {
     async init() {
-      this.userId = localStorage.getItem('userId') || '';
-      this.sessionId = localStorage.getItem('sessionId') || '';
-      this.refreshToken = localStorage.getItem('refreshToken') || '';
-      this.rol = localStorage.getItem('rol') || '';
+      this.userId = sessionStorage.getItem('userId') || '';
+      this.sessionId = sessionStorage.getItem('sessionId') || '';
+      this.refreshToken = sessionStorage.getItem('refreshToken') || '';
+      this.rol = sessionStorage.getItem('rol') || '';
     },
     async login(user: LoginUserDto) {
       this.status = 'authenticating';
@@ -70,13 +70,13 @@ export const useAuthStore = defineStore({
     },
     async refresh() {
       this.status = 'authenticating';
-      const hasRefreshToken = localStorage.getItem('refreshToken') != '';
+      const hasRefreshToken = sessionStorage.getItem('refreshToken') != '';
       if (!hasRefreshToken) return;
       try {
         const { data } = await authApi.post('/refresh', {
-          userId: localStorage.getItem('userId'),
-          sessionId: localStorage.getItem('sessionId'),
-          refreshToken: localStorage.getItem('refreshToken'),
+          userId: sessionStorage.getItem('userId'),
+          sessionId: sessionStorage.getItem('sessionId'),
+          refreshToken: sessionStorage.getItem('refreshToken'),
         } as RefreshTokenDto);
 
         this.createSession(data);
@@ -100,11 +100,11 @@ export const useAuthStore = defineStore({
         this.sessionId = sessionId;
         this.refreshToken = refreshToken;
         this.expireAt = expireAt;
-        localStorage.setItem('token', token);
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('sessionId', sessionId);
-        localStorage.setItem('refreshToken', refreshToken);
-        localStorage.setItem('rol', rol);
+        sessionStorage.setItem('token', token);
+        sessionStorage.setItem('userId', userId);
+        sessionStorage.setItem('sessionId', sessionId);
+        sessionStorage.setItem('refreshToken', refreshToken);
+        sessionStorage.setItem('rol', rol);
         this.status = 'authenticated';
       }
     },
@@ -117,11 +117,11 @@ export const useAuthStore = defineStore({
       this.sessionId = '';
       this.expireAt = new Date();
       this.refreshToken = '';
-      localStorage.removeItem('token');
-      localStorage.removeItem('userId');
-      localStorage.removeItem('sessionId');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('rol');
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('userId');
+      sessionStorage.removeItem('sessionId');
+      sessionStorage.removeItem('refreshToken');
+      sessionStorage.removeItem('rol');
     },
     async register(user: RegisterUserDto) {
       try {
@@ -133,7 +133,7 @@ export const useAuthStore = defineStore({
         console.error('error', error.message);
         return { ok: false, message: error.response.data.message };
       }
-    }
+    },
   },
 });
 
