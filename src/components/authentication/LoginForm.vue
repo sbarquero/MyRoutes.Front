@@ -28,7 +28,7 @@
     </button>
   </form>
   <div class="dropdown-divider"></div>
-  <div class="dropdown-item">{{ t('loginForm.registerLink') }}</div>
+  <div class="dropdown-item" @click="auth.form = 'register'">{{ t('loginForm.registerLink') }}</div>
   <div class="dropdown-item" @click="auth.form = 'recover'">
     {{ t('loginForm.forgotPassword') }}
   </div>
@@ -49,6 +49,7 @@ interface User {
 
 const { t } = useI18n();
 const auth = useAuthStore();
+
 const userForm = ref({
   email: '',
   password: '',

@@ -16,6 +16,19 @@
     "registerLink": "¿Nuevo por aquí? Regístrate",
     "forgotPassword": "¿Olvidaste la contraseña?"
   },
+  "registerForm": {
+    "title": "Registro nuevo usuario",
+    "name": "Nombre",
+    "emailAddress": "Dirección Email",
+    "password": "Contraseña",
+    "confirmPassword": "Repite Contraseña",
+    "registerButton": "Registrarse",
+    "cancelButton": "Cancelar",
+    "confirmCreate": {
+      "title": "Usuario creado",
+      "text": "Recibirá un correo de activación"
+    }
+  },
   "recoverForm": {
     "title": "Recuperación de contraseña",
     "emailAddress": "Dirección Email",
@@ -117,5 +130,9 @@
       "errorTitle": "Error al restablecer la contraseña",
       "okTitle": "Contraseña restablecida correctamente"
     }
+  },
+  "activateView": {
+    "okMessage": "Cuenta activada",
+    "errorMessage": "Error al activar la cuenta"
   }
 }

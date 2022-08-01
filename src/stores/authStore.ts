@@ -1,5 +1,10 @@
 import { defineStore } from 'pinia';
-import type { AuthResponseDto, LoginUserDto, RefreshTokenDto } from '@/interfaces/auth.interface';
+import type {
+  AuthResponseDto,
+  LoginUserDto,
+  RefreshTokenDto,
+  RegisterUserDto,
+} from '@/interfaces/auth.interface';
 import authApi from '@/api/authApi';
 
 export const useAuthStore = defineStore({
@@ -118,6 +123,17 @@ export const useAuthStore = defineStore({
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('rol');
     },
+    async register(user: RegisterUserDto) {
+      try {
+        const path = 'register';
+        await authApi.post(path, user);
+
+        return { ok: true };
+      } catch (error: any) {
+        console.error('error', error.message);
+        return { ok: false, message: error.response.data.message };
+      }
+    }
   },
 });
 

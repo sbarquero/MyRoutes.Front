@@ -48,6 +48,11 @@ const router = createRouter({
       component: () => import('../views/ResetView.vue'),
     },
     {
+      path: '/activate-user/:token',
+      name: 'activate-user',
+      component: () => import('../views/ActivateView.vue'),
+    },
+    {
       path: '/not-authorized',
       name: 'not-authorized',
       component: () => import('../views/NotAuthorizedView.vue'),

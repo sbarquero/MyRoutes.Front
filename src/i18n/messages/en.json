@@ -16,6 +16,19 @@
     "registerLink": "New around here? Register",
     "forgotPassword": "Forgot password?"
   },
+  "registerForm": {
+    "title": "New user registration",
+    "name": "Name",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Repeat Password",
+    "registerButton": "Register",
+    "cancelButton": "Cancel",
+    "confirmCreate": {
+      "title": "User created",
+      "text": "You will receive an activation email"
+    }
+  },
   "recoverForm": {
     "title": "Password Recover",
     "emailAddress": "Email address",
@@ -117,5 +130,9 @@
       "errorTitle": "Failed to reset password",
       "okTitle": "Password reset successful"
     }
+  },
+  "activateView": {
+    "okMessage": "Account activated",
+    "errorMessage": "Error activating account"
   }
 }

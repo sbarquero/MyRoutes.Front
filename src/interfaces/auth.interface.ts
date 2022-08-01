@@ -26,3 +26,9 @@ export interface AuthResponseDto {
   refreshToken: string;
   expireAt: Date;
 }
+
+export interface RegisterUserDto {
+  name: string;
+  email: string;
+  password: string;
+}

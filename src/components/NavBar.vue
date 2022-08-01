@@ -10,9 +10,10 @@
             class="button"
             id="dropdownLoginButton"
             data-bs-toggle="dropdown"
-            data-bs-auto-close="false"
+            data-bs-auto-close="outside"
             aria-expanded="false"
             :tooltip="t('navBar.tooltip.login')"
+            @click="auth.form = 'login'"
           >
             <LoginIcon class="icon" />
           </OptionBtn>
@@ -22,6 +23,9 @@
             </div>
             <div v-else-if="auth.form === 'recover'">
               <RecoverForm />
+            </div>
+            <div v-else-if="auth.form === 'register'">
+              <RegisterForm />
             </div>
           </div>
         </div>
@@ -115,6 +119,7 @@ import RecoverForm from './authentication/RecoverForm.vue';
 import router from '../router';
 import { useUserStore } from '@/stores/userStore';
 import { showError, showOk } from '@/utils/messages';
+import RegisterForm from './authentication/RegisterForm.vue';
 
 const { t } = useI18n();
 const auth = useAuthStore();
