@@ -131,7 +131,7 @@
         </div>
       </div>
       <!-- Created at & update at info -->
-      <div v-if="!userStore.isNewUser" class="col-12">
+      <div v-if="!userStore.isNewUser" class="col-12 mb-3">
         <div class="card p-3">
           <div>
             <b>{{ t('userView.userCard.createAt') }}: </b>
@@ -144,9 +144,14 @@
         </div>
       </div>
       <!-- Session info -->
-      <div v-if="!userStore.isNewUser">
-        <b>{{ t('userView.userCard.sessions') }}:</b>
-        {{ userStore.selectedUser.sessions ? userStore.selectedUser.sessions.length : 0 }}
+      <div
+        v-if="
+          !userStore.isNewUser &&
+          userStore.selectedUser.sessions &&
+          userStore.selectedUser.sessions.length > 0
+        "
+      >
+        <UserSessions />
       </div>
       <!-- Save & cancel buttons -->
       <div class="mt-3">
@@ -173,6 +178,7 @@ import useVuelidate from '@vuelidate/core';
 import { useI18n } from 'vue-i18n';
 import { useUserStore } from '@/stores/userStore';
 import { showError, showOk } from '@/utils/messages';
+import UserSessions from './UserSessions.vue';
 
 const { t, d } = useI18n();
 

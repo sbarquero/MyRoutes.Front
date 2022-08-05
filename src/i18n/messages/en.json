@@ -116,6 +116,12 @@
         "updateTitle": "Updated",
         "updateText": "User updated successfully"
       }
+    },
+    "userSession": {
+      "userId": "User ID",
+      "expireAt": "Sessión expire at",
+      "reject": "Reject",
+      "rejectButtonText": "Reject session"
     }
   },
   "resetView": {
