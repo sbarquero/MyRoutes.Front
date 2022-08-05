@@ -37,10 +37,9 @@ export const useAuthStore = defineStore({
       const { email, password } = user;
       try {
         const { data } = await authApi.post('/login', { email, password });
-
         this.createSession(data);
 
-        return { ok: true };
+        return { ok: true, message: data.userName };
       } catch (error: any) {
         this.status = 'not-authenticated';
         return { ok: false, message: error.response.data.message };

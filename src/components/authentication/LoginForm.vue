@@ -38,7 +38,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { showError } from '@/utils/messages';
+import { showError, showOk } from '@/utils/messages';
 import { useAuthStore } from '@/stores/authStore';
 import router from '@/router';
 
@@ -65,6 +65,8 @@ async function onLogin() {
   if (!ok) {
     showError(t('loginForm.loginError'), message);
   }
+  showOk(t('loginForm.loginOk'), message);
+
   const currentRoute = router.currentRoute.value.name;
   if (currentRoute === 'not-authorized') {
     router.push('/');

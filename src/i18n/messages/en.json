@@ -14,7 +14,8 @@
     "passwordPlaceholder": "Password",
     "loginButton": "Login",
     "registerLink": "New around here? Register",
-    "forgotPassword": "Forgot password?"
+    "forgotPassword": "Forgot password?",
+    "loginOk": "Welcome!"
   },
   "registerForm": {
     "title": "New user registration",

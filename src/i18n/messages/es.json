@@ -14,7 +14,8 @@
     "passwordPlaceholder": "Contraseña",
     "loginButton": "Iniciar sesión",
     "registerLink": "¿Nuevo por aquí? Regístrate",
-    "forgotPassword": "¿Olvidaste la contraseña?"
+    "forgotPassword": "¿Olvidaste la contraseña?",
+    "loginOk": "¡Bienvenido!"
   },
   "registerForm": {
     "title": "Registro nuevo usuario",
