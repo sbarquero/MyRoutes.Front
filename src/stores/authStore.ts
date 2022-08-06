@@ -4,6 +4,7 @@ import type {
   LoginUserDto,
   RefreshTokenDto,
   RegisterUserDto,
+  Session,
 } from '@/interfaces/auth.interface';
 import authApi from '@/api/authApi';
 
@@ -121,6 +122,23 @@ export const useAuthStore = defineStore({
       sessionStorage.removeItem('sessionId');
       sessionStorage.removeItem('refreshToken');
       sessionStorage.removeItem('rol');
+    },
+    async rejectSession(userId: string, session: Session) {
+      try {
+        const path = 'reject';
+        const request = {
+          userId,
+          sessionId: session._id,
+          refreshToken: session.refreshToken,
+        };
+        const token = await this.getToken();
+        const headers = { headers: { Authorization: `Bearer ${token}` } };
+        const response = await authApi.post(path, request, headers);
+
+        return { ok: true, message: response.data.data._id };
+      } catch (error: any) {
+        return { ok: false, message: error.response.data.message };
+      }
     },
     async register(user: RegisterUserDto) {
       try {

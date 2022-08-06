@@ -120,8 +120,8 @@
     "userSession": {
       "userId": "ID Usuario",
       "expireAt": "Sesión expira",
-      "reject": "Revocar",
-      "rejectButtonText": "Revoca sesión"
+      "reject": "Desconectar",
+      "rejectButtonText": "Cierra sesión"
     }
   },
   "resetView": {

@@ -1,3 +1,7 @@
+<!--
+  Activate the user account with the token received in the URL 
+  of the activation email that is sent when the user registers.
+-->
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { showError, showOk } from '@/utils/messages';
@@ -11,11 +15,9 @@ const route = useRoute();
 
 onMounted(async () => {
   try {
-    console.log('Mounted');
     const response = await authApi.post('/activate-user', {
       token: route.params.token,
     });
-    console.log('response', response);
     showOk(t('activateView.okMessage'), response.data.data.email);
   } catch (error: any) {
     showError(t('activateView.errorMessage'), error.response.data.message);

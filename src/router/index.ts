@@ -27,12 +27,6 @@ const router = createRouter({
         requiresAuth: true,
         authorizedRol: 'admin',
       },
-      // beforeEnter: to => {
-      //   console.log('beforeEnter', to);
-      //   const auth = useAuthStore();
-      //   if (auth.rol === 'admin') return true;
-      //   else return { name: 'notAuthorized' };
-      // },
     },
     {
       path: '/about',
@@ -67,7 +61,7 @@ router.beforeEach(async to => {
   if (sessionStorage.getItem('refreshToken')) {
     const result = await auth.refresh();
     if (!result?.ok) {
-      console.log(result?.message);
+      console.error(result?.message);
     }
   }
 
