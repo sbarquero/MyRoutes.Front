@@ -151,7 +151,7 @@
           userStore.selectedUser.sessions.length > 0
         "
       >
-        <UserSessions />
+        <SessionList />
       </div>
       <!-- Save & cancel buttons -->
       <div class="mt-3">
@@ -178,7 +178,7 @@ import useVuelidate from '@vuelidate/core';
 import { useI18n } from 'vue-i18n';
 import { useUserStore } from '@/stores/userStore';
 import { showError, showOk } from '@/utils/messages';
-import UserSessions from './UserSessions.vue';
+import SessionList from './SessionList.vue';
 
 const { t, d } = useI18n();
 

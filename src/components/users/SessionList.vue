@@ -24,6 +24,7 @@
                 type="button"
                 class="btn btn-secondary btn-sm"
                 :title="t('userView.userSession.rejectButtonText')"
+                :disabled="session._id === authStore.sessionId"
               >
                 <IconDelete />
               </button>
@@ -38,11 +39,13 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
+import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
 import IconDelete from '../icons/IconDelete.vue';
 
 const { t, d } = useI18n();
 
+const authStore = useAuthStore();
 const userStore = useUserStore();
 const { selectedUser } = storeToRefs(userStore);
 </script>
