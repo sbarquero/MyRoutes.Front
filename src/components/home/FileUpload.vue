@@ -1,5 +1,5 @@
 <template>
-  <div class="card mt-3 p-3 pb-1 text-center">
+  <div class="card mt-3 p-3 pb-2 text-center overflow-hidden">
     <form @submit.prevent>
       <div class="d-flex justify-content-between">
         <label class="btn btn-secondary" for="file"> {{ t('fileUpload.selectFile') }} </label>
@@ -23,7 +23,9 @@
           <IconUpload />
         </button>
       </div>
-      <div id="file-name" class="mt-1 text-start">{{ state.fileName }}</div>
+      <div id="file-name" class="mt-1 text-start d-flex justify-content-start">
+        {{ state.fileName }}
+      </div>
     </form>
   </div>
 </template>
@@ -50,18 +52,18 @@ const onFileUpload = async () => {
   const formData = new FormData();
   formData.append('userId', authStore.userId);
   formData.append('file', state.file);
+  try {
+    await fileApi.post('/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    showOk(t('fileUpload.uploadOk'), state.fileName);
 
-  const { status, data } = await fileApi.post('/upload', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  if (status !== 200) {
-    showError(t('fileUpload.uploadError'), data.message);
+    initializeForm();
+  } catch (error: any) {
+    showError(t('fileUpload.uploadError'), error);
   }
-  showOk(t('fileUpload.uploadOk'), state.fileName);
-
-  initializeForm();
 };
 
 function handleFileUpload(event: any) {
@@ -76,4 +78,30 @@ function initializeForm() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+#file-name {
+  padding-bottom: 0.15rem;
+  white-space: nowrap;
+  overflow-y: hidden;
+  overflow-x: visible;
+}
+/* width */
+::-webkit-scrollbar {
+  height: 0.65rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #999;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+</style>
