@@ -141,5 +141,11 @@
   "activateView": {
     "okMessage": "Account activated",
     "errorMessage": "Error activating account"
+  },
+  "fileUpload": {
+    "selectFile": "Select file",
+    "uploadBtn": "Upload File",
+    "uploadOk": "File uploaded",
+    "uploadError": "File upload error"
   }
 }

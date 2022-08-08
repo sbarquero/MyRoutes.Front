@@ -141,5 +141,11 @@
   "activateView": {
     "okMessage": "Cuenta activada",
     "errorMessage": "Error al activar la cuenta"
+  },
+  "fileUpload": {
+    "selectFile": "Seleccion fichero",
+    "uploadBtn": "Subir fichero",
+    "uploadOk": "Fichero subido",
+    "uploadError": "Error en subida fichero"
   }
 }
