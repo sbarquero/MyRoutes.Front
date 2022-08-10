@@ -144,7 +144,7 @@ async function onLogout() {
       } else {
         showError(result.message);
       }
-      router.push('/');
+      router.replace({ name: 'home' });
     }
   });
 }
@@ -152,6 +152,10 @@ async function onLogout() {
 
 <style scoped>
 .navbar {
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  height: 3rem;
+  padding: 0.25rem;
   z-index: 2;
 }
 
