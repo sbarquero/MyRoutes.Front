@@ -43,7 +43,7 @@ const switchVisibility = () => (isVisible.value = !isVisible.value);
   position: fixed;
   top: 4.5rem;
   transition-duration: 0.5s;
-  // z-index: 9;
+  z-index: 3;
   &_content {
     background-color: #ffffff;
     border-radius: 0 5px 5px 0;

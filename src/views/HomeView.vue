@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MapView from '@/components/MapView.vue';
 import SliderBox from '@/components/home/SliderBox.vue';
-import MapRoutesList from '../components/home/MapRoutesList.vue';
+import TrackList from '../components/home/TrackList.vue';
 import FileUpload from '../components/home/FileUpload.vue';
 import { useAuthStore } from '@/stores/authStore';
 
@@ -13,7 +13,7 @@ const authStore = useAuthStore();
   <SliderBox :visible="false" v-if="authStore.isAuthenticated">
     <h4>Routes</h4>
     <FileUpload />
-    <MapRoutesList />
+    <TrackList />
   </SliderBox>
 </template>
 

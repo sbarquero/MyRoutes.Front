@@ -4,14 +4,20 @@
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
-import Mapboxgl, { GeoJSONSource } from 'mapbox-gl';
+import Mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import * as turf from '@turf/turf';
+
 import { useMapStore } from '@/stores/mapStore';
 import { storeToRefs } from 'pinia';
 import { sleep } from '@/utils/timer';
+import { useTrackStore } from '@/stores/trackStore';
 
 const mapElement = ref<HTMLDivElement>();
 const { userLocation, isUserLocationReady } = storeToRefs(useMapStore());
+const { selectedTrack } = storeToRefs(useTrackStore());
+
+let map: Mapboxgl.Map;
 
 onMounted(async () => {
   if (isUserLocationReady) {
@@ -21,19 +27,46 @@ onMounted(async () => {
   }
 });
 
-watch(isUserLocationReady, () => {
+watch(userLocation, () => {
   console.log('Paso por watch', userLocation.value);
   if (isUserLocationReady) initMap();
 });
 
+watch(selectedTrack, () => {
+  flyToCenterOfSelectedTrack();
+  fitMapViewToSelectedTrack();
+
+  const sourceId = selectedTrack.value._id;
+  const layerId = sourceId + '-layer';
+  const source = map.getSource(sourceId);
+
+  if (source) {
+    map.removeLayer(layerId);
+    map.removeSource(sourceId);
+  }
+  map.addSource(sourceId, {
+    type: 'geojson',
+    data: selectedTrack.value.geojsonData,
+  });
+
+  map.addLayer({
+    id: layerId,
+    type: 'line',
+    source: sourceId,
+    paint: {
+      'line-color': 'red',
+      'line-width': 3,
+    },
+  });
+});
+
 async function initMap() {
-  console.log('initMap');
   if (!mapElement.value) throw new Error('Div Element no exists');
   if (!userLocation.value) throw new Error('UserLocation no exists');
 
   await Promise.resolve();
 
-  const map = new Mapboxgl.Map({
+  map = new Mapboxgl.Map({
     container: mapElement.value, // container ID
     // style: 'mapbox://styles/mapbox/streets-v11', // style URL
     style: 'mapbox://styles/mapbox/outdoors-v11', // style URL
@@ -59,29 +92,24 @@ async function initMap() {
 
   /* const myLocationMarker = */
   new Mapboxgl.Marker().setLngLat(userLocation.value).setPopup(myLocationPopup).addTo(map);
+}
 
-  map.on('load', () => {
-    map.addSource('example', {
-      type: 'geojson',
-      // Use a URL for the value for the `data` property.
-      data: '/geojson/example.geojson',
-    });
+function fitMapViewToSelectedTrack(): void {
+  const bounds = turf.bbox(selectedTrack.value.geojsonData);
+  map.fitBounds(bounds, { padding: 50 });
+}
 
-    map.addLayer({
-      id: 'example-layer',
-      type: 'line',
-      source: 'example',
-      paint: {
-        'line-color': 'red',
-        'line-width': 5,
-      },
-    });
-
-    map.flyTo({
-      center: [-1.5178138, 37.872833],
-      essential: true,
-    });
+function flyToCenterOfSelectedTrack(): void {
+  map.flyTo({
+    center: getCenterOfSelectedTrack(),
+    essential: true,
   });
+}
+
+function getCenterOfSelectedTrack(): [number, number] {
+  const centerFeature = turf.center(selectedTrack.value.geojsonData);
+  const [long, lat] = turf.getCoord(centerFeature);
+  return [long, lat];
 }
 </script>
 
