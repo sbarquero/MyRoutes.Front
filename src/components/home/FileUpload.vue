@@ -7,6 +7,7 @@
         <input
           ref="fileInput"
           type="file"
+          accept=".kml"
           id="file"
           class="d-none"
           name="file"

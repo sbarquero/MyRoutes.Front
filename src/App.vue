@@ -20,7 +20,7 @@ onMounted(async () => {
 @import '@/assets/css/base.css';
 
 #app {
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
   font-weight: normal;
   height: 100vh;

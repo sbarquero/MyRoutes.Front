@@ -156,7 +156,7 @@ async function onLogout() {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   height: 3rem;
   padding: 0.25rem;
-  z-index: 2;
+  z-index: 3;
 }
 
 .button {

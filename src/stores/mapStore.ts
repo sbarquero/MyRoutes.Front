@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
 
 export interface MapState {
-  userLocation?: [number, number]; // lng, lat
+  userLocation: [number, number]; // lng, lat
 }
 
 export const useMapStore = defineStore({
   id: 'map',
   state: (): MapState => ({
-    userLocation: undefined,
+    userLocation: [0, 0],
   }),
   getters: {
     isUserLocationReady: state => !!state.userLocation,
