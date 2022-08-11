@@ -28,4 +28,4 @@ coverage
 *.sw?
 
 # Geojson examples
-/src/geojson/*
+public/geojson/*
