@@ -10,7 +10,7 @@ export const useMapStore = defineStore({
     userLocation: [0, 0],
   }),
   getters: {
-    isUserLocationReady: state => !!state.userLocation,
+    isUserLocationReady: state => state.userLocation[0] != 0 && state.userLocation[1] != 0,
   },
   actions: {
     getInitialLocation() {

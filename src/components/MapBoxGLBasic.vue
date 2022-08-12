@@ -20,16 +20,10 @@ const { selectedTrack } = storeToRefs(useTrackStore());
 let map: Mapboxgl.Map;
 
 onMounted(async () => {
-  if (isUserLocationReady) {
-    await sleep(200);
-    console.log('Paso por onMounted', userLocation.value);
-    return initMap();
+  while (!isUserLocationReady.value) {
+    await sleep(100);
   }
-});
-
-watch(userLocation, () => {
-  console.log('Paso por watch', userLocation.value);
-  if (isUserLocationReady) initMap();
+  initMap();
 });
 
 watch(selectedTrack, () => {
@@ -64,12 +58,10 @@ async function initMap() {
   if (!mapElement.value) throw new Error('Div Element no exists');
   if (!userLocation.value) throw new Error('UserLocation no exists');
 
-  await Promise.resolve();
-
   map = new Mapboxgl.Map({
     container: mapElement.value, // container ID
-    // style: 'mapbox://styles/mapbox/streets-v11', // style URL
     style: 'mapbox://styles/mapbox/outdoors-v11', // style URL
+    // style: 'mapbox://styles/mapbox/streets-v11', // style URL
     // style: 'mapbox://styles/mapbox/satellite-v9', // style URL
     // style: 'mapbox://styles/mapbox/satellite-streets-v11', // style URL
     // style: 'mapbox://styles/mapbox/navigation-day-v1', // style URL
@@ -96,7 +88,9 @@ async function initMap() {
 
 function fitMapViewToSelectedTrack(): void {
   const bounds = turf.bbox(selectedTrack.value.geojsonData);
-  map.fitBounds(bounds, { padding: 50 });
+  const mapboxBound = bounds as Mapboxgl.LngLatBoundsLike;
+
+  map.fitBounds(mapboxBound, { padding: 50 });
 }
 
 function flyToCenterOfSelectedTrack(): void {
@@ -107,9 +101,8 @@ function flyToCenterOfSelectedTrack(): void {
 }
 
 function getCenterOfSelectedTrack(): [number, number] {
-  const centerFeature = turf.center(selectedTrack.value.geojsonData);
-  const [long, lat] = turf.getCoord(centerFeature);
-  return [long, lat];
+  const center = turf.center(selectedTrack.value.geojsonData as turf.AllGeoJSON);
+  return turf.getCoord(center) as [number, number];
 }
 </script>
 
