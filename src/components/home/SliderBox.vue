@@ -36,7 +36,7 @@ const switchVisibility = () => (isVisible.value = !isVisible.value);
   left: 0px;
 }
 .hide-list {
-  left: -250px;
+  left: -350px;
 }
 .slider-box {
   height: 90vh;
@@ -52,7 +52,7 @@ const switchVisibility = () => (isVisible.value = !isVisible.value);
     height: 100%;
     overflow: hidden;
     padding: 10px;
-    width: 250px;
+    width: 350px;
   }
   &_toggle {
     background-color: #ffffff;

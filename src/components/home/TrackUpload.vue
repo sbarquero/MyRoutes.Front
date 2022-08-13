@@ -5,7 +5,6 @@
         <label class="btn btn-secondary" for="file"> {{ t('fileUpload.selectFile') }} </label>
         <!-- File Input not visible -->
         <input
-          ref="fileInput"
           type="file"
           accept=".kml"
           id="file"
@@ -32,33 +31,42 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useAuthStore } from '@/stores/authStore';
-import IconUpload from '../icons/IconUpload.vue';
-import fileApi from '@/api/fileApi';
+
 import { showError, showOk } from '@/utils/messages';
+import { useAuthStore } from '@/stores/authStore';
+import { useTrackStore } from '@/stores/trackStore';
+import IconUpload from '../icons/IconUpload.vue';
+import trackApi from '@/api/trackApi';
+import type { TrackList } from '@/interfaces/track.interface';
 
 const authStore = useAuthStore();
+const trackStore = useTrackStore();
 
 const { t } = useI18n();
 
-const fileInput = ref();
 const state = reactive({
   file: '',
   fileName: '',
 });
+
+function handleFileUpload(event: any) {
+  state.file = event.target.files[0];
+  state.fileName = event.target.files[0].name;
+}
 
 const onFileUpload = async () => {
   const formData = new FormData();
   formData.append('userId', authStore.userId);
   formData.append('file', state.file);
   try {
-    await fileApi.post('/upload', formData, {
+    const track = await trackApi.post('/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
+    trackStore.tracks.push(track.data as TrackList);
     showOk(t('fileUpload.uploadOk'), state.fileName);
 
     initializeForm();
@@ -66,11 +74,6 @@ const onFileUpload = async () => {
     showError(t('fileUpload.uploadError'), error);
   }
 };
-
-function handleFileUpload(event: any) {
-  state.file = event.target.files[0];
-  state.fileName = event.target.files[0].name;
-}
 
 function initializeForm() {
   state.file = '';
