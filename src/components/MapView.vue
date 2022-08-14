@@ -1,8 +1,8 @@
 <template>
   <div v-if="!map.isUserLocationReady" class="loading-map">
     <div class="text-center">
-      <h3>{{ t('mapView.pleaseWait') }}</h3>
-      <span>{{ t('mapView.locating') }}</span>
+      <h3>{{ t('homeView.mapView.pleaseWait') }}</h3>
+      <span>{{ t('homeView.mapView.locating') }}</span>
     </div>
   </div>
   <div v-show="map.isUserLocationReady" class="map-container">

@@ -40,10 +40,6 @@
     "instruction": "Recibirá un correo con intrucciones para recuperar la contraseña",
     "emailValid": "El valor debe ser un email válido"
   },
-  "mapView": {
-    "pleaseWait": "¡¡Espere por favor!!",
-    "locating": "Localizando..."
-  },
   "navBar": {
     "home": "Inicio",
     "usersManagement": "Gestión de usuarios",
@@ -142,10 +138,26 @@
     "okMessage": "Cuenta activada",
     "errorMessage": "Error al activar la cuenta"
   },
-  "fileUpload": {
-    "selectFile": "Seleccion fichero",
-    "uploadBtn": "Subir fichero",
-    "uploadOk": "Fichero subido",
-    "uploadError": "Error en subida fichero"
+  "homeView": {
+    "routes": "Rutas",
+    "trackUpload": "Subida ruta",
+    "trackList": "Listado rutas",
+    "mapView": {
+      "pleaseWait": "¡¡Espere por favor!!",
+      "locating": "Localizando..."
+    },      
+    "sliderBox": {
+      "trackUpload": {
+        "selectFile": "Seleccionar fichero",
+        "uploadBtn": "Subir fichero",
+        "editInformation": "Editar información ruta",
+        "public": "Ruta pública",
+        "name": "Nombre",
+        "description": "Descripción",
+        "creationDate": "Fecha creación fichero",
+        "uploadOk": "Ruta subida",
+        "uploadError": "Error en la subida de la ruta"
+      }
+    }
   }
 }

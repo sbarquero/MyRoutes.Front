@@ -1,5 +1,5 @@
 <template>
-  <div class="card mt-3 p-2">
+  <div class="card p-3">
     <ul>
       <li v-for="track in tracks" :key="track._id" @click="onClickTrack(track._id)">
         {{ track.name }}

@@ -40,10 +40,6 @@
     "instruction": "You will receive an email with instructions to recover the password",
     "emailValid": "Value is not a valid email address"
   },
-  "mapView": {
-    "pleaseWait": "Please wait!!",
-    "locating": "Locating..."
-  },
   "navBar": {
     "home": "Home",
     "usersManagement": "Users management",
@@ -142,10 +138,26 @@
     "okMessage": "Account activated",
     "errorMessage": "Error activating account"
   },
-  "fileUpload": {
-    "selectFile": "Select file",
-    "uploadBtn": "Upload File",
-    "uploadOk": "File uploaded",
-    "uploadError": "File upload error"
+  "homeView": {
+    "routes": "Routes",
+    "trackUpload": "Route upload",
+    "trackList": "Routes list",
+    "mapView": {
+      "pleaseWait": "Please wait!!",
+      "locating": "Locating..."
+    },
+    "sliderBox": {
+      "trackUpload": {
+        "selectFile": "Select file",
+        "uploadBtn": "Upload File",
+        "editInformation": "Edit route information",
+        "public": "Public route",
+        "name": "Name",
+        "description": "Description",
+        "creationDate": "File creation date",
+        "uploadOk": "Route uploaded",
+        "uploadError": "Route upload error"
+      }
+    }
   }
 }
