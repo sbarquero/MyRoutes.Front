@@ -40,6 +40,16 @@ export const useTrackStore = defineStore({
         console.error('error', error.message);
         this.tracks = [];
       }
+    },
+    async deleteById(id: string) {
+      try {
+        const path = '/' + id;
+        await trackApi.delete(path);
+        return { ok: true };
+      } catch (error: any) {
+        console.error('error', error.message);
+        return { ok: false, message: error.response.data.message };
+      }
     }
   },
 });

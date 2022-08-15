@@ -44,7 +44,7 @@
         </h2>
         <div
           id="collapseTwo"
-          class="accordion-collapse collapse"
+          class="accordion-collapse collapse show"
           aria-labelledby="headingTwo"
           data-bs-parent="#accordionRoute"
         >

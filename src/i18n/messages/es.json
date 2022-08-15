@@ -157,6 +157,15 @@
         "creationDate": "Fecha creación fichero",
         "uploadOk": "Ruta subida",
         "uploadError": "Error en la subida de la ruta"
+      },
+      "trackList":{
+        "deleteQuestion": "¿Seguro que desea borrar la ruta?",
+        "confirmDeleteButton": "Sí, borrar ruta!",
+        "cancelDeleteButton": "Cancelar",
+        "deleteSuccess": "Ruta borrada correctamente",
+        "deleteButton": "Borra ruta",
+        "visibleButton": "Ruta visible",
+        "noVisibleButton": "Ruta no visible"
       }
     }
   }

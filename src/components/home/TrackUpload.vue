@@ -41,7 +41,12 @@
           <label class="float-end form-check-label ms-2" for="public">{{
             t('homeView.sliderBox.trackUpload.public')
           }}</label>
-          <input class="float-end form-check-input" type="checkbox" id="public" v-model="state.isPublic" />
+          <input
+            class="float-end form-check-input"
+            type="checkbox"
+            id="public"
+            v-model="state.isPublic"
+          />
         </div>
         <!-- Name input -->
         <div class="form-floating mb-3">

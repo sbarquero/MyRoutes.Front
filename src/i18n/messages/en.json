@@ -157,6 +157,15 @@
         "creationDate": "File creation date",
         "uploadOk": "Route uploaded",
         "uploadError": "Route upload error"
+      },
+      "trackList":{
+        "deleteQuestion": "Are you sure you want to delete the route?",
+        "confirmDeleteButton": "Yes, delete route!",
+        "cancelDeleteButton": "Cancel",
+        "deleteSuccess": "Route deleted successfully",
+        "deleteButton": "Delete route",
+        "visibleButton": "Visible route",
+        "noVisibleButton": "Noi visible route"
       }
     }
   }
