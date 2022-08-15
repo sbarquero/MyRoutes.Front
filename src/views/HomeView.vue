@@ -13,7 +13,8 @@
             aria-expanded="false"
             aria-controls="collapseOne"
           >
-            <h6>{{ t('homeView.trackUpload') }}</h6>
+            <IconUpload class="icon" />
+            <h5 class="ms-3">{{ t('homeView.trackUpload') }}</h5>
           </button>
         </h2>
         <div
@@ -28,7 +29,7 @@
         </div>
       </div>
       <div class="accordion-item">
-        <h3 class="accordion-header" id="headingTwo">
+        <h2 class="accordion-header" id="headingTwo">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -37,9 +38,10 @@
             aria-expanded="false"
             aria-controls="collapseTwo"
           >
-            <h6>{{ t('homeView.trackList') }}</h6>
+            <IconList class="icon" />
+            <h5 class="ms-3">{{ t('homeView.trackList') }}</h5>
           </button>
-        </h3>
+        </h2>
         <div
           id="collapseTwo"
           class="accordion-collapse collapse"
@@ -59,6 +61,8 @@
 import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '@/stores/authStore';
+import IconList from '../components/icons/IconList.vue';
+import IconUpload from '../components/icons/IconUpload.vue';
 import MapView from '@/components/MapView.vue';
 import SliderBox from '@/components/home/SliderBox.vue';
 import TrackList from '../components/home/TrackList.vue';
@@ -69,4 +73,9 @@ const { t } = useI18n();
 const authStore = useAuthStore();
 </script>
 
-<style scoped></style>
+<style scoped>
+.icon {
+  height: 24px;
+  width: 24px;
+}
+</style>
