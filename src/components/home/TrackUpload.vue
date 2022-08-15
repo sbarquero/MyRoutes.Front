@@ -36,11 +36,12 @@
       <!-- Infomation -->
       <div v-if="state.file" class="card p-2 mt-3">
         <h6>{{ t('homeView.sliderBox.trackUpload.editInformation') }}</h6>
+        <!-- Public chckbox -->
         <div class="form-check mt-0 mb-2">
-          <label class="form-check-label" for="public">{{
+          <label class="float-end form-check-label ms-2" for="public">{{
             t('homeView.sliderBox.trackUpload.public')
           }}</label>
-          <input class="form-check-input" type="checkbox" id="public" v-model="state.isPublic" />
+          <input class="float-end form-check-input" type="checkbox" id="public" v-model="state.isPublic" />
         </div>
         <!-- Name input -->
         <div class="form-floating mb-3">
