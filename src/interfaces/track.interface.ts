@@ -19,4 +19,5 @@ export interface TrackList {
   isPublic: boolean;
   createAt: Date;
   updateAt: Date;
+  visible: boolean;
 }

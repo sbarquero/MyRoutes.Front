@@ -36,6 +36,7 @@ export const useTrackStore = defineStore({
         const path = 'user/' + userId;
         const response = await trackApi.get(path);
         this.tracks = response.data;
+        this.tracks.forEach(track => (track.visible = false));
       } catch (error: any) {
         console.error('error', error.message);
         this.tracks = [];
@@ -50,6 +51,6 @@ export const useTrackStore = defineStore({
         console.error('error', error.message);
         return { ok: false, message: error.response.data.message };
       }
-    }
+    },
   },
 });

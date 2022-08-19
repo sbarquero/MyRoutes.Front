@@ -1,14 +1,17 @@
 <template>
-  <div class="track">
+  <div
+    class="track"
+    :class="props.track._id == trackStore.selectedTrack._id ? 'track-selected' : ''"
+  >
     <div
-      class="track-name selectable"
-      @click="onClickTrack(track._id)"
       :title="t('homeView.sliderBox.trackList.noVisibleButton')"
+      @click="onSwitchVisibilityTrack"
+      class="track-visible selectable"
     >
-      <span class="track-visible me-2">
-        <IconVisible class="icon" v-if="false" />
-        <IconNoVisible class="icon" v-else />
-      </span>
+      <IconVisible class="icon" v-if="props.track.visible" />
+      <IconNoVisible class="icon" v-else />
+    </div>
+    <div class="track-name selectable" @click="onClickTrack">
       {{ props.track.name }}
     </div>
     <div
@@ -39,8 +42,13 @@ const props = defineProps({
   index: { type: Number, required: true },
 });
 
-async function onClickTrack(id: string): Promise<void> {
-  await trackStore.getTrackById(id);
+function onSwitchVisibilityTrack() {
+  trackStore.tracks[props.index].visible = !trackStore.tracks[props.index].visible;
+}
+
+async function onClickTrack(): Promise<void> {
+  trackStore.tracks[props.index].visible = true;
+  await trackStore.getTrackById(props.track._id);
 }
 
 function onDeleteTrack() {
@@ -77,18 +85,27 @@ function onDeleteTrack() {
 }
 .track {
   border-bottom: 1px solid #ccc;
+  border-left: solid 5px transparent;
   display: flex;
   overflow: hidden;
   padding: 5px 0;
 }
 
+.track-selected {
+  border-left: solid 5px #888;
+}
+
+.track-visible:hover {
+  background-color: #d0d0d0;
+}
+
 .track-name {
   display: inline-block;
-  min-width: 257px;
+  min-width: 217px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 257px;
+  width: 217px;
   &:hover {
     background-color: #d0d0d0;
   }

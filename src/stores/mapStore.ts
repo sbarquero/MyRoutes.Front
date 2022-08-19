@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 export interface MapState {
-  userLocation: [number, number]; // lng, lat
+  userLocation: [number, number]; // lat, lng
 }
 
 export const useMapStore = defineStore({
@@ -15,7 +15,7 @@ export const useMapStore = defineStore({
   actions: {
     getInitialLocation() {
       navigator.geolocation.getCurrentPosition(
-        ({ coords }) => (this.userLocation = [coords.longitude, coords.latitude]),
+        ({ coords }) => (this.userLocation = [coords.latitude, coords.longitude]),
         err => {
           console.error(err);
           throw new Error('No geolocation :( ');

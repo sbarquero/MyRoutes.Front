@@ -1,6 +1,6 @@
 <template>
   <MapView />
-  <SliderBox :visible="false" v-if="authStore.isAuthenticated">
+  <SliderBox :visible="false" v-if="authStore.isAuthenticated" class="slider-box">
     <h4 class="m-1 mb-4">{{ t('homeView.routes') }}</h4>
     <div class="accordion" id="accordionRoute">
       <div class="accordion-item">
@@ -74,6 +74,10 @@ const authStore = useAuthStore();
 </script>
 
 <style scoped>
+.slider-box {
+  z-index: 9999;
+}
+
 .icon {
   height: 24px;
   width: 24px;
