@@ -61,10 +61,9 @@ async function initMap() {
     {
       attribution:
         'Map data (c) <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
+      maxZoom: 20,
       id: 'mapbox/streets-v11',
-      accessToken:
-        'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+      accessToken: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
     },
   ).addTo(map);
 
