@@ -15,6 +15,7 @@
       {{ props.track.name }}
     </div>
     <div
+      v-if="authStore.isAuthenticated"
       class="track-delete selectable"
       @click="onDeleteTrack"
       :title="t('homeView.sliderBox.trackList.deleteButton')"
@@ -29,12 +30,15 @@ import { useI18n } from 'vue-i18n';
 import Swal from 'sweetalert2';
 
 import { showError, showOk } from '@/utils/messages';
+import { useAuthStore } from '@/stores/authStore';
 import { useTrackStore } from '@/stores/trackStore';
 import IconDelete from '../icons/IconDelete.vue';
 import IconNoVisible from '../icons/IconNoVisible.vue';
 import IconVisible from '../icons/IconVisible.vue';
 
 const { t } = useI18n();
+
+const authStore = useAuthStore();
 const trackStore = useTrackStore();
 
 const props = defineProps({

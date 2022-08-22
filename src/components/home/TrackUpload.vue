@@ -86,8 +86,6 @@ import { showError, showOk } from '@/utils/messages';
 import { useAuthStore } from '@/stores/authStore';
 import { useTrackStore } from '@/stores/trackStore';
 import IconUpload from '../icons/IconUpload.vue';
-import trackApi from '@/api/trackApi';
-import type { TrackList } from '@/interfaces/track.interface';
 
 const authStore = useAuthStore();
 const trackStore = useTrackStore();
@@ -125,16 +123,10 @@ const onTrackUpload = async () => {
   formData.append('createAt', state.createAt.toString());
   formData.append('file', state.file);
   try {
-    const track = await trackApi.post('/', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    trackStore.tracks.push(track.data as TrackList);
-    showOk(t('homeView.sliderBox.trackUpload.uploadOk'), state.fileName);
+    trackStore.upload(formData);
 
+    showOk(t('homeView.sliderBox.trackUpload.uploadOk'), state.fileName);
     initializeForm();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     showError(t('homeView.sliderBox.trackUpload.uploadError'), error);
   }

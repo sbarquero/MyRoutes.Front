@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/stores/authStore';
@@ -21,9 +21,22 @@ const authStore = useAuthStore();
 const trackStore = useTrackStore();
 
 const { tracks } = storeToRefs(useTrackStore());
+const { userId } = storeToRefs(useAuthStore());
 
 onMounted(async () => {
-  await trackStore.getTrackListByUserId(authStore.userId);
+  if (authStore.userId) {
+    await trackStore.getTrackListByUserId(authStore.userId);
+  } else {
+    await trackStore.getAllPublic();
+  }
+});
+
+watch(userId, async () => {
+  if (userId.value) {
+    await trackStore.getTrackListByUserId(authStore.userId);
+  } else {
+    await trackStore.getAllPublic();
+  }
 });
 </script>
 

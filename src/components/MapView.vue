@@ -32,7 +32,7 @@ const { t } = useI18n();
 const { isUserLocationReady, userLocation } = storeToRefs(useMapStore());
 const mapStore = useMapStore();
 const mapElement = ref<HTMLDivElement>();
-const { selectedTrack, previousTrack } = storeToRefs(useTrackStore());
+const { selectedTrack } = storeToRefs(useTrackStore());
 
 let map: L.Map;
 
@@ -46,8 +46,6 @@ onMounted(async () => {
 
 watch(selectedTrack, async () => {
   const geoJson = L.geoJSON(selectedTrack.value.geojsonData); //.addTo(map);
-
-  previousTrack.value = geoJson;
 
   geoJson.addTo(map);
   map.flyToBounds(geoJson.getBounds());

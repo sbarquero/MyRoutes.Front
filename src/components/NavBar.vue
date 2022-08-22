@@ -144,7 +144,7 @@ async function onLogout() {
       } else {
         showError(result.message);
       }
-      router.replace({ name: 'home' });
+      router.push({ name: 'home' });
     }
   });
 }
