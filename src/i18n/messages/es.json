@@ -42,7 +42,8 @@
   },
   "navBar": {
     "home": "Inicio",
-    "usersManagement": "Gestión de usuarios",
+    "usersManagement": "Usuarios",
+    "trackManagement": "Rutas",
     "configuration": "Configuración",
     "about": "Acerca de",
     "tooltip": {

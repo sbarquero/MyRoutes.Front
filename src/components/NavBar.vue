@@ -77,6 +77,16 @@
             </li>
             <li>
               <RouterLink
+                :to="{ name: 'tracks' }"
+                class="dropdown-item"
+                :class="!auth.isAuthenticated ? 'disabled' : ''"
+              >
+                <MapIcon class="icon" />
+                <span class="menu-label">{{ t('navBar.trackManagement') }}</span>
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink
                 :to="{ name: 'configuration' }"
                 class="dropdown-item"
                 :class="!auth.isAuthenticated ? 'disabled' : ''"

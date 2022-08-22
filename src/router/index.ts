@@ -29,6 +29,15 @@ const router = createRouter({
       },
     },
     {
+      path: '/tracks',
+      name: 'tracks',
+      component: () => import('../views/TrackView.vue'),
+      meta: {
+        requiresAuth: true,
+        authorizedRol: 'user',
+      },
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
