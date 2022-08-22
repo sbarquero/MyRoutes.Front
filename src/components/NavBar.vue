@@ -106,20 +106,20 @@ import { RouterLink } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import Swal from 'sweetalert2';
 
+import { showError, showOk } from '@/utils/messages';
 import { useAuthStore } from '../stores/authStore';
+import { useUserStore } from '@/stores/userStore';
 import GearIcon from './icons/IconGear.vue';
 import InfoIcon from './icons/IconInfo.vue';
-import LoginIcon from './icons/IconLogin.vue';
 import LoginForm from './authentication/LoginForm.vue';
+import LoginIcon from './icons/IconLogin.vue';
 import LogoutIcon from './icons/IconLogout.vue';
 import MapIcon from './icons/IconMap.vue';
-import OptionBtn from './OptionBtn.vue';
+import OptionBtn from './shared/OptionBtn.vue';
 import PeopleIcon from './icons/IconPeople.vue';
 import RecoverForm from './authentication/RecoverForm.vue';
-import router from '../router';
-import { useUserStore } from '@/stores/userStore';
-import { showError, showOk } from '@/utils/messages';
 import RegisterForm from './authentication/RegisterForm.vue';
+import router from '../router';
 
 const { t } = useI18n();
 const auth = useAuthStore();
