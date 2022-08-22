@@ -63,7 +63,7 @@ import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/authStore';
 import IconList from '../components/icons/IconList.vue';
 import IconUpload from '../components/icons/IconUpload.vue';
-import MapView from '@/components/MapView.vue';
+import MapView from '@/components/home/MapView.vue';
 import SliderBox from '@/components/home/SliderBox.vue';
 import TrackList from '../components/home/TrackList.vue';
 import TrackUpload from '../components/home/TrackUpload.vue';
