@@ -32,7 +32,8 @@ const { t } = useI18n();
 const { isUserLocationReady, userLocation } = storeToRefs(useMapStore());
 const mapStore = useMapStore();
 const mapElement = ref<HTMLDivElement>();
-const { selectedTrack } = storeToRefs(useTrackStore());
+const trackStore = useTrackStore();
+const { hideTrackIndex, selectedTrackIndex } = storeToRefs(useTrackStore());
 
 let map: L.Map;
 
@@ -44,19 +45,37 @@ onMounted(async () => {
   initMap();
 });
 
-watch(selectedTrack, async () => {
-  const geoJson = L.geoJSON(selectedTrack.value.geojsonData); //.addTo(map);
+watch(selectedTrackIndex, async () => {
+  if (selectedTrackIndex.value === -1) return;
+  const index = selectedTrackIndex.value;
+  let geojsonLayer = new L.GeoJSON();
 
-  geoJson.addTo(map);
-  map.flyToBounds(geoJson.getBounds());
+  if (!trackStore.geojsonLayers[index]) {
+    geojsonLayer.addData(trackStore.trackList[index].geojsonData);
+    trackStore.geojsonLayers[index] = geojsonLayer;
+
+    geojsonLayer.addTo(map);
+  } else {
+    geojsonLayer = trackStore.geojsonLayers[index] as L.GeoJSON;
+  }
+  map.flyToBounds(geojsonLayer.getBounds());
+});
+
+watch(hideTrackIndex, () => {
+  const index = trackStore.hideTrackIndex;
+  map.removeLayer(trackStore.geojsonLayers[index] as L.GeoJSON);
+  trackStore.geojsonLayers[index] = undefined;
 });
 
 async function initMap() {
   if (!mapElement.value) throw new Error('Div Element no exists');
   if (!userLocation.value) throw new Error('UserLocation no exists');
 
-  map = L.map(mapElement.value).setView(userLocation.value, 16);
-  L.tileLayer(
+  // Proveedores para Leaflet
+  // https://leaflet-extras.github.io/leaflet-providers/preview/
+  // https://github.com/leaflet-extras/leaflet-providers
+
+  const osm = L.tileLayer(
     'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
     {
       attribution:
@@ -65,7 +84,33 @@ async function initMap() {
       id: 'mapbox/streets-v11',
       accessToken: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
     },
-  ).addTo(map);
+  );
+
+  // const streets = L.tileLayer(mapboxUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
+
+  var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  });
+
+  const openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    maxZoom: 17,
+    attribution:
+      'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+  });
+
+  const baseMaps = {
+    OpenStreetMap: osm,
+    // "Mapbox Streets": streets,
+    OpenStreetMap_Mapnik: OpenStreetMap_Mapnik,
+    'Open topo map': openTopoMap,
+  };
+
+  map = L.map(mapElement.value).setView(userLocation.value, 16);
+  osm.addTo(map);
+
+  L.control.layers(baseMaps).addTo(map);
 
   L.marker(userLocation.value).addTo(map).bindPopup('<h5>My Location</h5>').openPopup();
 }

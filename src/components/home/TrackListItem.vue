@@ -5,11 +5,10 @@
   >
     <div
       :title="t('homeView.sliderBox.trackList.noVisibleButton')"
-      @click="onSwitchVisibilityTrack"
       class="track-visible selectable"
     >
-      <IconVisible class="icon" v-if="props.track.visible" />
-      <IconNoVisible class="icon" v-else />
+      <IconVisible class="icon" v-if="props.track.visible" @click="hideTrack" />
+      <IconNoVisible class="icon" v-else @click="showTrack" />
     </div>
     <div class="track-name selectable" @click="onClickTrack">
       {{ props.track.name }}
@@ -46,13 +45,16 @@ const props = defineProps({
   index: { type: Number, required: true },
 });
 
-function onSwitchVisibilityTrack() {
-  trackStore.tracks[props.index].visible = !trackStore.tracks[props.index].visible;
+async function showTrack() {
+  await trackStore.selectTrack(props.index);
+}
+
+async function hideTrack() {
+  await trackStore.removeTrackLayer(props.index);
 }
 
 async function onClickTrack(): Promise<void> {
-  trackStore.tracks[props.index].visible = true;
-  await trackStore.getTrackById(props.track._id);
+  await trackStore.selectTrack(props.index);
 }
 
 function onDeleteTrack() {

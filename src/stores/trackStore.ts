@@ -2,14 +2,16 @@ import { defineStore } from 'pinia';
 
 import { useAuthStore } from '@/stores/authStore';
 import trackApi from '@/api/trackApi';
-import type { Track, TrackList } from '@/interfaces/track.interface';
-
+import type { Track } from '@/interfaces/track.interface';
 
 export const useTrackStore = defineStore({
   id: 'track',
   state: () => ({
     selectedTrack: {} as Track,
-    tracks: [] as TrackList[],
+    selectedTrackIndex: -1,
+    hideTrackIndex: -1,
+    tracks: [] as Track[],
+    geojsonLayers: [] as L.GeoJSON[] | undefined[],
   }),
   getters: {
     trackList: state => state.tracks,
@@ -83,7 +85,44 @@ export const useTrackStore = defineStore({
           Authorization: `Bearer ${token}`,
         },
       });
-      this.tracks.push(track.data as TrackList);
+      this.tracks.push(track.data as Track);
+    },
+    async selectTrack(index: number) {
+      const geojsonData = this.trackList[index].geojsonData;
+
+      if (!geojsonData) await this.getTrackByListIndex(index);
+
+      this.trackList[index].visible = true;
+      this.selectedTrackIndex = index;
+    },
+    async getTrackByListIndex(index: number) {
+      const authStore = useAuthStore();
+      try {
+        const id = this.trackList[index]._id;
+        if (authStore.isAuthenticated) {
+          const token = await getToken();
+          const path = '/' + id;
+          const { data } = await trackApi.get(path, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          this.trackList[index] = { ...data };
+        } else {
+          const path = '/public/' + id;
+          const { data } = await trackApi.get(path);
+          this.trackList[index] = { ...data };
+        }
+        return { ok: true };
+      } catch (error: any) {
+        console.error('error', error.message);
+        return { ok: false, message: error.response.data.message };
+      }
+    },
+    async removeTrackLayer(index: number) {
+      this.hideTrackIndex = index;
+      this.trackList[index].visible = false;
+      if (this.selectedTrackIndex === index) {
+        this.selectedTrackIndex = -1;
+      }
     },
   },
 });
