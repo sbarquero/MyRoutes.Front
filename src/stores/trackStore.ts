@@ -88,6 +88,8 @@ export const useTrackStore = defineStore({
       this.tracks.push(track.data as Track);
     },
     async selectTrack(index: number) {
+      if (this.trackList[index].visible) return;
+
       const geojsonData = this.trackList[index].geojsonData;
 
       if (!geojsonData) await this.getTrackByListIndex(index);
