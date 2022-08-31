@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="track"
-    :class="props.track._id == trackStore.selectedTrack._id ? 'track-selected' : ''"
-  >
+  <div class="track" :class="props.track._id == trackStore.selectedTrackId ? 'track-selected' : ''">
     <div
       :title="t('homeView.sliderBox.trackList.noVisibleButton')"
       class="track-visible selectable"
@@ -93,7 +90,6 @@ function onDeleteTrack() {
   border-bottom: 1px solid #ccc;
   border-left: solid 5px transparent;
   display: flex;
-  overflow: hidden;
   padding: 5px 0;
 }
 

@@ -42,34 +42,32 @@ const zoom = ref(initialZoom);
 
 let map: L.Map;
 
+let geojsonLayers: L.GeoJSON[];
+
 onMounted(async () => {
   mapStore.getInitialLocation();
   while (!isUserLocationReady.value) {
     await sleep(100);
   }
   initMap();
+  geojsonLayers = [];
 });
 
 watch(selectedTrackIndex, async () => {
   if (selectedTrackIndex.value === -1) return;
   const index = selectedTrackIndex.value;
-  let geojsonLayer = new L.GeoJSON();
 
-  if (!trackStore.geojsonLayers[index]) {
-    geojsonLayer.addData(trackStore.trackList[index].geojsonData);
-    trackStore.geojsonLayers[index] = geojsonLayer;
-
-    geojsonLayer.addTo(map);
-  } else {
-    geojsonLayer = trackStore.geojsonLayers[index] as L.GeoJSON;
+  if (!geojsonLayers[index]) {
+    geojsonLayers[index] = new L.GeoJSON(trackStore.trackList[index].geojsonData);
   }
-  map.flyToBounds(geojsonLayer.getBounds());
+  geojsonLayers[index].addTo(map);
+  map.flyToBounds(geojsonLayers[index].getBounds());
 });
 
 watch(hideTrackIndex, () => {
+  if (hideTrackIndex.value === -1) return;
   const index = trackStore.hideTrackIndex;
-  map.removeLayer(trackStore.geojsonLayers[index] as L.GeoJSON);
-  trackStore.geojsonLayers[index] = undefined;
+  map.removeLayer(geojsonLayers[index]);
 });
 
 async function initMap() {
