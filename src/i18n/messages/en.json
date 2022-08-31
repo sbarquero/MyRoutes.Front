@@ -145,9 +145,15 @@
     "trackList": "Routes list",
     "mapView": {
       "pleaseWait": "Please wait!!",
-      "locating": "Locating..."
+      "locating": "Locating...",
+      "zoomControl": {
+        "zoomInTitle": "Zoom in",
+        "zoomOutTitle": "Zoom out"
+      }
     },
     "sliderBox": {
+      "showToggleButtonTitle": "Show track list",
+      "hideToggleButtonTitle": "Hide track list",
       "trackUpload": {
         "selectFile": "Select file",
         "uploadBtn": "Upload File",
@@ -166,7 +172,7 @@
         "deleteSuccess": "Route deleted successfully",
         "deleteButton": "Delete route",
         "visibleButton": "Visible route",
-        "noVisibleButton": "Noi visible route"
+        "noVisibleButton": "No visible route"
       }
     }
   }

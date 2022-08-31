@@ -116,6 +116,7 @@ async function initMap() {
   map = L.map(mapElement.value, {
     zoomSnap: 0.25, // Forces the map's zoom level to always be a multiple of this (default = 1)
     zoomDelta: 0.5, // Zoom level using keyboard or zoom controls
+    zoomControl: false, // zoom control off
     wheelPxPerZoomLevel: 128, // Zoom level in pixels using mouse wheel
   }).setView(userLocation.value, initialZoom);
   osm.addTo(map);
@@ -125,6 +126,13 @@ async function initMap() {
   });
   L.control.layers(baseMaps).addTo(map);
   L.control.scale().addTo(map);
+  L.control
+    .zoom({
+      position: 'topleft',
+      zoomInTitle: t('homeView.mapView.zoomControl.zoomInTitle'),
+      zoomOutTitle: t('homeView.mapView.zoomControl.zoomOutTitle'),
+    })
+    .addTo(map);
 
   L.marker(userLocation.value).addTo(map).bindPopup('<h5>My Location</h5>').openPopup();
 }

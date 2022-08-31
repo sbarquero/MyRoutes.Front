@@ -145,9 +145,15 @@
     "trackList": "Listado rutas",
     "mapView": {
       "pleaseWait": "¡¡Espere por favor!!",
-      "locating": "Localizando..."
+      "locating": "Localizando...",
+      "zoomControl": {
+        "zoomInTitle": "Ampliar",
+        "zoomOutTitle": "Disminuir"
+      }
     },      
     "sliderBox": {
+      "showToggleButtonTitle": "Mostrar listado rutas",
+      "hideToggleButtonTitle": "Ocultar listado rutas",
       "trackUpload": {
         "selectFile": "Seleccionar fichero",
         "uploadBtn": "Subir fichero",

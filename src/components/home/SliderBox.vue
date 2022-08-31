@@ -6,7 +6,15 @@
       <slot />
     </div>
     <!-- Toggle switch for show or hide the slider box -->
-    <div class="slider-box_toggle" @click="switchVisibility()">
+    <div
+      class="slider-box_toggle"
+      @click="switchVisibility()"
+      :title="
+        isVisible
+          ? t('homeView.sliderBox.hideToggleButtonTitle')
+          : t('homeView.sliderBox.showToggleButtonTitle')
+      "
+    >
       <IconArrowLeft v-if="isVisible" />
       <IconArrowRight v-else />
     </div>
@@ -15,8 +23,12 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
 import IconArrowLeft from '../icons/IconArrowLeft.vue';
 import IconArrowRight from '../icons/IconArrowRight.vue';
+
+const { t } = useI18n();
 
 const isVisible = ref(true);
 
