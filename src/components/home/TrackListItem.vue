@@ -107,7 +107,7 @@ function onDeleteTrack() {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 217px;
+  width: 242px;
   &:hover {
     background-color: #d0d0d0;
   }

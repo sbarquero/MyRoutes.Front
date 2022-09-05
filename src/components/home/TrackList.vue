@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-3">
+  <div class="card p-0">
     <TrackListItem
       v-for="(track, index) in tracks"
       :key="track._id"
