@@ -144,8 +144,10 @@
     "trackUpload": "Subida ruta",
     "trackList": "Listado rutas",
     "mapView": {
-      "pleaseWait": "¡¡Espere por favor!!",
       "locating": "Localizando...",
+      "myLocation": "Mi localización",
+      "latitude": "Lat",
+      "longitude": "Lng",
       "zoomControl": {
         "zoomInTitle": "Ampliar",
         "zoomOutTitle": "Disminuir"

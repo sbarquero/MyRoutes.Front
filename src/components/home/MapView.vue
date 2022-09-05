@@ -1,19 +1,14 @@
 <template>
-  <div v-if="!isUserLocationReady" class="loading-map">
-    <div class="text-center">
-      <h3>{{ t('homeView.mapView.pleaseWait') }}</h3>
-      <span>{{ t('homeView.mapView.locating') }}</span>
-    </div>
-  </div>
-  <div v-else class="map-container">
+  <div class="map-container">
     <!-- Map Div -->
     <div id="mapContainer" class="map" ref="mapElement"></div>
     <!-- Zoom tag-->
     <div class="zoom"><b>Zoom: </b>{{ zoom }}</div>
     <!-- Location tag-->
-    <div class="fixed-bottom d-flex justify-content-center">
+    <div v-if="isUserLocationReady" class="fixed-bottom d-flex justify-content-center">
       <div class="location">
-        <b>Location</b> Lng: {{ userLocation[0] }}, Lat: {{ userLocation[1] }}
+        <b>{{ t('homeView.mapView.myLocation') }}</b> Lng: {{ userLocation[0] }}, Lat:
+        {{ userLocation[1] }}
       </div>
     </div>
   </div>
@@ -26,29 +21,22 @@ import { onMounted, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
-import { sleep } from '@/utils/timer';
 import { useMapStore } from '@/stores/mapStore';
 import { useTrackStore } from '@/stores/trackStore';
 
 const { t } = useI18n();
-const { isUserLocationReady, userLocation } = storeToRefs(useMapStore());
+const { initialLocation, isUserLocationReady, userLocation, zoom } = storeToRefs(useMapStore());
 const mapStore = useMapStore();
 const mapElement = ref<HTMLDivElement>();
 const trackStore = useTrackStore();
 const { hideTrackIndex, selectedTrackIndex } = storeToRefs(useTrackStore());
-
-const initialZoom = 16;
-const zoom = ref(initialZoom);
 
 let map: L.Map;
 
 let geojsonLayers: L.GeoJSON[];
 
 onMounted(async () => {
-  mapStore.getInitialLocation();
-  while (!isUserLocationReady.value) {
-    await sleep(100);
-  }
+  mapStore.getUserLocation();
   initMap();
   geojsonLayers = [];
 });
@@ -68,6 +56,20 @@ watch(hideTrackIndex, () => {
   if (hideTrackIndex.value === -1) return;
   const index = trackStore.hideTrackIndex;
   map.removeLayer(geojsonLayers[index]);
+});
+
+watch(userLocation, () => {
+  L.marker(userLocation.value)
+    .addTo(map)
+    .bindPopup(
+      `<div style="text-align: center">
+        <h5>${t('homeView.mapView.myLocation')}</h5>
+        <b>${t('homeView.mapView.latitude')}:</b> ${userLocation.value[0]}<br/>
+        <b>${t('homeView.mapView.longitude')}:</b> ${userLocation.value[1]}
+      </div>`,
+    )
+    .openPopup();
+  map.flyTo(userLocation.value, 15);
 });
 
 async function initMap() {
@@ -118,7 +120,7 @@ async function initMap() {
     zoomDelta: 0.5, // Zoom level using keyboard or zoom controls
     zoomControl: false, // zoom control off
     wheelPxPerZoomLevel: 128, // Zoom level in pixels using mouse wheel
-  }).setView(userLocation.value, initialZoom);
+  }).setView(initialLocation.value, zoom.value);
   osm.addTo(map);
 
   map.on('zoom', () => {
@@ -133,25 +135,10 @@ async function initMap() {
       zoomOutTitle: t('homeView.mapView.zoomControl.zoomOutTitle'),
     })
     .addTo(map);
-
-  L.marker(userLocation.value).addTo(map).bindPopup('<h5>My Location</h5>').openPopup();
 }
 </script>
 
 <style scoped>
-.loading-map {
-  align-items: center;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  left: 0;
-  position: fixed;
-  top: 0px;
-  width: 100vw;
-  text-align: center;
-  z-index: 2;
-}
-
 .map-container {
   width: 100vw;
   height: calc(100% - 3rem);

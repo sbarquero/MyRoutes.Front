@@ -144,8 +144,10 @@
     "trackUpload": "Route upload",
     "trackList": "Routes list",
     "mapView": {
-      "pleaseWait": "Please wait!!",
       "locating": "Locating...",
+      "myLocation": "My location",
+      "latitude": "Lat",
+      "longitude": "Lng",
       "zoomControl": {
         "zoomInTitle": "Zoom in",
         "zoomOutTitle": "Zoom out"
