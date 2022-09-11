@@ -23,6 +23,7 @@ import { useI18n } from 'vue-i18n';
 
 import { useMapStore } from '@/stores/mapStore';
 import { useTrackStore } from '@/stores/trackStore';
+import mapsProviders from '@/components/home/mapsProviders';
 
 const { t } = useI18n();
 const { initialLocation, isUserLocationReady, userLocation, zoom } = storeToRefs(useMapStore());
@@ -76,43 +77,13 @@ async function initMap() {
   if (!mapElement.value) throw new Error('Div Element no exists');
   if (!userLocation.value) throw new Error('UserLocation no exists');
 
-  // Proveedores para Leaflet
-  // https://leaflet-extras.github.io/leaflet-providers/preview/
-  // https://github.com/leaflet-extras/leaflet-providers
-
-  const osm = L.tileLayer(
-    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
-    {
-      attribution:
-        'Map data (c) <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-      minZoom: 2,
-      maxZoom: 20,
-      id: 'mapbox/streets-v11',
-      accessToken: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
-    },
-  );
-
-  // const streets = L.tileLayer(mapboxUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
-
-  var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    minZoom: 2,
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  });
-
-  const openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-    minZoom: 2,
-    maxZoom: 17,
-    attribution:
-      'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
-  });
-
   const baseMaps = {
-    OpenStreetMap: osm,
-    // "Mapbox Streets": streets,
-    OpenStreetMap_Mapnik: OpenStreetMap_Mapnik,
-    'Open topo map': openTopoMap,
+    'MapBox - OpenStreetMap': mapsProviders.mapboxOsm,
+    'OpenStreetMap - Mapnik': mapsProviders.openStreetMapMapnik,
+    OpenTopoMap: mapsProviders.openTopoMap,
+    MtbMap: mapsProviders.mtbMap,
+    'ESRI WordImagery': mapsProviders.esriWorldImagery,
+    'ESRI WordTopoMap': mapsProviders.esriWorldTopoMap,
   };
 
   map = L.map(mapElement.value, {
@@ -121,11 +92,12 @@ async function initMap() {
     zoomControl: false, // zoom control off
     wheelPxPerZoomLevel: 128, // Zoom level in pixels using mouse wheel
   }).setView(initialLocation.value, zoom.value);
-  osm.addTo(map);
+  map.addLayer(mapsProviders.mapboxOsm);
 
   map.on('zoom', () => {
     zoom.value = map.getZoom();
   });
+
   L.control.layers(baseMaps).addTo(map);
   L.control.scale().addTo(map);
   L.control
