@@ -11,7 +11,7 @@ export const useMapStore = defineStore({
   state: (): MapState => ({
     userLocation: [0, 0],
     initialLocation: [40, -4.25],
-    zoom: 6.75,
+    zoom: 2.75,
   }),
   getters: {
     isUserLocationReady: state => state.userLocation[0] != 0 && state.userLocation[1] != 0,
