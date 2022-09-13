@@ -49,7 +49,7 @@
           data-bs-parent="#accordionRoute"
         >
           <div class="accordion-body p-0 m-0">
-            <TrackList />
+            <HomeTrackList />
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@ import IconList from '../components/icons/IconList.vue';
 import IconUpload from '../components/icons/IconUpload.vue';
 import MapView from '@/components/home/MapView.vue';
 import SliderBox from '@/components/home/SliderBox.vue';
-import TrackList from '../components/home/TrackList.vue';
+import HomeTrackList from '../components/home/HomeTrackList.vue';
 import TrackUpload from '../components/home/TrackUpload.vue';
 
 const { t } = useI18n();

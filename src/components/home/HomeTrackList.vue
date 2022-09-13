@@ -1,6 +1,6 @@
 <template>
   <div class="card p-0">
-    <TrackListItem
+    <HomeTrackListItem
       v-for="(track, index) in tracks"
       :key="track._id"
       :track="track"
@@ -15,7 +15,7 @@ import { onMounted, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/stores/authStore';
 import { useTrackStore } from '@/stores/trackStore';
-import TrackListItem from './TrackListItem.vue';
+import HomeTrackListItem from './HomeTrackListItem.vue';
 
 const authStore = useAuthStore();
 const trackStore = useTrackStore();
