@@ -1,12 +1,11 @@
 <template>
-  <DefaultContainer>
+  <DefaultContainer backgroundImage="/assets/img/users.jpg">
     <template #title>{{ t('userView.title') }}</template>
     <template #content>
       <div class="row">
         <div class="col-12 col-md-5 col-lg-4">
           <UserList />
         </div>
-        <div v-if="userStore.userEditing" class="dark"></div>
         <div class="col-12 col-md-7 col-lg-8 mt-5 mt-md-0">
           <UserCard />
         </div>
@@ -38,15 +37,6 @@ const onAddUser = async () => {
 </script>
 
 <style scoped>
-.dark {
-  background-color: rgba(0, 0, 0, 0.2);
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
 .add-button {
   bottom: 1.25rem;
   right: 1.5rem;

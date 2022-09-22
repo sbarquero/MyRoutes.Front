@@ -52,9 +52,12 @@
           >
             <span class="navbar-toggler-icon icon"></span>
           </OptionBtn>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+          <ul
+            class="dropdown-menu dropdown-menu-end mt-0 pt-0"
+            aria-labelledby="dropdownMenuButton"
+          >
             <li>
-              <h2 class="dropdown-header bg-secondary text-light">Menu</h2>
+              <h2 class="dropdown-header bg-primary bg-opacity-50 text-light">Menu</h2>
             </li>
             <li>
               <RouterLink :to="{ name: 'home' }" class="dropdown-item">
@@ -163,7 +166,7 @@ async function onLogout() {
 <style scoped>
 .navbar {
   /* offset-x | offset-y | blur-radius | spread-radius | color */
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--navbar-shadow);
   height: 3rem;
   padding: 0.25rem;
   z-index: 3;

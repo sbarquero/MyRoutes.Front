@@ -23,7 +23,7 @@
       <label for="password" class="form-label">{{ t('loginForm.password') }}</label>
     </div>
     <!-- Login button -->
-    <button @click.prevent="onLogin" type="submit" class="btn btn-secondary">
+    <button @click.prevent="onLogin" type="submit" class="btn btn-primary">
       {{ t('loginForm.loginButton') }}
     </button>
   </form>
@@ -56,6 +56,7 @@ const userForm = ref({
 });
 
 async function onLogin() {
+  console.log('onLogin');
   const user: User = {
     email: userForm.value.email,
     password: userForm.value.password,
@@ -74,8 +75,4 @@ async function onLogin() {
 }
 </script>
 
-<style scoped>
-.dropdown-item {
-  cursor: pointer;
-}
-</style>
+<style scoped></style>

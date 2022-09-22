@@ -9,10 +9,12 @@
 
 <style scoped>
 div.list-group-item {
-  border-left-width: 5px;
+  border-color: var(--primary-color-50);
+  border-left-width: 8px;
   user-select: none;
 }
 div:hover {
   cursor: pointer;
+  color: var(--color-text);
 }
 </style>

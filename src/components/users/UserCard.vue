@@ -155,17 +155,17 @@
       </div>
       <!-- Save & cancel buttons -->
       <div class="mt-3">
-        <button @click="onSaveUser" type="button" class="btn btn-secondary">
+        <button @click="onSaveUser" type="button" class="btn btn-primary">
           {{ t('userView.userCard.save') }}
         </button>
-        <button @click="onCancelUser" type="button" class="btn btn-light border-secondary ms-3">
+        <button @click="onCancelUser" type="button" class="btn btn-light border-primary ms-3">
           {{ t('userView.userCard.cancel') }}
         </button>
       </div>
     </form>
   </div>
   <div v-else>
-    <h5 class="alert alert-secondary ms-1">{{ t('userView.userCard.selectUser') }}</h5>
+    <h5 class="alert alert-primary ms-1">{{ t('userView.userCard.selectUser') }}</h5>
   </div>
 </template>
 
@@ -173,11 +173,12 @@
 import { email, helpers, minLength, required } from '@vuelidate/validators';
 import { reactive } from 'vue';
 import { storeToRefs } from 'pinia';
+import { useI18n } from 'vue-i18n';
 import Swal from 'sweetalert2';
 import useVuelidate from '@vuelidate/core';
-import { useI18n } from 'vue-i18n';
-import { useUserStore } from '@/stores/userStore';
+
 import { showError, showOk } from '@/utils/messages';
+import { useUserStore } from '@/stores/userStore';
 import SessionList from './SessionList.vue';
 
 const { t, d } = useI18n();

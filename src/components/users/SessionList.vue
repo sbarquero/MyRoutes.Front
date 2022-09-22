@@ -22,7 +22,7 @@
             <td class="button">
               <button
                 type="button"
-                class="btn btn-secondary btn-sm"
+                class="btn btn-danger btn-sm"
                 :title="t('userView.userSession.rejectButtonText')"
                 :disabled="session._id === authStore.sessionId"
                 @click="onRejectSession(session, index)"

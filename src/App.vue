@@ -17,8 +17,6 @@ onMounted(async () => {
 </script>
 
 <style>
-@import '@/assets/css/base.css';
-
 #app {
   margin: 0;
   padding: 0;

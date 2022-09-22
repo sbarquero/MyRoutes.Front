@@ -1,21 +1,21 @@
 <template>
   <h3 class="mb-4 ms-1">{{ t('userView.userList.title') }}</h3>
   <div class="list-group">
-    <template v-for="user in users" v-bind:key="user._id">
-      <UserListItem
-        @click="onUserSelect(user._id)"
-        :class="
-          user._id === userStore.selectedUser._id
-            ? 'selected'
-            : userStore.userEditing
-            ? 'editing'
-            : ''
-        "
-      >
-        <template #name>{{ user.name }}</template>
-        <template #email>{{ user.email }}</template>
-      </UserListItem>
-    </template>
+    <UserListItem
+      v-for="user in users"
+      v-bind:key="user._id"
+      @click="onUserSelect(user._id)"
+      :class="
+        user._id === userStore.selectedUser._id
+          ? 'selected'
+          : userStore.userEditing
+          ? 'editing'
+          : ''
+      "
+    >
+      <template #name>{{ user.name }}</template>
+      <template #email>{{ user.email }}</template>
+    </UserListItem>
   </div>
 </template>
 
@@ -23,9 +23,10 @@
 import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
+
+import { showError } from '@/utils/messages';
 import { useUserStore } from '@/stores/userStore';
 import UserListItem from './UserListItem.vue';
-import { showError } from '@/utils/messages';
 
 const { t } = useI18n();
 
@@ -47,18 +48,17 @@ const onUserSelect = async (id: string) => {
 
 <style scoped>
 .list-group {
-  border: solid 1px #ccc;
-  height: 70vh;
+  border: solid 1px var(--list-group-border-color);
+  height: 67vh;
   overflow-y: auto;
 }
 .selected {
-  background-color: #eee;
-  border-left: solid 5px #888;
+  border-color: var(--primary-color) !important;
   cursor: pointer;
   pointer-events: none;
 }
 .editing {
-  opacity: 0.3;
+  opacity: 0.5;
   pointer-events: none;
 }
 </style>
