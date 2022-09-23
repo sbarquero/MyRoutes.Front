@@ -18,11 +18,11 @@
     </div>
     <div class="d-flex justify-content-between">
       <!-- Recover button -->
-      <button @click.prevent="onRecover" class="btn btn-secondary me-3">
+      <button @click.prevent="onRecover" class="btn btn-primary me-3">
         {{ t('recoverForm.recoverButton') }}
       </button>
       <!-- Cancel button -->
-      <button @click.prevent="auth.form = 'login'" class="btn btn-light border-secondary">
+      <button @click.prevent="auth.form = 'login'" class="btn btn-light border-primary">
         {{ t('recoverForm.cancelButton') }}
       </button>
     </div>

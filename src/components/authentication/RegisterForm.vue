@@ -71,11 +71,11 @@
     </div>
     <div class="d-flex justify-content-between">
       <!-- Register button -->
-      <button @click.prevent="onRegister" type="submit" class="btn btn-secondary">
+      <button @click.prevent="onRegister" type="submit" class="btn btn-primary">
         {{ t('registerForm.registerButton') }}
       </button>
       <!-- Cancel button -->
-      <button @click.prevent="auth.form = 'login'" class="btn btn-light border-secondary">
+      <button @click.prevent="auth.form = 'login'" class="btn btn-light border-primary">
         {{ t('registerForm.cancelButton') }}
       </button>
     </div>
