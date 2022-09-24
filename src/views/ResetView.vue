@@ -42,11 +42,11 @@
           <!-- Buttons -->
           <div class="d-flex justify-content-between">
             <!-- Login button -->
-            <button @click.prevent="onResetPassword" type="submit" class="btn btn-secondary">
+            <button @click.prevent="onResetPassword" type="submit" class="btn btn-primary">
               {{ t('resetView.resetButton') }}
             </button>
             <!-- Cancel button -->
-            <button @click.prevent="onCancel" class="btn btn-light border-secondary">
+            <button @click.prevent="onCancel" class="btn btn-light border-primary">
               {{ t('resetView.cancelButton') }}
             </button>
           </div>
