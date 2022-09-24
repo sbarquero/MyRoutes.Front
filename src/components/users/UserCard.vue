@@ -290,21 +290,19 @@ const onSaveUser = async () => {
 };
 
 const onCancelUser = () => {
-  if (userHasChanged()) confirmUserCancellation();
-  else {
+  if (userHasChanged()) {
+    confirmUserCancellation();
+  } else {
     initialize();
   }
 };
 
 const userHasChanged = () => {
-  if (
+  return (
     userStore.userInitialState !== userStore.getUserState ||
     state.password !== '' ||
     state.confirmPassword !== ''
-  )
-    return true;
-
-  return false;
+  );
 };
 
 const confirmUserCancellation = () => {
