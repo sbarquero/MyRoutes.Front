@@ -56,7 +56,6 @@ const userForm = ref({
 });
 
 async function onLogin() {
-  console.log('onLogin');
   const user: User = {
     email: userForm.value.email,
     password: userForm.value.password,

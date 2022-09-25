@@ -1,8 +1,11 @@
 <template>
   <MapView />
-  <SliderBox :visible="false" class="slider-box">
+  <SliderBox :visible="false">
+    <!-- Title -->
     <h4 class="m-1 mb-4">{{ t('homeView.routes') }}</h4>
+    <!-- Accordion -->
     <div class="accordion" id="accordionRoute">
+      <!-- Upload file accordion element -->
       <div class="accordion-item" v-if="authStore.isAuthenticated">
         <h2 class="accordion-header" id="headingOne">
           <button
@@ -24,10 +27,11 @@
           data-bs-parent="#accordionRoute"
         >
           <div class="accordion-body p-0 m-0">
-            <TrackUpload />
+            <TrackUploadForm />
           </div>
         </div>
       </div>
+      <!-- Track list accordion element -->
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingTwo">
           <button
@@ -66,7 +70,7 @@ import IconUpload from '../components/icons/IconUpload.vue';
 import MapView from '@/components/home/MapView.vue';
 import SliderBox from '@/components/home/SliderBox.vue';
 import HomeTrackList from '../components/home/HomeTrackList.vue';
-import TrackUpload from '../components/home/TrackUpload.vue';
+import TrackUploadForm from '../components/home/TrackUploadForm.vue';
 
 const { t } = useI18n();
 

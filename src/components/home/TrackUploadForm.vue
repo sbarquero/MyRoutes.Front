@@ -2,8 +2,9 @@
   <div class="p-2 pt-3 pb-4 overflow-hidden bg-light">
     <form @submit.prevent ref="form">
       <div class="card p-2">
-        <div class="d-flex justify-content-between">
-          <label class="btn btn-secondary" for="file">
+        <div class="d-flex justify-content-around">
+          <!-- Select file button -->
+          <label class="btn btn-primary" for="file">
             {{ t('homeView.sliderBox.trackUpload.selectFile') }}
           </label>
           <!-- File Input not visible -->
@@ -19,7 +20,7 @@
           <!-- Upload button -->
           <button
             id="uploadBtn"
-            class="btn btn-secondary"
+            class="btn btn-primary"
             :title="t('homeView.sliderBox.trackUpload.uploadBtn')"
             type="button"
             @click="onTrackUpload"
@@ -36,7 +37,7 @@
       <!-- Infomation -->
       <div v-if="state.file" class="card p-2 mt-3">
         <h6>{{ t('homeView.sliderBox.trackUpload.editInformation') }}</h6>
-        <!-- Public chckbox -->
+        <!-- Public checkbox -->
         <div class="form-check mt-0 mb-2">
           <label class="float-end form-check-label ms-2" for="public">{{
             t('homeView.sliderBox.trackUpload.public')
