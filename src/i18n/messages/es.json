@@ -73,7 +73,7 @@
     },
     "userCard": {
       "title": "Ficha Usuario",
-      "selectUser": "¡Selecciona un usuario del listado o haga click en el botón para añadir un nuevo usuario!",
+      "selectUser": "¡Selecciona un usuario del listado o haz click en el botón para añadir un nuevo usuario!",
       "id": "ID Usuario",
       "name": "Nombre",
       "email": "Email",
@@ -119,6 +119,52 @@
       "expireAt": "Sesión expira",
       "reject": "Desconectar",
       "rejectButtonText": "Cierra sesión"
+    }
+  },
+  "trackView": {
+    "title": "Gestión de Rutas",
+    "addButton": {
+      "tooltip": "Añade una nueva ruta"
+    },
+    "trackList": {
+      "title": "Listado de Rutas",
+      "noDescription": "Sin descripción"
+    },
+    "trackCard": {
+      "title": "Ficha de la Ruta",
+      "selectTrack": "¡Selecciona una ruta del listado o haz click en el botón para añadir una nueva!",
+      "id": "ID Ruta",
+      "public": "Ruta Pública",
+      "name": "Nombre",
+      "description": "Descripción",
+      "uploadAt": "Fecha subida",
+      "createAt": "Fecha creación",
+      "updateAt": "Última actualización",
+      "save": "Guardar",
+      "uploadNewTrack": "Subir nueva ruta",
+      "cancel": "Cancelar",
+      "cancellation": {
+        "title": "¿Seguro que desea cancelar los cambios realizados?",
+        "text": "Se perderán los cambios realizados a la ruta",
+        "confirmButtonText": "Sí, abandonar cambios!",
+        "cancelButtonText": "Cancelar"
+      },
+      "errorMsg": {
+        "nameRequired": "Se necesita el nombre",
+        "nameMinLength": "El nombre debe tener 3 caracteres como mínimo"
+      },
+      "formValidation": {
+        "errorTitle": "Error en el formulario",
+        "errorText": "Revise los errores en el formulario"
+      },
+      "trackUpload": {
+        "uploadOk": "Ruta subida",
+        "uploadError": "Error en la subida de la ruta"
+      },
+      "trackUpdate": {
+        "updateOk": "Ruta modificada",
+        "updateError": "Error al modificar la ruta"
+      }      
     }
   },
   "resetView": {

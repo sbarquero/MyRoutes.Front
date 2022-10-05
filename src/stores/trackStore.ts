@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 
+import { convertDateToLocaleDateString } from '@/utils/date';
 import { useAuthStore } from '@/stores/authStore';
 import trackApi from '@/api/trackApi';
-import type { Track } from '@/interfaces/track.interface';
+import type { Track, UpdateTrackDto } from '@/interfaces/track.interface';
 
 export const useTrackStore = defineStore({
   id: 'track',
@@ -11,9 +12,26 @@ export const useTrackStore = defineStore({
     selectedTrackIndex: -1,
     hideTrackIndex: -1,
     tracks: [] as Track[],
+    isNewTrack: false,
+    trackEditing: false,
+    selectedTrack: {} as Track,
+    trackInitialState: '',
+    file: '',
+    fileName: '',
+    creationDate: '',
   }),
   getters: {
     trackList: state => state.tracks,
+    uploadDate: state => state.selectedTrack.uploadAt || new Date(),
+    updateDate: state => state.selectedTrack.updateAt || new Date(),
+    getTrackState: (state): string => {
+      return JSON.stringify({
+        name: state.selectedTrack.name,
+        description: state.selectedTrack.description,
+        isPublic: state.selectedTrack.isPublic,
+        createAt: state.selectedTrack.createAt,
+      });
+    },
   },
   actions: {
     async getAllPublic() {
@@ -54,15 +72,34 @@ export const useTrackStore = defineStore({
         return { ok: false, message: error.response.data.message };
       }
     },
-    async upload(formData: FormData) {
-      const token = await getToken();
-      const track = await trackApi.post('/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      this.tracks.push(track.data as Track);
+    async uploadForm(formData: FormData) {
+      try {
+        const token = await getToken();
+        const track = await trackApi.post('/', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.tracks.push(track.data as Track);
+        this.tracks.sort((a, b) =>
+          a.name.toLocaleUpperCase().localeCompare(b.name.toLocaleUpperCase()),
+        );
+        return { ok: true };
+      } catch (error: any) {
+        return { ok: false, message: error.response.data.message };
+      }
+    },
+    async uploadTrack() {
+      const formData = new FormData();
+      formData.append('name', this.selectedTrack.name.trim());
+      formData.append('description', this.selectedTrack.description.trim());
+      formData.append('userId', getUserId());
+      formData.append('isPublic', this.selectedTrack.isPublic.toString());
+      formData.append('fileName', this.fileName);
+      formData.append('createAt', this.creationDate.toString());
+      formData.append('file', this.file);
+      this.uploadForm(formData);
     },
     async selectTrack(index: number) {
       this.selectedTrackId = this.trackList[index]._id;
@@ -96,6 +133,40 @@ export const useTrackStore = defineStore({
         return { ok: false, message: error.response.data.message };
       }
     },
+    async getTrackById(id: string) {
+      const authStore = useAuthStore();
+      try {
+        if (authStore.isAuthenticated) {
+          const token = await getToken();
+          const path = '/' + id;
+          const { data } = await trackApi.get(path, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          this.selectedTrack = { ...data } as Track;
+          this.creationDate = convertDateToLocaleDateString(new Date(this.selectedTrack.createAt));
+          this.trackInitialState = this.getTrackState;
+        }
+        return { ok: true };
+      } catch (error: any) {
+        console.error('error', error.message);
+        return { ok: false, message: error.response.data.message };
+      }
+    },
+    async updateTrack() {
+      const track: UpdateTrackDto = {
+        name: this.selectedTrack.name.trim(),
+        description: this.selectedTrack.description.trim(),
+        createAt: new Date(this.creationDate),
+        isPublic: this.selectedTrack.isPublic,
+      };
+      const path = '/' + this.selectedTrack._id;
+      const token = await getToken();
+      await trackApi.put(path, track, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      this.isNewTrack = false;
+      this.trackEditing = false;
+    },
     async removeTrackLayer(index: number) {
       this.hideTrackIndex = index;
       this.trackList[index].visible = false;
@@ -104,6 +175,22 @@ export const useTrackStore = defineStore({
         this.selectedTrackId = '';
       }
     },
+    clearTrack() {
+      this.isNewTrack = false;
+      this.trackEditing = false;
+      this.selectedTrack = {} as Track;
+      this.trackInitialState = '';
+      this.file = '';
+      this.fileName = '';
+    },
+    newTrack() {
+      this.isNewTrack = true;
+      this.trackEditing = false;
+      this.selectedTrack = {} as Track;
+      this.creationDate = convertDateToLocaleDateString(new Date());
+      this.selectedTrack.isPublic = false;
+      this.trackInitialState = this.getTrackState;
+    },
   },
 });
 
@@ -111,4 +198,9 @@ async function getToken(): Promise<string> {
   const authStore = useAuthStore();
   const token = await authStore.getToken();
   return token;
+}
+
+function getUserId(): string {
+  const authStore = useAuthStore();
+  return authStore.userId;
 }

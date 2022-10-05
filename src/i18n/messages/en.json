@@ -121,6 +121,52 @@
       "rejectButtonText": "Reject session"
     }
   },
+  "trackView": {
+    "title": "Route Management",
+    "addButton": {
+      "tooltip": "Add a new route"
+    },
+    "trackList": {
+      "title": "Route List",
+      "noDescription": "No description"
+    },
+    "trackCard": {
+      "title": "Route Card",
+      "selectTrack": "Select a route from the list or click the button to add a new one!",
+      "id": "Route ID",
+      "public": "Public Route",
+      "name": "Name",
+      "description": "Description",
+      "uploadAt": "Upload date",
+      "createAt": "Creation date",
+      "updateAt": "Update date",
+      "save": "Save",
+      "uploadNewTrack": "Upload new route",
+      "cancel": "Cancel",
+      "cancellation": {
+        "title": "Are you sure you want to cancel the changes made?",
+        "text": "Changes made to the route will be lost",
+        "confirmButtonText": "Yes, abandon changes!",
+        "cancelButtonText": "Cancel"
+      },
+      "errorMsg": {
+        "nameRequired": "Name is needed",
+        "nameMinLength": "Name must be at least 3 characters long"
+      },
+      "formValidation": {
+        "errorTitle": "Error in the form",
+        "errorText": "Check the errors in the form"
+      },
+      "trackUpload": {
+        "uploadOk": "Route uploaded",
+        "uploadError": "Route upload error"
+      },
+      "trackUpdate": {
+        "updateOk": "Route is updated",
+        "updateError": "Error modifying the route"
+      }      
+    }
+  },
   "resetView": {
     "title": "Reset Passwrod",
     "password": "New Password",

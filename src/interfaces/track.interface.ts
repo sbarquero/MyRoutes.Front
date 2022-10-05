@@ -8,6 +8,14 @@ export interface Track {
   isPublic: boolean;
   createAt: Date;
   updateAt: Date;
+  uploadAt: Date;
   geojsonData: FeatureCollection<Geometry, GeoJsonProperties>;
   visible: boolean;
+}
+
+export interface UpdateTrackDto {
+  name: string;
+  description: string;
+  isPublic: boolean;
+  createAt: Date;
 }
