@@ -116,20 +116,20 @@ function handleFileUpload(event: any) {
 
 const onTrackUpload = async () => {
   const formData = new FormData();
-  formData.append('name', state.name);
-  formData.append('description', state.description);
+  formData.append('name', state.name.trim());
+  formData.append('description', state.description.trim());
   formData.append('userId', authStore.userId);
   formData.append('isPublic', state.isPublic.toString());
   formData.append('fileName', state.fileName);
   formData.append('createAt', state.createAt.toString());
   formData.append('file', state.file);
-  try {
-    trackStore.upload(formData);
+  var response = await trackStore.uploadForm(formData);
 
+  if (response.ok) {
     showOk(t('homeView.sliderBox.trackUpload.uploadOk'), state.fileName);
     initializeForm();
-  } catch (error: any) {
-    showError(t('homeView.sliderBox.trackUpload.uploadError'), error);
+  } else {
+    showError(t('homeView.sliderBox.trackUpload.uploadError'), response.message);
   }
 };
 
