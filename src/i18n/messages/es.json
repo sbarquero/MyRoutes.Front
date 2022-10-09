@@ -143,6 +143,7 @@
       "save": "Guardar",
       "uploadNewTrack": "Subir nueva ruta",
       "cancel": "Cancelar",
+      "delete": "Borrar",
       "cancellation": {
         "title": "¿Seguro que desea cancelar los cambios realizados?",
         "text": "Se perderán los cambios realizados a la ruta",
@@ -164,7 +165,13 @@
       "trackUpdate": {
         "updateOk": "Ruta modificada",
         "updateError": "Error al modificar la ruta"
-      }      
+      },
+      "trackDelete": {
+        "deleteQuestion": "¿Seguro que desea borrar la ruta?",
+        "confirmDeleteButton": "Sí, borrar ruta!",
+        "cancelDeleteButton": "Cancelar",
+        "deleteSuccess": "Ruta borrada correctamente"
+      }
     }
   },
   "resetView": {

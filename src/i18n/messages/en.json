@@ -143,6 +143,7 @@
       "save": "Save",
       "uploadNewTrack": "Upload new route",
       "cancel": "Cancel",
+      "delete": "Delete",
       "cancellation": {
         "title": "Are you sure you want to cancel the changes made?",
         "text": "Changes made to the route will be lost",
@@ -164,7 +165,13 @@
       "trackUpdate": {
         "updateOk": "Route is updated",
         "updateError": "Error modifying the route"
-      }      
+      },
+      "trackDelete": {
+        "deleteQuestion": "Are you sure you want to delete the route?",
+        "confirmDeleteButton": "Yes, delete route!",
+        "cancelDeleteButton": "Cancel",
+        "deleteSuccess": "Route deleted successfully"
+      }
     }
   },
   "resetView": {

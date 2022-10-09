@@ -10,25 +10,24 @@
     >
       <!-- File Upload -->
       <div v-if="trackStore.isNewTrack" class="col-12 col-lg-9">
-        <div class="row">
-          <div class="col-4">
-            <!-- Select file button -->
-            <label class="btn btn-primary" for="file">
-              {{ t('homeView.sliderBox.trackUpload.selectFile') }}
-            </label>
-            <!-- File Input not visible -->
-            <input
-              type="file"
-              accept=".kml"
-              id="file"
-              class="d-none"
-              name="file"
-              @change="handleFileUpload($event)"
-            />
-          </div>
-          <div v-if="trackStore.fileName" id="file-name" class="col-8 text-primary my-auto ps-0">
+        <div class="d-flex align-items-center">
+          <!-- Select file button -->
+          <label class="btn btn-primary" for="file">
+            <IconSelectFile class="me-1" />
+            {{ t('homeView.sliderBox.trackUpload.selectFile') }}
+          </label>
+          <span v-if="trackStore.fileName" id="file-name" class="text-primary py-auto ps-3">
             {{ trackStore.fileName }}
-          </div>
+          </span>
+          <!-- File Input not visible -->
+          <input
+            type="file"
+            accept=".kml"
+            id="file"
+            class="d-none"
+            name="file"
+            @change="handleFileUpload($event)"
+          />
         </div>
       </div>
       <!-- Track Id -->
@@ -49,8 +48,8 @@
         <div class="col-0 col-lg-5"></div>
       </div>
       <!-- Public -->
-      <div class="col-12 col-lg-3 my-auto">
-        <div class="form-check my-auto d-flex justify-content-end">
+      <div class="col-12 col-lg-3 d-flex justify-content-end align-items-center">
+        <div class="form-check">
           <input
             class="form-check-input"
             id="isPublic"
@@ -135,30 +134,46 @@
           <label for="updateAt">{{ t('trackView.trackCard.updateAt') }}</label>
         </div>
       </div>
-      <!-- Save & cancel buttons -->
-      <div class="mt-3">
-        <!-- Save modified track button -->
-        <button
-          v-if="!trackStore.isNewTrack"
-          @click="onUpdateTrack"
-          type="button"
-          class="btn btn-primary"
-        >
-          {{ t('trackView.trackCard.save') }}
-        </button>
-        <!-- Upload new track button -->
-        <button
-          v-if="trackStore.isNewTrack"
-          @click="onTrackUpload"
-          :disabled="trackStore.file === ''"
-          type="button"
-          class="btn btn-primary"
-        >
-          {{ t('trackView.trackCard.uploadNewTrack') }}
-        </button>
-        <button @click="onCancelTrack" type="button" class="btn btn-light border-primary ms-3">
-          {{ t('trackView.trackCard.cancel') }}
-        </button>
+      <div class="d-flex justify-content-between mt-3">
+        <!-- Delete button -->
+        <div>
+          <button
+            v-if="!trackStore.isNewTrack"
+            @click="onDeleteTrack"
+            type="button"
+            class="btn btn-danger"
+            :title="t('trackView.trackCard.delete')"
+          >
+            <IconDelete />
+          </button>
+        </div>
+        <!-- Save/Upload & cancel buttons -->
+        <div>
+          <!-- Save modified track button -->
+          <button
+            v-if="!trackStore.isNewTrack"
+            @click="onUpdateTrack"
+            type="button"
+            class="btn btn-primary"
+          >
+            <IconSave class="me-1" />
+            {{ t('trackView.trackCard.save') }}
+          </button>
+          <!-- Upload new track button -->
+          <button
+            v-if="trackStore.isNewTrack"
+            @click="onTrackUpload"
+            :disabled="trackStore.file === ''"
+            type="button"
+            class="btn btn-primary"
+          >
+            <IconUpload class="me-1" />
+            {{ t('trackView.trackCard.uploadNewTrack') }}
+          </button>
+          <button @click="onCancelTrack" type="button" class="btn btn-light border-primary ms-3">
+            {{ t('trackView.trackCard.cancel') }}
+          </button>
+        </div>
       </div>
     </form>
   </div>
@@ -178,6 +193,10 @@ import { convertDateToLocaleDateString } from '@/utils/date';
 import { showError, showOk } from '@/utils/messages';
 import { useAuthStore } from '@/stores/authStore';
 import { useTrackStore } from '@/stores/trackStore';
+import IconDelete from '../icons/IconDelete.vue';
+import IconSave from '../icons/IconSave.vue';
+import IconSelectFile from '../icons/IconSelectFile.vue';
+import IconUpload from '../icons/IconUpload.vue';
 
 const { t, d } = useI18n();
 
@@ -229,7 +248,6 @@ const onUpdateTrack = async (): Promise<void> => {
   try {
     await trackStore.updateTrack();
     showOk(t('trackView.trackCard.trackUpdate.updateOk'), trackStore.fileName);
-    console.log('onUpdateTrac');
     await trackStore.getTrackListByUserId(authStore.userId);
     initializeForm();
   } catch (error: Error) {
@@ -243,6 +261,30 @@ const onCancelTrack = (): void => {
   } else {
     initializeForm();
   }
+};
+
+const onDeleteTrack = async (): Promise<void> => {
+  Swal.fire({
+    title: t('homeView.sliderBox.trackList.deleteQuestion'),
+    text: selectedTrack.value.name,
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: t('homeView.sliderBox.trackList.confirmDeleteButton'),
+    cancelButtonText: t('homeView.sliderBox.trackList.cancelDeleteButton'),
+  }).then(async result => {
+    if (result.isConfirmed) {
+      const result = await trackStore.deleteById(selectedTrack.value._id);
+      trackStore.getTrackListByUserId(authStore.userId);
+      initializeForm();
+      if (result.ok) {
+        showOk(t('homeView.sliderBox.trackList.deleteSuccess'));
+      } else {
+        showError(result.message);
+      }
+    }
+  });
 };
 
 const trackHasChanged = (): boolean => {
