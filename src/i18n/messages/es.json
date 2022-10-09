@@ -141,6 +141,7 @@
       "createAt": "Fecha creación",
       "updateAt": "Última actualización",
       "save": "Guardar",
+      "selectFile": "Seleccionar fichero",
       "uploadNewTrack": "Subir nueva ruta",
       "cancel": "Cancelar",
       "delete": "Borrar",
@@ -221,11 +222,6 @@
         "uploadError": "Error en la subida de la ruta"
       },
       "trackList":{
-        "deleteQuestion": "¿Seguro que desea borrar la ruta?",
-        "confirmDeleteButton": "Sí, borrar ruta!",
-        "cancelDeleteButton": "Cancelar",
-        "deleteSuccess": "Ruta borrada correctamente",
-        "deleteButton": "Borra ruta",
         "visibleButton": "Ruta visible",
         "noVisibleButton": "Ruta no visible"
       }

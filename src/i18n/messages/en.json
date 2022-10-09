@@ -141,6 +141,7 @@
       "createAt": "Creation date",
       "updateAt": "Update date",
       "save": "Save",
+      "selectFile": "Select file",
       "uploadNewTrack": "Upload new route",
       "cancel": "Cancel",
       "delete": "Delete",
@@ -221,11 +222,6 @@
         "uploadError": "Route upload error"
       },
       "trackList":{
-        "deleteQuestion": "Are you sure you want to delete the route?",
-        "confirmDeleteButton": "Yes, delete route!",
-        "cancelDeleteButton": "Cancel",
-        "deleteSuccess": "Route deleted successfully",
-        "deleteButton": "Delete route",
         "visibleButton": "Visible route",
         "noVisibleButton": "No visible route"
       }

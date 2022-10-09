@@ -14,7 +14,7 @@
           <!-- Select file button -->
           <label class="btn btn-primary" for="file">
             <IconSelectFile class="me-1" />
-            {{ t('homeView.sliderBox.trackUpload.selectFile') }}
+            {{ t('trackView.trackCard.selectFile') }}
           </label>
           <span v-if="trackStore.fileName" id="file-name" class="text-primary py-auto ps-3">
             {{ trackStore.fileName }}
@@ -265,21 +265,21 @@ const onCancelTrack = (): void => {
 
 const onDeleteTrack = async (): Promise<void> => {
   Swal.fire({
-    title: t('homeView.sliderBox.trackList.deleteQuestion'),
+    title: t('trackView.trackCard.trackDelete.deleteQuestion'),
     text: selectedTrack.value.name,
     icon: 'question',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#3085d6',
-    confirmButtonText: t('homeView.sliderBox.trackList.confirmDeleteButton'),
-    cancelButtonText: t('homeView.sliderBox.trackList.cancelDeleteButton'),
+    confirmButtonText: t('trackView.trackCard.trackDelete.confirmDeleteButton'),
+    cancelButtonText: t('trackView.trackCard.trackDelete.cancelDeleteButton'),
   }).then(async result => {
     if (result.isConfirmed) {
       const result = await trackStore.deleteById(selectedTrack.value._id);
       trackStore.getTrackListByUserId(authStore.userId);
       initializeForm();
       if (result.ok) {
-        showOk(t('homeView.sliderBox.trackList.deleteSuccess'));
+        showOk(t('trackView.trackCard.trackDelete.deleteSuccess'));
       } else {
         showError(result.message);
       }
