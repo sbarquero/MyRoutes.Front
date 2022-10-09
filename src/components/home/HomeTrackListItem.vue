@@ -1,14 +1,17 @@
 <template>
-  <div class="track" :class="props.track._id == trackStore.selectedTrackId ? 'track-selected' : ''">
-    <div
-      :title="t('homeView.sliderBox.trackList.noVisibleButton')"
-      class="track-visible selectable"
-    >
-      <IconVisible class="icon" v-if="props.track.visible" @click="hideTrack" />
-      <IconNoVisible class="icon" v-else @click="showTrack" />
-    </div>
-    <div class="track-name selectable" @click="onClickTrack">
-      {{ props.track.name }}
+  <div
+    class="list-group-item"
+    @click="onClickTrack"
+    :class="props.track._id == trackStore.selectedTrackId ? 'track-selected' : ''"
+  >
+    <div class="track-item">
+      <div :title="t('homeView.sliderBox.trackList.noVisibleButton')" class="track-visible">
+        <IconVisible class="icon" v-if="props.track.visible" @click="hideTrack" />
+        <IconNoVisible class="icon no-visible" v-else @click="showTrack" />
+      </div>
+      <div class="track-name">
+        {{ props.track.name }}
+      </div>
     </div>
   </div>
 </template>
@@ -29,12 +32,14 @@ const props = defineProps({
   index: { type: Number, required: true },
 });
 
-async function showTrack() {
+async function showTrack(event: Event) {
   await trackStore.selectTrack(props.index);
+  event.stopPropagation();
 }
 
-async function hideTrack() {
+async function hideTrack(event: Event) {
   await trackStore.removeTrackLayer(props.index);
+  event.stopPropagation();
 }
 
 async function onClickTrack(): Promise<void> {
@@ -43,41 +48,44 @@ async function onClickTrack(): Promise<void> {
 </script>
 
 <style lang="scss" scoped>
-.selectable {
-  border-radius: 5px;
+div.list-group-item {
+  border-color: var(--primary-color-50);
+  border-left-width: 8px;
+  color: var(--color-text);
+  cursor: pointer;
   padding: 8px;
+  padding-right: 0;
+  user-select: none;
   &:hover {
-    cursor: pointer;
+    background-color: var(--primary-color-10);
   }
 }
-.track {
-  border-bottom: 1px solid #ccc;
-  border-left: solid 5px transparent;
+.track-item {
   display: flex;
-  padding: 5px 0;
 }
-
 .track-selected {
-  border-left: solid 5px #888;
+  background-color: var(--primary-color-10);
+  border-left: solid 8px var(--primary-color) !important;
+  color: var(--primary-color);
 }
-
-.track-visible:hover {
-  background-color: #d0d0d0;
-}
-
 .track-name {
-  display: inline-block;
   overflow: hidden;
+  padding: 8px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: calc(100% - 45px);
+}
+.icon {
+  color: var(--primary-color);
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 8px;
   &:hover {
-    background-color: #d0d0d0;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: #ffffff;
   }
 }
-
-.icon {
-  height: 20px;
-  width: 20px;
+.no-visible {
+  color: var(--primary-color-50);
 }
 </style>

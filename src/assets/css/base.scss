@@ -7,9 +7,13 @@
   // Primary color
   --primary-color: rgba(25, 135, 84);
   --primary-color-10: rgba(25, 135, 84, 0.1);
+  --primary-color-15: rgba(25, 135, 84, 0.15);
   --primary-color-25: rgba(25, 135, 84, 0.25);
   --primary-color-50: rgba(25, 135, 84, 0.5);
   --primary-color-75: rgba(25, 135, 84, 0.75);
+
+  // Secondary color
+  --secondary-color: rgb(223, 208, 73);
 
   // Option button
   --btn-background-color: rgba(255, 255, 255, 0.7);
@@ -35,6 +39,8 @@
   // List item
   --list-item-background-color-hover: rgb(234, 249, 242);
 
+  // SliderBox
+  --slider-box-background-color: 232, 239, 234;
 
 }
 

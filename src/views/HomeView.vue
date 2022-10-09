@@ -2,7 +2,7 @@
   <MapView />
   <SliderBox :visible="false">
     <!-- Title -->
-    <h4 class="m-1 mb-4">{{ t('homeView.routes') }}</h4>
+    <h4 class="title py-1 px-3 mb-4">{{ t('homeView.routes') }}</h4>
     <!-- Accordion -->
     <div class="accordion" id="accordionRoute">
       <!-- Upload file accordion element -->
@@ -39,7 +39,7 @@
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#collapseTwo"
-            aria-expanded="false"
+            aria-expanded="true"
             aria-controls="collapseTwo"
           >
             <IconList class="icon" />
@@ -77,9 +77,28 @@ const { t } = useI18n();
 const authStore = useAuthStore();
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .icon {
   height: 24px;
   width: 24px;
+}
+.title {
+  background-color: rgba($color: #fff, $alpha: 0.75) !important;
+  border-radius: 0.25rem;
+}
+.accordion {
+  border-radius: 0.25rem !important;
+}
+.accordion-item {
+  background-color: #fff;
+  border: solid 1px var(--primary-color-50);
+  color: var(--primary-color);
+}
+.accordion-button {
+  background-color: var(--primary-color-15);
+}
+.list-group {
+  border: 0;
+  border-radius: 0rem;
 }
 </style>

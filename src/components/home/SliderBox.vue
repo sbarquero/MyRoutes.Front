@@ -57,7 +57,7 @@ const switchVisibility = () => (isVisible.value = !isVisible.value);
   transition-duration: 0.5s;
   z-index: 3;
   &_content {
-    background-color: #ffffff;
+    background-color: rgba($color: var(--slider-box-background-color), $alpha: 0.75);
     border-radius: 0 5px 5px 0;
     box-shadow: 0 0 3px 4px rgba($color: #000000, $alpha: 0.3);
     float: left;
@@ -67,7 +67,7 @@ const switchVisibility = () => (isVisible.value = !isVisible.value);
     width: 350px;
   }
   &_toggle {
-    background-color: #ffffff;
+    background-color: rgba($color: var(--slider-box-background-color), $alpha: 1);
     border-radius: 0 5px 5px 0;
     box-shadow: 4px 0 2px 2px rgba($color: #000000, $alpha: 0.3);
     cursor: pointer;

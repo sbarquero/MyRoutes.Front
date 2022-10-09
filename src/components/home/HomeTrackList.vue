@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-0">
+  <div class="list-group">
     <HomeTrackListItem
       v-for="(track, index) in tracks"
       :key="track._id"
@@ -40,4 +40,9 @@ watch(userId, async () => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.list-group {
+  height: 66vh;
+  overflow-y: auto;
+}
+</style>
