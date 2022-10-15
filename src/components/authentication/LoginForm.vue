@@ -64,8 +64,9 @@ async function onLogin() {
 
   if (!ok) {
     showError(t('loginForm.loginError'), message);
+  } else {
+    showOk(t('loginForm.loginOk'), message);
   }
-  showOk(t('loginForm.loginOk'), message);
 
   const currentRoute = router.currentRoute.value.name;
   if (currentRoute === 'not-authorized') {
