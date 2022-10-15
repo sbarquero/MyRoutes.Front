@@ -1,10 +1,9 @@
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    enable-background="new 0 0 18 18"
     height="24px"
-    viewBox="2 1 18 18"
     width="24px"
+    viewBox="2 1 18 18"
     fill="currentColor"
   >
     <g><rect fill="none" height="18" width="18" x="0" /></g>

@@ -128,7 +128,9 @@
     },
     "trackList": {
       "title": "Route List",
-      "noDescription": "No description"
+      "noDescription": "No description",
+      "public": "Public route",
+      "readOnly": "Read only route"
     },
     "trackCard": {
       "title": "Route Card",
@@ -144,7 +146,9 @@
       "selectFile": "Select file",
       "uploadNewTrack": "Upload new route",
       "cancel": "Cancel",
+      "exit": "Exit",
       "delete": "Delete",
+      "anotherUserTrack": "Public route of another user!",
       "cancellation": {
         "title": "Are you sure you want to cancel the changes made?",
         "text": "Changes made to the route will be lost",
@@ -223,7 +227,8 @@
       },
       "trackList":{
         "visibleButton": "Visible route",
-        "noVisibleButton": "No visible route"
+        "noVisibleButton": "No visible route",
+        "public": "Public route"
       }
     }
   }

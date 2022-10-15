@@ -54,7 +54,7 @@
             class="form-check-input"
             id="isPublic"
             type="checkbox"
-            :disabled="!trackStore.trackEditing"
+            :disabled="isFormEditionDisabled()"
             v-model="selectedTrack.isPublic"
           />
           <label for="isPublic" class="form-check-label ms-2">
@@ -71,7 +71,7 @@
             id="routeName"
             type="text"
             v-model="selectedTrack.name"
-            :disabled="!trackStore.trackEditing"
+            :disabled="isFormEditionDisabled()"
             :class="v$.name.$error ? 'is-invalid' : ''"
             :placeholder="t('trackView.trackCard.name')"
             @blur="v$.name.$touch"
@@ -91,7 +91,7 @@
               id="description"
               rows="5"
               v-model="selectedTrack.description"
-              :disabled="!trackStore.trackEditing"
+              :disabled="isFormEditionDisabled()"
               :placeholder="t('trackView.trackCard.description')"
             />
             <label for="description">{{ t('trackView.trackCard.description') }}</label>
@@ -106,7 +106,7 @@
             class="form-control"
             id="createAt"
             type="datetime-local"
-            :disabled="!trackStore.trackEditing"
+            :disabled="isFormEditionDisabled()"
             v-model="trackStore.creationDate"
           />
           <label for="createAt">{{ t('trackView.trackCard.createAt') }}</label>
@@ -134,7 +134,10 @@
           <label for="updateAt">{{ t('trackView.trackCard.updateAt') }}</label>
         </div>
       </div>
-      <div class="d-flex justify-content-between mt-3">
+      <div
+        v-if="selectedTrack.userId === authStore.userId || trackStore.isNewTrack"
+        class="d-flex justify-content-between mt-3"
+      >
         <!-- Delete button -->
         <div>
           <button
@@ -142,6 +145,7 @@
             @click="onDeleteTrack"
             type="button"
             class="btn btn-danger"
+            :disabled="isFormEditionDisabled()"
             :title="t('trackView.trackCard.delete')"
           >
             <IconDelete />
@@ -155,6 +159,7 @@
             @click="onUpdateTrack"
             type="button"
             class="btn btn-primary"
+            :disabled="isFormEditionDisabled()"
           >
             <IconSave class="me-1" />
             {{ t('trackView.trackCard.save') }}
@@ -172,6 +177,18 @@
           </button>
           <button @click="onCancelTrack" type="button" class="btn btn-light border-primary ms-3">
             {{ t('trackView.trackCard.cancel') }}
+          </button>
+        </div>
+      </div>
+      <!-- Exit button if track is readonly -->
+      <div v-else class="d-flex justify-content-between">
+        <p class="alert alert-info fw-bold px-5 py-2">
+          {{ t('trackView.trackCard.anotherUserTrack') }}
+        </p>
+        <div>
+          <button @click="onCancelTrack" type="button" class="btn btn-primary">
+            <IconDoor class="door-icon me-1" />
+            {{ t('trackView.trackCard.exit') }}
           </button>
         </div>
       </div>
@@ -197,6 +214,7 @@ import IconDelete from '../icons/IconDelete.vue';
 import IconSave from '../icons/IconSave.vue';
 import IconSelectFile from '../icons/IconSelectFile.vue';
 import IconUpload from '../icons/IconUpload.vue';
+import IconDoor from '../icons/IconDoor.vue';
 
 const { t, d } = useI18n();
 
@@ -238,7 +256,7 @@ const onTrackUpload = async (): Promise<void> => {
     trackStore.uploadTrack();
     showOk(t('trackView.trackCard.trackUpload.uploadOk'), trackStore.fileName);
     initializeForm();
-  } catch (error: Error) {
+  } catch (error: any) {
     showError(t('trackView.trackCard.trackUpload.uploadError'), error);
   }
 };
@@ -250,7 +268,7 @@ const onUpdateTrack = async (): Promise<void> => {
     showOk(t('trackView.trackCard.trackUpdate.updateOk'), trackStore.fileName);
     await trackStore.getTrackListByUserId(authStore.userId);
     initializeForm();
-  } catch (error: Error) {
+  } catch (error: any) {
     showError(t('trackView.trackCard.trackUpdate.updateError'), error.message);
   }
 };
@@ -328,6 +346,10 @@ async function isValidInput(): Promise<boolean> {
   }
   return valid;
 }
+
+function isFormEditionDisabled() {
+  return !trackStore.trackEditing || (selectedTrack.value.userId != authStore.userId && !trackStore.isNewTrack);
+}
 </script>
 
 <style scoped>
@@ -340,5 +362,10 @@ async function isValidInput(): Promise<boolean> {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.door-icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 </style>

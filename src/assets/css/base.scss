@@ -5,6 +5,7 @@
   --color-text: #31302e;
 
   // Primary color
+  --primary-color: #198754;
   --primary-color: rgba(25, 135, 84);
   --primary-color-10: rgba(25, 135, 84, 0.1);
   --primary-color-15: rgba(25, 135, 84, 0.15);
@@ -13,7 +14,10 @@
   --primary-color-75: rgba(25, 135, 84, 0.75);
 
   // Secondary color
-  --secondary-color: rgb(223, 208, 73);
+  --secondary-color: #0079DD;
+
+  // Info color
+  --info-color: #D1FAE0;
 
   // Option button
   --btn-background-color: rgba(255, 255, 255, 0.7);

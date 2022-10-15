@@ -12,6 +12,13 @@
       <div class="track-name">
         {{ props.track.name }}
       </div>
+      <div
+        v-if="props.track.isPublic"
+        class="pill"
+        :title="t('homeView.sliderBox.trackList.public')"
+      >
+        <span>P</span>
+      </div>
     </div>
   </div>
 </template>
@@ -87,5 +94,19 @@ div.list-group-item {
 }
 .no-visible {
   color: var(--primary-color-50);
+}
+.pill {
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  height: 1.1rem;
+  padding-top: 0.0625rem;
+  position: absolute;
+  right: 0.1875rem;
+  text-align: center;
+  top: 0.1875rem;
+  width: 1.1rem;
 }
 </style>

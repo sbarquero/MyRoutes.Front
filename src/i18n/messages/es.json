@@ -128,7 +128,9 @@
     },
     "trackList": {
       "title": "Listado de Rutas",
-      "noDescription": "Sin descripción"
+      "noDescription": "Sin descripción",
+      "public": "Ruta Pública",
+      "readOnly": "Ruta de solo lectura"
     },
     "trackCard": {
       "title": "Ficha de la Ruta",
@@ -144,7 +146,9 @@
       "selectFile": "Seleccionar fichero",
       "uploadNewTrack": "Subir nueva ruta",
       "cancel": "Cancelar",
+      "exit": "Salir",
       "delete": "Borrar",
+      "anotherUserTrack": "¡Ruta pública de otro usuario!",
       "cancellation": {
         "title": "¿Seguro que desea cancelar los cambios realizados?",
         "text": "Se perderán los cambios realizados a la ruta",
@@ -223,7 +227,8 @@
       },
       "trackList":{
         "visibleButton": "Ruta visible",
-        "noVisibleButton": "Ruta no visible"
+        "noVisibleButton": "Ruta no visible",
+        "public": "Ruta Pública"
       }
     }
   }

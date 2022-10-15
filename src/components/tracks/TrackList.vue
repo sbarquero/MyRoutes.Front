@@ -2,10 +2,9 @@
   <h3 class="mb-4 ms-1">{{ t('trackView.trackList.title') }}</h3>
   <div class="list-group">
     <TrackListItem
-      v-for="(track, index) in tracks"
+      v-for="track in tracks"
       :key="track._id"
       :track="track"
-      :index="index"
       @click="onTrackSelect(track._id)"
       :class="
         track._id === trackStore.selectedTrack._id
@@ -14,15 +13,7 @@
           ? 'editing'
           : ''
       "
-    >
-      <template #name>
-        <span :title="track.name">{{ track.name }}</span>
-      </template>
-      <template v-if="track.description" #description>
-        <span :title="track.description">{{ track.description }}</span>
-      </template>
-      <template v-else #description>{{ t('trackView.trackList.noDescription') }}</template>
-    </TrackListItem>
+    />
   </div>
 </template>
 

@@ -11,8 +11,8 @@
 
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
-
 import { storeToRefs } from 'pinia';
+
 import { useAuthStore } from '@/stores/authStore';
 import { useTrackStore } from '@/stores/trackStore';
 import HomeTrackListItem from './HomeTrackListItem.vue';
