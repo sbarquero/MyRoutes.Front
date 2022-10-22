@@ -69,11 +69,7 @@
               <hr class="dropdown-divider" />
             </li>
             <li>
-              <RouterLink
-                :to="{ name: 'users' }"
-                class="dropdown-item"
-                :class="!auth.isAdmin ? 'disabled' : ''"
-              >
+              <RouterLink :to="{ name: 'users' }" class="dropdown-item" v-if="auth.isAdmin">
                 <PeopleIcon class="icon" />
                 <span class="menu-label">{{ t('navBar.usersManagement') }}</span>
               </RouterLink>
