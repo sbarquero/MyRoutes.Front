@@ -117,6 +117,7 @@ import Swal from 'sweetalert2';
 
 import { showError, showOk } from '@/utils/messages';
 import { useAuthStore } from '../stores/authStore';
+import { useTrackStore } from '@/stores/trackStore';
 import { useUserStore } from '@/stores/userStore';
 import GearIcon from './icons/IconGear.vue';
 import InfoIcon from './icons/IconInfo.vue';
@@ -132,6 +133,7 @@ import router from '../router';
 
 const { t } = useI18n();
 const auth = useAuthStore();
+const trackStore = useTrackStore();
 const userStore = useUserStore();
 
 async function onLogout() {
@@ -148,12 +150,14 @@ async function onLogout() {
     if (result.isConfirmed) {
       const result = await auth.logout();
       userStore.$reset();
+      trackStore.$reset();
       if (result.ok) {
         showOk(t('navBar.onLogout.success.title'));
       } else {
         showError(result.message);
       }
-      router.push({ name: 'home' });
+      await router.push({ name: 'home' });
+      router.go(0);
     }
   });
 }
