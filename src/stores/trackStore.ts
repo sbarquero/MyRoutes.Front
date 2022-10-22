@@ -111,6 +111,11 @@ export const useTrackStore = defineStore({
       this.selectedTrackIndex = index;
       this.hideTrackIndex = -1;
     },
+    unselectTrack() {
+      this.selectedTrack = {} as Track;
+      this.selectedTrackId = '';
+      this.selectedTrackIndex = -1;
+    },
     async getTrackByListIndex(index: number) {
       const authStore = useAuthStore();
       try {

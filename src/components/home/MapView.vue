@@ -17,13 +17,14 @@
 <script setup lang="ts">
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
 import { useMapStore } from '@/stores/mapStore';
 import { useTrackStore } from '@/stores/trackStore';
 import mapsProviders from '@/components/home/mapsProviders';
+import type { Track } from '@/interfaces/track.interface';
 
 const { t } = useI18n();
 const { initialLocation, isUserLocationReady, userLocation, zoom } = storeToRefs(useMapStore());
@@ -40,6 +41,11 @@ onMounted(async () => {
   mapStore.getUserLocation();
   initMap();
   geojsonLayers = [];
+});
+
+onUnmounted(() => {
+  trackStore.unselectTrack();
+  map.remove();
 });
 
 watch(selectedTrackIndex, async () => {
