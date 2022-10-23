@@ -1,5 +1,5 @@
 <template>
-  <button type="button" :title="tooltip" @click="onClickHandler">
+  <button type="button" :title="tooltip">
     <slot></slot>
   </button>
 </template>
@@ -11,10 +11,6 @@ export default {
     tooltip: {
       type: String,
       default: '',
-    },
-    onClickHandler: {
-      type: Function,
-      // required: true
     },
   },
 };

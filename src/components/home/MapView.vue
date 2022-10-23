@@ -16,19 +16,18 @@
 
 <script setup lang="ts">
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
+import L from 'leaflet';
 
-import { useMapStore } from '@/stores/mapStore';
+import { useGlobalStore } from '@/stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
 import mapsProviders from '@/components/home/mapsProviders';
-import type { Track } from '@/interfaces/track.interface';
 
 const { t } = useI18n();
-const { initialLocation, isUserLocationReady, userLocation, zoom } = storeToRefs(useMapStore());
-const mapStore = useMapStore();
+const { initialLocation, isUserLocationReady, userLocation, zoom } = storeToRefs(useGlobalStore());
+const globalStore = useGlobalStore();
 const mapElement = ref<HTMLDivElement>();
 const trackStore = useTrackStore();
 const { hideTrackIndex, selectedTrackIndex } = storeToRefs(useTrackStore());
@@ -38,7 +37,7 @@ let map: L.Map;
 let geojsonLayers: L.GeoJSON[];
 
 onMounted(async () => {
-  mapStore.getUserLocation();
+  globalStore.getUserLocation();
   initMap();
   geojsonLayers = [];
 });
@@ -76,7 +75,7 @@ watch(userLocation, () => {
       </div>`,
     )
     .openPopup();
-  map.flyTo(userLocation.value, 15);
+  map.flyTo(userLocation.value, 11);
 });
 
 async function initMap() {

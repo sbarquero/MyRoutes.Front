@@ -1,14 +1,14 @@
 import { defineStore } from 'pinia';
 
-export interface MapState {
+export interface GlobalState {
   userLocation: [number, number]; // lat, lng
   initialLocation: [number, number]; // lat, lng
   zoom: number;
 }
 
-export const useMapStore = defineStore({
+export const useGlobalStore = defineStore({
   id: 'map',
-  state: (): MapState => ({
+  state: (): GlobalState => ({
     userLocation: [0, 0],
     initialLocation: [40, -4.25],
     zoom: 2.75,
