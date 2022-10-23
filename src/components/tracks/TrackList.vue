@@ -24,12 +24,14 @@ import { useI18n } from 'vue-i18n';
 import { onMounted } from 'vue';
 import { showError } from '@/utils/messages';
 import { useAuthStore } from '@/stores/authStore';
+import { useGlobalStore } from '@/stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
 import TrackListItem from './TrackListItem.vue';
 
 const { t } = useI18n();
 
 const authStore = useAuthStore();
+const globalStore = useGlobalStore();
 const trackStore = useTrackStore();
 const { tracks } = storeToRefs(trackStore);
 
@@ -40,6 +42,7 @@ onMounted(async () => {
 const onTrackSelect = async (id: string) => {
   const response = await trackStore.getTrackById(id);
   trackStore.trackEditing = true;
+  globalStore.isEditing = true;
   if (!response.ok) {
     showError(response.message);
   }

@@ -178,12 +178,14 @@ import Swal from 'sweetalert2';
 import useVuelidate from '@vuelidate/core';
 
 import { showError, showOk } from '@/utils/messages';
+import { useGlobalStore } from '@/stores/globalStore';
 import { useUserStore } from '@/stores/userStore';
 import SessionList from './SessionList.vue';
 
 const { t, d } = useI18n();
 
 const userStore = useUserStore();
+const globalStore = useGlobalStore();
 const { selectedUser } = storeToRefs(userStore);
 
 const state = reactive({
@@ -203,6 +205,8 @@ function initialize() {
   state.confirmPasswordError = false;
   state.confirmPasswordErrorMessage = '';
   userStore.userEditing = false;
+  globalStore.isEditing = false;
+
   userStore.clearUser();
   v$.value.$reset();
 }

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 
 import { convertDateToLocaleDateString } from '@/utils/date';
 import { useAuthStore } from '@/stores/authStore';
+import { useGlobalStore } from './globalStore';
 import trackApi from '@/api/trackApi';
 import type { Track, UpdateTrackDto } from '@/interfaces/track.interface';
 
@@ -158,6 +159,7 @@ export const useTrackStore = defineStore({
       }
     },
     async updateTrack() {
+      const globalStore = useGlobalStore();
       const track: UpdateTrackDto = {
         name: this.selectedTrack.name.trim(),
         description: this.selectedTrack.description.trim(),
@@ -171,6 +173,7 @@ export const useTrackStore = defineStore({
       });
       this.isNewTrack = false;
       this.trackEditing = false;
+      globalStore.isEditing = false;
     },
     async removeTrackLayer(index: number) {
       this.hideTrackIndex = index;
@@ -181,16 +184,20 @@ export const useTrackStore = defineStore({
       }
     },
     clearTrack() {
+      const globalStore = useGlobalStore();
       this.isNewTrack = false;
       this.trackEditing = false;
+      globalStore.isEditing = false;
       this.selectedTrack = {} as Track;
       this.trackInitialState = '';
       this.file = '';
       this.fileName = '';
     },
     newTrack() {
+      const globalStore = useGlobalStore();
       this.isNewTrack = true;
       this.trackEditing = false;
+      globalStore.isEditing = false;
       this.selectedTrack = {} as Track;
       this.creationDate = convertDateToLocaleDateString(new Date());
       this.selectedTrack.isPublic = false;

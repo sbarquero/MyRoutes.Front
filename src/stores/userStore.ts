@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 
-import type { User, UpdateUserDto, CreateUserDto, UserListDto } from '@/interfaces/user.interface';
 import { useAuthStore } from '@/stores/authStore';
+import { useGlobalStore } from './globalStore';
+import type { User, UpdateUserDto, CreateUserDto, UserListDto } from '@/interfaces/user.interface';
 import userApi from '@/api/userApi';
 
 export const useUserStore = defineStore({
@@ -15,7 +16,6 @@ export const useUserStore = defineStore({
   }),
   getters: {
     user: state => state.selectedUser,
-    // isNewUser: state => state.isNewUser,
     createDate: state => state.selectedUser.createAt || new Date(),
     upateDate: state => state.selectedUser.updateAt || new Date(),
     getUserState: (state): string => {
@@ -47,14 +47,18 @@ export const useUserStore = defineStore({
       }
     },
     clearUser() {
+      const globalStore = useGlobalStore();
       this.isNewUser = false;
       this.userEditing = false;
+      globalStore.isEditing = false;
       this.selectedUser = {} as User;
       this.userInitialState = '';
     },
     newUser() {
+      const globalStore = useGlobalStore();
       this.isNewUser = true;
       this.userEditing = true;
+      globalStore.isEditing = true;
       this.selectedUser = {} as User;
       this.selectedUser.active = true;
       this.selectedUser.rol = 'user';
@@ -63,6 +67,7 @@ export const useUserStore = defineStore({
     async createUser() {
       try {
         const authStore = useAuthStore();
+        const globalStore = useGlobalStore();
         const user: CreateUserDto = {
           name: this.selectedUser.name,
           email: this.selectedUser.email,
@@ -77,6 +82,7 @@ export const useUserStore = defineStore({
         });
         this.isNewUser = false;
         this.userEditing = false;
+        globalStore.isEditing = true;
         return { ok: true };
       } catch (error: any) {
         this.clearUser();
@@ -87,6 +93,7 @@ export const useUserStore = defineStore({
     async updateUser() {
       try {
         const authStore = useAuthStore();
+        const globalStore = useGlobalStore();
         const user: UpdateUserDto = {
           name: this.selectedUser.name,
           rol: this.selectedUser.rol,
@@ -100,6 +107,7 @@ export const useUserStore = defineStore({
         });
         this.isNewUser = false;
         this.userEditing = false;
+        globalStore.isEditing = false;
         return { ok: true };
       } catch (error: any) {
         this.clearUser();

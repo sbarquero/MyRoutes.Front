@@ -25,11 +25,13 @@ import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
 import { showError } from '@/utils/messages';
+import { useGlobalStore } from '@/stores/globalStore';
 import { useUserStore } from '@/stores/userStore';
 import UserListItem from './UserListItem.vue';
 
 const { t } = useI18n();
 
+const globalStore = useGlobalStore();
 const userStore = useUserStore();
 const { users } = storeToRefs(userStore);
 
@@ -40,6 +42,7 @@ onMounted(async () => {
 const onUserSelect = async (id: string) => {
   const response = await userStore.getUser(id);
   userStore.userEditing = true;
+  globalStore.isEditing = true;
   if (!response.ok) {
     showError(response.message);
   }

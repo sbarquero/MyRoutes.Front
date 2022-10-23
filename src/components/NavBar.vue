@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-light bg-light">
+  <nav class="navbar navbar-light bg-light" :class="globalStore.isEditing ? 'navbar-disabled' : ''">
     <div class="container-fluid">
       <RouterLink to="/" class="navbar-brand mb-0 h1">{{ t('appName') }}</RouterLink>
       <div class="d-flex">
@@ -108,6 +108,8 @@
       </div>
     </div>
   </nav>
+  <!-- if there is an edit in progress, the navbar will be disabled -->
+  <div v-if="globalStore.isEditing" class="navbar-filter-disabled"></div>
 </template>
 
 <script setup lang="ts">
@@ -117,6 +119,7 @@ import Swal from 'sweetalert2';
 
 import { showError, showOk } from '@/utils/messages';
 import { useAuthStore } from '../stores/authStore';
+import { useGlobalStore } from '../stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
 import { useUserStore } from '@/stores/userStore';
 import GearIcon from './icons/IconGear.vue';
@@ -133,6 +136,7 @@ import router from '../router';
 
 const { t } = useI18n();
 const auth = useAuthStore();
+const globalStore = useGlobalStore();
 const trackStore = useTrackStore();
 const userStore = useUserStore();
 
@@ -170,6 +174,20 @@ async function onLogout() {
   height: 3rem;
   padding: 0.25rem;
   z-index: 3;
+}
+.navbar-disabled {
+  opacity: 0.5;
+}
+
+.navbar-filter-disabled {
+  background-color: var(--navbar-disabled-filter-background-color);
+  cursor: not-allowed;
+  height: 3rem;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 4;
 }
 
 .button {

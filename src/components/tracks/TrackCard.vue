@@ -209,16 +209,18 @@ import useVuelidate from '@vuelidate/core';
 import { convertDateToLocaleDateString } from '@/utils/date';
 import { showError, showOk } from '@/utils/messages';
 import { useAuthStore } from '@/stores/authStore';
+import { useGlobalStore } from '@/stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
 import IconDelete from '../icons/IconDelete.vue';
+import IconDoor from '../icons/IconDoor.vue';
 import IconSave from '../icons/IconSave.vue';
 import IconSelectFile from '../icons/IconSelectFile.vue';
 import IconUpload from '../icons/IconUpload.vue';
-import IconDoor from '../icons/IconDoor.vue';
 
 const { t, d } = useI18n();
 
 const authStore = useAuthStore();
+const globalStore = useGlobalStore();
 const trackStore = useTrackStore();
 const { selectedTrack } = storeToRefs(trackStore);
 
@@ -239,6 +241,7 @@ const v$ = useVuelidate(rules, selectedTrack);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function handleFileUpload(event: any): void {
   trackStore.trackEditing = true;
+  globalStore.isEditing = true;
   trackStore.file = event.target.files[0];
   trackStore.fileName = event.target.files[0].name;
   const date: Date = event.target.files[0].lastModifiedDate;
@@ -348,7 +351,10 @@ async function isValidInput(): Promise<boolean> {
 }
 
 function isFormEditionDisabled() {
-  return !trackStore.trackEditing || (selectedTrack.value.userId != authStore.userId && !trackStore.isNewTrack);
+  return (
+    !trackStore.trackEditing ||
+    (selectedTrack.value.userId != authStore.userId && !trackStore.isNewTrack)
+  );
 }
 </script>
 
