@@ -102,7 +102,6 @@ const state = reactive({
   fileName: '',
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function handleFileUpload(event: any) {
   state.file = event.target.files[0];
   state.fileName = event.target.files[0].name;

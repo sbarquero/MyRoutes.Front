@@ -238,7 +238,6 @@ const rules = {
 
 const v$ = useVuelidate(rules, selectedTrack);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function handleFileUpload(event: any): void {
   trackStore.trackEditing = true;
   globalStore.isEditing = true;
