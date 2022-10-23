@@ -1,7 +1,11 @@
 <template>
   <div class="list-group-item list-group-item-action">
-    <h5 class="ms-1 text-capitalize"><slot name="name"></slot></h5>
-    <h6 class="ms-1 text-lowercase fst-italic"><slot name="email"></slot></h6>
+    <h5 id="user-name" class="ms-1 text-capitalize">
+      <slot name="name"></slot>
+    </h5>
+    <h6 id="user-email" class="ms-1 text-lowercase fst-italic">
+      <slot name="email"></slot>
+    </h6>
   </div>
 </template>
 
@@ -16,5 +20,11 @@ div.list-group-item {
 div:hover {
   cursor: pointer;
   color: var(--color-text);
+}
+#user-name,
+#user-email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
