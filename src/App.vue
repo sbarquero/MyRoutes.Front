@@ -7,7 +7,7 @@
 import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
-import NavBar from './components/NavBar.vue';
+import NavBar from './components/navbar/NavBar.vue';
 
 const auth = useAuthStore();
 
