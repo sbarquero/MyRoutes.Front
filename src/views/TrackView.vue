@@ -21,6 +21,7 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useTrackStore } from '@/stores/trackStore';
@@ -31,6 +32,10 @@ import TrackList from '../components/tracks/TrackList.vue';
 
 const { t } = useI18n();
 const trackStore = useTrackStore();
+
+onMounted(() => {
+  trackStore.$reset();
+});
 
 const onAddTrack = async () => {
   trackStore.newTrack();

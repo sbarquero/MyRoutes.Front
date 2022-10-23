@@ -21,7 +21,9 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
+
 import { useUserStore } from '@/stores/userStore';
 import AddButton from '@/components/shared/AddButton.vue';
 import DefaultContainer from '../components/shared/DefaultContainer.vue';
@@ -30,6 +32,10 @@ import UserList from '../components/users/UserList.vue';
 
 const { t } = useI18n();
 const userStore = useUserStore();
+
+onMounted(() => {
+  userStore.$reset();
+});
 
 const onAddUser = async () => {
   userStore.newUser();
