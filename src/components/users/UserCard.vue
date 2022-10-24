@@ -156,6 +156,7 @@
       <!-- Save & cancel buttons -->
       <div class="mt-3">
         <button @click="onSaveUser" type="button" class="btn btn-primary">
+          <IconSave class="me-1" />
           {{ t('userView.userCard.save') }}
         </button>
         <button @click="onCancelUser" type="button" class="btn btn-light border-primary ms-3">
@@ -180,6 +181,7 @@ import useVuelidate from '@vuelidate/core';
 import { showError, showOk } from '@/utils/messages';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useUserStore } from '@/stores/userStore';
+import IconSave from '../icons/IconSave.vue';
 import SessionList from './SessionList.vue';
 
 const { t, d } = useI18n();
