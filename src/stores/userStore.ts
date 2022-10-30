@@ -2,8 +2,9 @@ import { defineStore } from 'pinia';
 
 import { useAuthStore } from '@/stores/authStore';
 import { useGlobalStore } from './globalStore';
-import type { User, UpdateUserDto, CreateUserDto, UserListDto } from '@/interfaces/user.interface';
+import configurationApi from '@/api/configurationApi';
 import userApi from '@/api/userApi';
+import type { User, UpdateUserDto, CreateUserDto, UserListDto } from '@/interfaces/user.interface';
 
 export const useUserStore = defineStore({
   id: 'user',
@@ -122,6 +123,49 @@ export const useUserStore = defineStore({
         headers: { Authorization: `Bearer ${token}` },
       });
       this.users = response.data;
+    },
+    async getUserConfiguration(id: string) {
+      this.selectedUser._id = id;
+      try {
+        const authStore = useAuthStore();
+        const path = '/' + id;
+        const token = await authStore.getToken();
+        const { data } = await configurationApi.get(path, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        this.selectedUser = { ...data };
+        this.userInitialState = this.getUserState;
+        return { ok: true };
+      } catch (error: any) {
+        this.clearUser();
+        console.error('error', error.message);
+        return { ok: false, message: error.response.data.message };
+      }
+    },
+    async updateUserConfiguration() {
+      try {
+        const authStore = useAuthStore();
+        const globalStore = useGlobalStore();
+        const user: UpdateUserDto = {
+          name: this.selectedUser.name,
+          rol: this.selectedUser.rol,
+          active: this.selectedUser.active,
+          password: this.selectedUser.password == '' ? undefined : this.selectedUser.password,
+        };
+        const path = '/' + this.selectedUser._id;
+        const token = await authStore.getToken();
+        await configurationApi.put(path, user, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        this.isNewUser = false;
+        this.userEditing = false;
+        globalStore.isEditing = false;
+        return { ok: true };
+      } catch (error: any) {
+        this.clearUser();
+        console.error('error', error.message);
+        return { ok: false, message: error.response.data.message };
+      }
     },
   },
 });

@@ -112,11 +112,15 @@
       </div>
       <!-- Save & cancel buttons -->
       <div class="mt-4">
-        <button @click="onSaveUser" type="button" class="btn btn-primary">
+        <button @click="onSaveUserConfiguration" type="button" class="btn btn-primary">
           <IconSave class="me-1" />
           {{ t('configurationView.userConfiguration.save') }}
         </button>
-        <button @click="onCancelUser" type="button" class="btn btn-light border-primary ms-3">
+        <button
+          @click="onCancelUserConfiguration"
+          type="button"
+          class="btn btn-light border-primary ms-3"
+        >
           {{ t('configurationView.userConfiguration.cancel') }}
         </button>
       </div>
@@ -157,7 +161,7 @@ const state = reactive({
 });
 
 onMounted(async () => {
-  const response = await userStore.getUser(authStore.userId);
+  const response = await userStore.getUserConfiguration(authStore.userId);
 
   userStore.userEditing = true;
   globalStore.isEditing = true;
@@ -242,7 +246,7 @@ const validateConfirmPassword = () => {
   }
 };
 
-const onSaveUser = async () => {
+const onSaveUserConfiguration = async () => {
   const validInput = await v$.value.$validate();
   validatePassword();
   validateConfirmPassword();
@@ -253,11 +257,11 @@ const onSaveUser = async () => {
     );
     return;
   }
-  await updateUser();
+  await updateUserConfiguration();
   goHomePage();
 };
 
-const onCancelUser = () => {
+const onCancelUserConfiguration = () => {
   if (userHasChanged()) {
     confirmUserCancellation();
   } else {
@@ -290,9 +294,9 @@ const confirmUserCancellation = () => {
   });
 };
 
-const updateUser = async () => {
+const updateUserConfiguration = async () => {
   userStore.selectedUser.password = state.password;
-  const result = await userStore.updateUser();
+  const result = await userStore.updateUserConfiguration();
   if (result.ok) {
     showOk(
       t('configurationView.userConfiguration.formValidation.updateTitle'),

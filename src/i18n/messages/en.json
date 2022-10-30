@@ -19,7 +19,7 @@
         "nameRequired": "Name is required",
         "nameMinLength": "The name should be at least 3 characters long",
         "passwordRequired": "Password is required",
-        "passwordMinLength": "The password should be at least 3 characters long",
+        "passwordMinLength": "The password should be at least 6 characters long",
         "passwordDifferent": "Passwords are different"
       },
       "formValidation": {
@@ -132,7 +132,7 @@
         "emailRequired": "Email is required",
         "emailValid": "Value is not a valid email address",
         "passwordRequired": "Password is required",
-        "passwordMinLength": "The password should be at least 3 characters long",
+        "passwordMinLength": "The password should be at least 6 characters long",
         "passwordDifferent": "Passwords are different"
       },
       "formValidation": {
