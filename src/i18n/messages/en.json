@@ -4,7 +4,37 @@
   "error": "Error",
   "configurationView": {
     "title": "Configuration",
-    "language": "Language"
+    "language": "Language",
+    "userConfiguration": {
+      "id": "User ID",
+      "email": "Email",
+      "name": "Name",
+      "password": "New Password",
+      "confirmPassword": "Repeat Password",
+      "createAt": "Create at",
+      "updateAt": "Update at",
+      "save": "Save",
+      "cancel": "Cancel",
+      "errorMsg": {
+        "nameRequired": "Name is required",
+        "nameMinLength": "The name should be at least 3 characters long",
+        "passwordRequired": "Password is required",
+        "passwordMinLength": "The password should be at least 3 characters long",
+        "passwordDifferent": "Passwords are different"
+      },
+      "formValidation": {
+        "errorTitle": "Form error",
+        "errorText": "Check the errors in the form",
+        "updateTitle": "Updated",
+        "updateText": "User updated successfully"
+      },
+      "cancellation": {
+        "title": "Are you sure you want to cancel the changes made?",
+        "text": "Changes made to the user will be lost",
+        "confirmButtonText": "Yes, abandon changes!",
+        "cancelButtonText": "Cancel"
+      }
+    }
   },
   "loginForm": {
     "loginError": "Login error",
@@ -47,6 +77,7 @@
     "configuration": "Configuration",
     "about": "About",
     "tooltip": {
+      "changeLanguage": "Change language",
       "login": "Login",
       "logout": "Logout",
       "menu": "Menu"
@@ -82,7 +113,6 @@
       "confirmPassword": "Repeat Password",
       "createAt": "Create at",
       "updateAt": "Update at",
-      "sessions": "Sessions",
       "active": "Active",
       "save": "Save",
       "cancel": "Cancel",
@@ -113,12 +143,6 @@
         "updateTitle": "Updated",
         "updateText": "User updated successfully"
       }
-    },
-    "userSession": {
-      "userId": "User ID",
-      "expireAt": "Sessión expire at",
-      "reject": "Reject",
-      "rejectButtonText": "Reject session"
     }
   },
   "trackView": {
@@ -230,6 +254,14 @@
         "noVisibleButton": "No visible route",
         "public": "Public route"
       }
+    }
+  },
+  "shared": {
+    "userSession": {
+      "sessionId": "User session ID",
+      "expireAt": "Sessión expire at",
+      "reject": "Reject",
+      "rejectButtonText": "Reject session"
     }
   }
 }

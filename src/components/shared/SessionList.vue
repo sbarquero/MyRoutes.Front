@@ -5,13 +5,13 @@
         <thead>
           <tr>
             <th scope="col">
-              <b>{{ t('userView.userSession.userId') }}</b>
+              <b>{{ t('shared.userSession.sessionId') }}</b>
             </th>
             <th scope="col">
-              <b>{{ t('userView.userSession.expireAt') }}</b>
+              <b>{{ t('shared.userSession.expireAt') }}</b>
             </th>
-            <th scope="col">
-              <b>{{ t('userView.userSession.reject') }}</b>
+            <th scope="col" class="text-center">
+              <b>{{ t('shared.userSession.reject') }}</b>
             </th>
           </tr>
         </thead>
@@ -23,7 +23,7 @@
               <button
                 type="button"
                 class="btn btn-danger btn-sm"
-                :title="t('userView.userSession.rejectButtonText')"
+                :title="t('shared.userSession.rejectButtonText')"
                 :disabled="session._id === authStore.sessionId"
                 @click="onRejectSession(session, index)"
               >
@@ -40,11 +40,12 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
+
+import { showError, showOk } from '@/utils/messages';
 import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
 import IconDelete from '../icons/IconDelete.vue';
 import type { Session } from '@/interfaces/auth.interface';
-import { showError, showOk } from '@/utils/messages';
 
 const { t, d } = useI18n();
 

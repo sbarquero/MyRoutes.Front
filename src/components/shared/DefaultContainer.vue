@@ -20,7 +20,7 @@ const props = defineProps({
 <style scoped>
 .background {
   background-color: var(--default-container-background-color);
-  background-size: cover;
+  background-size: cover !important;
   height: calc(100% - 3rem);
 }
 

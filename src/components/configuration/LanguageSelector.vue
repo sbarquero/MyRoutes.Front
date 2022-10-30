@@ -1,16 +1,16 @@
 <template>
   <div class="dropdown">
     <button
-      class="col-12 btn btn-white dropdown-toggle btn-outline-primary text-start"
+      class="col-12 btn btn-white dropdown-toggle form-control text-start"
       type="button"
-      id="dropdownMenuButton1"
+      id="dropdownLanguage"
       data-bs-toggle="dropdown"
       aria-expanded="false"
     >
       <span class="icon" v-html="selectedLanguage.icon"></span>
       <span class="ps-3"> {{ selectedLanguage.language }} ({{ selectedLanguage.locale }}) </span>
     </button>
-    <ul class="dropdown-menu pointer" aria-labelledby="dropdownMenuButton1">
+    <ul class="dropdown-menu col-12" aria-labelledby="dropdownLanguage">
       <li v-for="lang in languages" :key="`locale-${lang.locale}`" :value="locale">
         <div class="dropdown-item bi-cursor" @click="onSelectLanguage(lang)">
           <span v-html="lang.icon" />
@@ -57,5 +57,9 @@ function onSelectLanguage(lang: Language) {
 <style scoped>
 .pointer {
   cursor: pointer;
+}
+
+#dropdownLanguage {
+  border: 1px solid var(--dropdown-border-color);
 }
 </style>

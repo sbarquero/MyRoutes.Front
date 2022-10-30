@@ -7,7 +7,7 @@
         <!-- User Dropdown -->
         <div v-if="!auth.isAuthenticated" class="dropdown">
           <OptionBtn
-            class="button"
+            class="ms-3"
             id="dropdownLoginButton"
             data-bs-toggle="dropdown"
             data-bs-auto-close="outside"
@@ -17,7 +17,7 @@
           >
             <LoginIcon class="icon" />
           </OptionBtn>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuOffset">
+          <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="dropdownLoginButton">
             <div v-if="auth.form === 'login'">
               <LoginForm />
             </div>
@@ -33,7 +33,7 @@
         <!-- Logout Button -->
         <OptionBtn
           v-if="auth.isAuthenticated"
-          class="button"
+          class="ms-3"
           :tooltip="t('navBar.tooltip.logout')"
           @click="onLogout"
         >
@@ -43,7 +43,7 @@
         <!-- Menu Dropdown -->
         <div class="dropdown">
           <OptionBtn
-            class="button"
+            class="ms-3"
             id="dropdownMenuButton"
             data-bs-toggle="dropdown"
             aria-expanded="false"
@@ -53,7 +53,7 @@
             <span class="navbar-toggler-icon icon"></span>
           </OptionBtn>
           <ul
-            class="dropdown-menu dropdown-menu-end mt-0 pt-0"
+            class="dropdown-menu dropdown-menu-end mt-1 pt-0"
             aria-labelledby="dropdownMenuButton"
           >
             <li>
@@ -190,17 +190,13 @@ async function onLogout() {
   z-index: 4;
 }
 
-.button {
-  margin-left: 1rem;
-}
-
 .icon {
   width: 1.2rem;
   height: 1.2rem;
 }
 
 .menu-label {
-  align-items: cente;
+  align-items: center;
   margin-left: 1rem;
 }
 </style>

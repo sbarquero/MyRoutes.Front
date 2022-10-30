@@ -1,24 +1,50 @@
 <template>
-  <div class="container container-fluid-md">
-    <!-- Configuration Title -->
-    <h1>{{ t('configurationView.title') }}</h1>
-    <!-- Language -->
-    <div class="card mt-5 p-4">
-      <div class="row">
-        <div class="col-2">
-          <label for="languageSelect"> {{ t('configurationView.language') }} </label>
-        </div>
-        <div class="col-3">
-          <language-selector />
+  <DefaultContainer backgroundImage="/assets/img/configuration.jpg">
+    <template #title>{{ t('configurationView.title') }}</template>
+    <template #content>
+      <!-- Language -->
+      <div class="card p-4">
+        <div class="row">
+          <h5 class="col-3 col-sm-2 my-auto">
+            <label for="languageSelect"> {{ t('configurationView.language') }} </label>
+          </h5>
+          <div class="col-9 col-sm-6 col-md-4 col-lg-3">
+            <LanguageSelector />
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+      <div class="col-12 mt-4">
+        <UserConfiguration />
+      </div>
+    </template>
+  </DefaultContainer>
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
+
+import { showError } from '@/utils/messages';
+import { useAuthStore } from '@/stores/authStore';
+import { useGlobalStore } from '@/stores/globalStore';
+import { useUserStore } from '@/stores/userStore';
+import DefaultContainer from '@/components/shared/DefaultContainer.vue';
 import LanguageSelector from '@/components/configuration/LanguageSelector.vue';
+import UserConfiguration from '@/components/configuration/UserConfiguration.vue';
 
 const { t } = useI18n();
+
+const authStore = useAuthStore();
+const globalStore = useGlobalStore();
+const userStore = useUserStore();
+
+onMounted(async () => {
+  const response = await userStore.getUser(authStore.userId);
+
+  userStore.userEditing = true;
+  globalStore.isEditing = true;
+  if (!response.ok) {
+    showError(response.message);
+  }
+});
 </script>
