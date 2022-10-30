@@ -42,7 +42,7 @@ const selectedLanguage: Language = reactive({
 
 onMounted(() => {
   selectedLanguage.locale = locale.value;
-  selectedLanguage.language = languages.find(x => x.locale == locale.value)?.language || 'en';
+  selectedLanguage.language = languages.find(x => x.locale == locale.value)?.language || 'es';
   selectedLanguage.icon = languages.find(x => x.locale == locale.value)?.icon || '';
 });
 
@@ -51,6 +51,7 @@ function onSelectLanguage(lang: Language) {
   selectedLanguage.language = lang.language;
   selectedLanguage.icon = lang.icon;
   locale.value = lang.locale;
+  localStorage.setItem('locale', lang.locale);
 }
 </script>
 

@@ -126,13 +126,14 @@
 
 <script setup lang="ts">
 import { helpers, minLength, required } from '@vuelidate/validators';
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import Swal from 'sweetalert2';
 import useVuelidate from '@vuelidate/core';
 
 import { showError, showOk } from '@/utils/messages';
+import { useAuthStore } from '@/stores/authStore';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useUserStore } from '@/stores/userStore';
 import IconSave from '../icons/IconSave.vue';
@@ -141,6 +142,7 @@ import SessionList from '../shared/SessionList.vue';
 
 const { t, d } = useI18n();
 
+const authStore = useAuthStore();
 const userStore = useUserStore();
 const globalStore = useGlobalStore();
 const { selectedUser } = storeToRefs(userStore);
@@ -152,6 +154,16 @@ const state = reactive({
   passwordErrorMessage: '',
   confirmPasswordError: false,
   confirmPasswordErrorMessage: '',
+});
+
+onMounted(async () => {
+  const response = await userStore.getUser(authStore.userId);
+
+  userStore.userEditing = true;
+  globalStore.isEditing = true;
+  if (!response.ok) {
+    showError(response.message);
+  }
 });
 
 const rules = {

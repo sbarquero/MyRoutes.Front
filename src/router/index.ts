@@ -15,8 +15,7 @@ const router = createRouter({
       name: 'configuration',
       component: () => import('../views/ConfigurationView.vue'),
       meta: {
-        requiresAuth: true,
-        authorizedRol: 'user',
+        requiresAuth: false,
       },
     },
     {
@@ -33,7 +32,7 @@ const router = createRouter({
       name: 'tracks',
       component: () => import('../views/TrackView.vue'),
       meta: {
-        requiresAuth: true,
+        requiresAuth: false,
         authorizedRol: 'user',
       },
     },

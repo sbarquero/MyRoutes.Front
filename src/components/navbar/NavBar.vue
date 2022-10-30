@@ -85,11 +85,7 @@
               </RouterLink>
             </li>
             <li>
-              <RouterLink
-                :to="{ name: 'configuration' }"
-                class="dropdown-item"
-                :class="!auth.isAuthenticated ? 'disabled' : ''"
-              >
+              <RouterLink :to="{ name: 'configuration' }" class="dropdown-item">
                 <GearIcon class="icon" />
                 <span class="menu-label">{{ t('navBar.configuration') }}</span>
               </RouterLink>

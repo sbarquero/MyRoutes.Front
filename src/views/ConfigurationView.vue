@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 mt-4">
+      <div v-if="authStore.userId" class="col-12 mt-4">
         <UserConfiguration />
       </div>
     </template>
@@ -21,13 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { showError } from '@/utils/messages';
 import { useAuthStore } from '@/stores/authStore';
-import { useGlobalStore } from '@/stores/globalStore';
-import { useUserStore } from '@/stores/userStore';
 import DefaultContainer from '@/components/shared/DefaultContainer.vue';
 import LanguageSelector from '@/components/configuration/LanguageSelector.vue';
 import UserConfiguration from '@/components/configuration/UserConfiguration.vue';
@@ -35,16 +31,4 @@ import UserConfiguration from '@/components/configuration/UserConfiguration.vue'
 const { t } = useI18n();
 
 const authStore = useAuthStore();
-const globalStore = useGlobalStore();
-const userStore = useUserStore();
-
-onMounted(async () => {
-  const response = await userStore.getUser(authStore.userId);
-
-  userStore.userEditing = true;
-  globalStore.isEditing = true;
-  if (!response.ok) {
-    showError(response.message);
-  }
-});
 </script>
