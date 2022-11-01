@@ -1,6 +1,10 @@
 <template>
   <h3 class="mb-4 ms-1">{{ t('trackView.trackCard.title') }}</h3>
-  <div v-if="trackStore.selectedTrack._id || trackStore.isNewTrack" class="card p-4">
+  <div
+    id="track-card"
+    v-if="trackStore.selectedTrack._id || trackStore.isNewTrack"
+    class="card p-4"
+  >
     <form
       @submit.prevent
       autocomplete="chrome-off"
@@ -33,7 +37,7 @@
       <!-- Track Id -->
       <div v-else class="col-12 col-lg-9">
         <div class="col-12 col-lg-7">
-          <div class="form-floating mb-3">
+          <div class="form-floating mb-0">
             <input
               class="form-control"
               disabled
@@ -134,6 +138,7 @@
           <label for="updateAt">{{ t('trackView.trackCard.updateAt') }}</label>
         </div>
       </div>
+      <!-- Buttons if track can be written -->
       <div
         v-if="selectedTrack.userId === authStore.userId || trackStore.isNewTrack"
         class="d-flex justify-content-between mt-3"
@@ -358,6 +363,11 @@ function isFormEditionDisabled() {
 </script>
 
 <style scoped>
+#track-card {
+  max-height: calc(100vh - 19rem);
+  overflow-y: auto;
+}
+
 #description {
   height: 13rem;
   resize: none;

@@ -1,6 +1,6 @@
 <template>
   <h3 class="mb-4 ms-1">{{ t('userView.userCard.title') }}</h3>
-  <div v-if="userStore.selectedUser._id || userStore.isNewUser" class="card p-4">
+  <div id="user-card" v-if="userStore.selectedUser._id || userStore.isNewUser" class="card p-4">
     <form
       @submit.prevent
       autocomplete="chrome-off"
@@ -150,11 +150,12 @@
           userStore.selectedUser.sessions &&
           userStore.selectedUser.sessions.length > 0
         "
+        class="mb-3"
       >
         <SessionList />
       </div>
       <!-- Save & cancel buttons -->
-      <div class="mt-3">
+      <div class="mt-3 d-flex justify-content-end">
         <button @click="onSaveUser" type="button" class="btn btn-primary">
           <IconSave class="me-1" />
           {{ t('userView.userCard.save') }}
@@ -355,4 +356,9 @@ const updateUser = async () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#user-card {
+  max-height: calc(100vh - 19rem);
+  overflow-y: auto;
+}
+</style>

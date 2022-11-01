@@ -3,10 +3,10 @@
     <template #title>{{ t('userView.title') }}</template>
     <template #content>
       <div class="row">
-        <div class="col-12 col-md-5 col-lg-4">
+        <div class="col-12 col-md-4">
           <UserList />
         </div>
-        <div class="col-12 col-md-7 col-lg-8 mt-5 mt-md-0">
+        <div class="col-12 col-md-8 mt-5 mt-md-0">
           <UserCard />
         </div>
       </div>

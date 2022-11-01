@@ -52,7 +52,7 @@ const onTrackSelect = async (id: string) => {
 <style scoped>
 .list-group {
   border: solid 1px var(--list-group-border-color);
-  height: 67vh;
+  height: calc(100vh - 19rem);
   overflow-y: auto;
 }
 .selected {

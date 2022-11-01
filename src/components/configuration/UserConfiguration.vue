@@ -111,7 +111,7 @@
         <SessionList />
       </div>
       <!-- Save & cancel buttons -->
-      <div class="mt-4">
+      <div class="mt-4 d-flex justify-content-end">
         <button @click="onSaveUserConfiguration" type="button" class="btn btn-primary">
           <IconSave class="me-1" />
           {{ t('configurationView.userConfiguration.save') }}

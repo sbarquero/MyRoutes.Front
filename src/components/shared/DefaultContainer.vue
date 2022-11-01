@@ -2,7 +2,7 @@
   <div class="background" :style="{ background: `url(${props.backgroundImage}) no-repeat center` }">
     <div class="filter">
       <div class="container-fluid container-lg mt-0">
-        <h1 class="title"><slot name="title"></slot></h1>
+        <h1 class="title mt-4"><slot name="title"></slot></h1>
         <div class="card p-4 mt-4">
           <slot name="content"></slot>
         </div>
@@ -34,6 +34,9 @@ const props = defineProps({
   background-color: var(--default-container-card-background-color);
   border-radius: 10px;
   border-radius: 0.35rem;
+  height: calc(100vh - 12rem);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .title {
