@@ -1,6 +1,9 @@
 {
   "name": "my-routes",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "This is the frontend for MyRoutes project.",
+  "author": "Santiago Barquero",
+  "license": "MIT",
   "scripts": {
     "dev": "vite --port 8080",
     "build": "run-p type-check build-only",

@@ -2,6 +2,16 @@
   "appName": "MyRoutes",
   "language": "Español",
   "error": "Error",
+  "aboutView": {
+    "title": "Acerca de",
+    "tecnologies": "Tecnologías empleadas",
+    "tools": "Herramientas empleadas",
+    "viteEnvVarTitle": "Variables de entorno de Vite",
+    "developedBy": "Desarrollado por",
+    "version": "Versión",
+    "license": "Licencia",
+    "viewOn": "Ver en"
+  },
   "configurationView": {
     "title": "Configuración",
     "language": "Idioma",
