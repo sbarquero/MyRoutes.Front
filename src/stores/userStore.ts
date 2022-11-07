@@ -3,8 +3,9 @@ import { defineStore } from 'pinia';
 import { useAuthStore } from '@/stores/authStore';
 import { useGlobalStore } from './globalStore';
 import configurationApi from '@/api/configurationApi';
-import userApi from '@/api/userApi';
+import type { UpdateConfigurationDto } from '@/interfaces/configuration.interface';
 import type { User, UpdateUserDto, CreateUserDto, UserListDto } from '@/interfaces/user.interface';
+import userApi from '@/api/userApi';
 
 export const useUserStore = defineStore({
   id: 'user',
@@ -146,10 +147,8 @@ export const useUserStore = defineStore({
       try {
         const authStore = useAuthStore();
         const globalStore = useGlobalStore();
-        const user: UpdateUserDto = {
+        const user: UpdateConfigurationDto = {
           name: this.selectedUser.name,
-          rol: this.selectedUser.rol,
-          active: this.selectedUser.active,
           password: this.selectedUser.password == '' ? undefined : this.selectedUser.password,
         };
         const path = '/' + this.selectedUser._id;
