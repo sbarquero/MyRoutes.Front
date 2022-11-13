@@ -26,7 +26,7 @@
           <!-- File Input not visible -->
           <input
             type="file"
-            accept=".kml"
+            accept=".geojson,.gpx,.kml"
             id="file"
             class="d-none"
             name="file"
@@ -248,12 +248,20 @@ function handleFileUpload(event: any): void {
   globalStore.isEditing = true;
   trackStore.file = event.target.files[0];
   trackStore.fileName = event.target.files[0].name;
+  const fileExtension = trackStore.fileName.split('.').pop();
   const date: Date = event.target.files[0].lastModifiedDate;
   trackStore.selectedTrack.createAt = date;
   trackStore.creationDate = convertDateToLocaleDateString(date);
 
   const reader = new FileReader();
-  reader.onload = e => getNameAndDescriptionFromKML(e.target?.result);
+
+  if (fileExtension === 'kml') {
+    reader.onload = e => getDataFromKML(e.target?.result);
+  } else if (fileExtension === 'gpx') {
+    reader.onload = e => getDataFromGPX(e.target?.result);
+  } else if (fileExtension === 'geojson') {
+    reader.onload = e => getDataFromGeoJson(e.target?.result?.toString() || '');
+  }
   reader.readAsText(event.target.files[0]);
 }
 
@@ -333,14 +341,30 @@ const confirmTrackCancellation = (): void => {
   });
 };
 
-function getNameAndDescriptionFromKML(xmlString: string | ArrayBuffer | null | undefined): void {
-  if (xmlString) {
-    const xmlDOM = new DOMParser().parseFromString(xmlString as string, 'text/xml');
-    trackStore.selectedTrack.name =
-      xmlDOM.getElementsByTagName('name')[0].childNodes[0].textContent || trackStore.fileName;
-    trackStore.selectedTrack.description =
-      xmlDOM.getElementsByTagName('description')[0].childNodes[0].textContent || '';
-  }
+function getDataFromKML(xmlString: string | ArrayBuffer | null | undefined): void {
+  if (!xmlString) return;
+
+  const xmlDOM = new DOMParser().parseFromString(xmlString as string, 'text/xml');
+  trackStore.selectedTrack.name =
+    xmlDOM.getElementsByTagName('name')[0].childNodes[0].textContent || trackStore.fileName;
+  trackStore.selectedTrack.description =
+    xmlDOM.getElementsByTagName('description')[0].childNodes[0].textContent || '';
+}
+
+function getDataFromGPX(xmlString: string | ArrayBuffer | null | undefined) {
+  if (!xmlString) return;
+
+  const xmlDOM = new DOMParser().parseFromString(xmlString as string, 'text/xml');
+  trackStore.selectedTrack.name = xmlDOM.getElementsByTagName('name')[0].textContent || trackStore.fileName;
+  trackStore.selectedTrack.description = xmlDOM.getElementsByTagName('desc')[0].textContent || '';
+  const time = xmlDOM.getElementsByTagName('time')[0].textContent;
+  trackStore.creationDate = time?.substring(0, 19) || trackStore.creationDate;
+}
+
+function getDataFromGeoJson(jsonString: string) {
+  const geojson = JSON.parse(jsonString);
+  trackStore.selectedTrack.name = geojson.name || trackStore.fileName;
+  trackStore.selectedTrack.description = geojson.description || '';
 }
 
 async function isValidInput(): Promise<boolean> {

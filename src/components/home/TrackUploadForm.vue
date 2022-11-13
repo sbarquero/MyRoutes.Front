@@ -10,7 +10,7 @@
           <!-- File Input not visible -->
           <input
             type="file"
-            accept=".kml"
+            accept=".geojson,.gpx,.kml"
             id="file"
             class="d-none"
             name="file"
@@ -105,11 +105,19 @@ const state = reactive({
 function handleFileUpload(event: any) {
   state.file = event.target.files[0];
   state.fileName = event.target.files[0].name;
+  const fileExtension = state.fileName.split('.').pop();
   const date: Date = event.target.files[0].lastModifiedDate;
   state.createAt = date.toISOString().substring(0, 19);
 
   const reader = new FileReader();
-  reader.onload = e => getNameAndDescriptionFromKML(e.target?.result);
+
+  if (fileExtension === 'kml') {
+    reader.onload = e => getDataFromKML(e.target?.result);
+  } else if (fileExtension === 'gpx') {
+    reader.onload = e => getDataFromGPX(e.target?.result);
+  } else if (fileExtension === 'geojson') {
+    reader.onload = e => getDataFromGeoJson(e.target?.result?.toString() || '');
+  }
   reader.readAsText(event.target.files[0]);
 }
 
@@ -142,13 +150,28 @@ function initializeForm() {
   document.forms[0].reset();
 }
 
-function getNameAndDescriptionFromKML(xmlString: string | ArrayBuffer | null | undefined) {
-  if (xmlString) {
-    const xmlDOM = new DOMParser().parseFromString(xmlString as string, 'text/xml');
-    state.name = xmlDOM.getElementsByTagName('name')[0].childNodes[0].textContent || state.fileName;
-    state.description =
-      xmlDOM.getElementsByTagName('description')[0].childNodes[0].textContent || '';
-  }
+function getDataFromKML(xmlString: string | ArrayBuffer | null | undefined) {
+  if (!xmlString) return;
+
+  const xmlDOM = new DOMParser().parseFromString(xmlString as string, 'text/xml');
+  state.name = xmlDOM.getElementsByTagName('name')[0].childNodes[0].textContent || state.fileName;
+  state.description = xmlDOM.getElementsByTagName('description')[0].childNodes[0].textContent || '';
+}
+
+function getDataFromGPX(xmlString: string | ArrayBuffer | null | undefined) {
+  if (!xmlString) return;
+
+  const xmlDOM = new DOMParser().parseFromString(xmlString as string, 'text/xml');
+  state.name = xmlDOM.getElementsByTagName('name')[0].textContent || state.fileName;
+  state.description = xmlDOM.getElementsByTagName('desc')[0].textContent || '';
+  const time = xmlDOM.getElementsByTagName('time')[0].textContent;
+  state.createAt = time?.substring(0, 19) || state.createAt;
+}
+
+function getDataFromGeoJson(jsonString: string) {
+  const geojson = JSON.parse(jsonString);
+  state.name = geojson.name || state.fileName;
+  state.description = geojson.description || '';
 }
 </script>
 
