@@ -4,7 +4,7 @@
   "error": "Error",
   "aboutView": {
     "title": "About",
-    "tecnologies": "Technologies used",
+    "tecnologies": "Technologies and libraries used",
     "tools": "Tools used",
     "viteEnvVarTitle": "Vite environment variables",
     "developedBy": "Developed by",

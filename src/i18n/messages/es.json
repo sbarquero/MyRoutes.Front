@@ -4,7 +4,7 @@
   "error": "Error",
   "aboutView": {
     "title": "Acerca de",
-    "tecnologies": "Tecnologías empleadas",
+    "tecnologies": "Tecnologías y librerías empleadas",
     "tools": "Herramientas empleadas",
     "viteEnvVarTitle": "Variables de entorno de Vite",
     "developedBy": "Desarrollado por",

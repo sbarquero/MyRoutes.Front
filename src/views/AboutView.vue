@@ -36,7 +36,7 @@
       <!-- Tecnologies used -->
       <div class="card mb-4 p-4">
         <h3>{{ t('aboutView.tecnologies') }}</h3>
-        <div class="row mx-2 d-flex justify-content-start">
+        <div class="row mx-2 d-flex">
           <a href="https://nodejs.org/" target="_blank" class="item col-4 col-sm-3 col-lg-2">
             <img src="/assets/img/nodejs.svg" alt="NodeJS" title="NodeJS" />
           </a>
@@ -89,11 +89,50 @@
           <a href="https://prettier.io/" target="_blank" class="item col-4 col-sm-3 col-lg-2">
             <img src="/assets/img/prettier.svg" alt="Prettier" title="Prettier" />
           </a>
+          <a href="https://turfjs.org/" target="_blank" class="item col-4 col-sm-3 col-lg-2">
+            <img src="/assets/img/turf.png" alt="Turf" title="Turf" />
+          </a>
+          <a
+            href="https://sweetalert2.github.io/"
+            target="_blank"
+            class="item col-4 col-sm-3 col-lg-2"
+          >
+            <img
+              src="/assets/img/sweetalert2.png"
+              alt="Sweetalert2"
+              title="Sweetalert2"
+              class="pb-4"
+            />
+          </a>
+          <a
+            href="https://www.openstreetmap.org/"
+            target="_blank"
+            class="item col-4 col-sm-3 col-lg-2"
+          >
+            <img src="/assets/img/openstreetmap.svg" alt="OpenStreetMap" title="OpenStreetMap" />
+          </a>
+          <a href="https://nodemailer.com/" target="_blank" class="item col-4 col-sm-3 col-lg-2">
+            <img src="/assets/img/nodemailer.png" alt="Nodemailer" title="Nodemailer" class="p-3" />
+          </a>
           <a href="https://swagger.io/" target="_blank" class="item col-4 col-sm-3 col-lg-2">
             <img src="/assets/img/swagger.svg" alt="Swagger" title="Swagger" />
           </a>
-          <a href="https://turfjs.org/" target="_blank" class="item col-4 col-sm-3 col-lg-2">
-            <img src="/assets/img/turf.png" alt="Turf" title="Turf" />
+          <a
+            href="https://kazupon.github.io/vue-i18n/"
+            target="_blank"
+            class="item col-4 col-sm-3 col-lg-2"
+          >
+            <img src="/assets/img/vue-i18n.png" alt="Vue I18n" title="Vue I18n" class="py-3" />
+          </a>
+          <a
+            href="https://vuelidate-next.netlify.app/"
+            target="_blank"
+            class="item col-4 col-sm-3 col-lg-2"
+          >
+            <img src="/assets/img/vuelidate.png" alt="Vuelidate" title="Vuelidate" />
+          </a>
+          <a href="https://jwt.io/" target="_blank" class="item col-4 col-sm-3 col-lg-2">
+            <img src="/assets/img/jwt.svg" alt="Json Web Token" title="Json Web Token" />
           </a>
         </div>
       </div>
@@ -124,7 +163,12 @@
             class="item col-4 col-sm-3 col-lg-2"
             style=""
           >
-            <img src="/assets/img/git-extensions.png" alt="Git Extensions" title="Git Extensions" />
+            <img
+              src="/assets/img/git-extensions.png"
+              alt="Git Extensions"
+              title="Git Extensions"
+              class="py-3"
+            />
           </a>
           <a
             href="https://www.postman.com/"
