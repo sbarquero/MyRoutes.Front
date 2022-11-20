@@ -1,7 +1,7 @@
 :root {
 
   // Colors
-  --color-background: #ffffff;
+  --color-background: rgba(246, 252, 248, 1);
   --color-text: #31302e;
 
   // Primary color
@@ -29,6 +29,7 @@
   // Navbar
   --navbar-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   --navbar-disabled-filter-background-color: rgba(45, 62, 51, 0.3);
+  --navbar-dropdown-menu-background-color: rgba(246, 252, 248, 0.95);
   
   // Default Container
   --default-container-background-color: rgba(45, 62, 51, 0.75);
@@ -40,7 +41,7 @@
   --list-group-border-color: var(--primary-color-25);
 
   // List item
-  --list-item-background-color-hover: rgb(234, 249, 242);
+  --list-item-background-color-hover: rgb(222, 240, 230);
 
   // SliderBox
   --slider-box-background-color: 232, 239, 234;
@@ -69,7 +70,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.dropdown-item:hover {
-  background-color: var(--list-item-background-color-hover);
-  cursor: pointer;
+.dropdown-item {
+  &:hover {
+    background-color: var(--list-item-background-color-hover);
+    cursor: pointer;
+  }
+  &:active {
+    color: var(--primary-color);
+  }
 }

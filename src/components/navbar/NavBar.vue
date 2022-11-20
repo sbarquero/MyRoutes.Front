@@ -195,4 +195,8 @@ async function onLogout() {
   align-items: center;
   margin-left: 1rem;
 }
+
+.dropdown-menu {
+  background-color: var(--navbar-dropdown-menu-background-color);
+}
 </style>
