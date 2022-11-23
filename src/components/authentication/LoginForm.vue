@@ -1,29 +1,43 @@
 <template>
   <form class="px-4 py-3" style="min-width: 300px">
-    <div class="form-floating mb-4 mt-2">
+    <div class="form-floating mt-2">
       <!-- Email -->
       <input
-        type="email"
+        autocomplete="new-email"
+        type="text"
         class="form-control"
-        id="email"
+        id="usrcorr"
         :placeholder="t('loginForm.emailPlaceholder')"
         v-model="userForm.email"
       />
-      <label for="email" class="form-label">{{ t('loginForm.emailAddress') }}</label>
+      <label for="usrcorr" class="form-label">{{ t('loginForm.emailAddress') }}</label>
     </div>
     <!-- Password -->
-    <div class="form-floating mb-4">
+    <div class="form-floating mt-4">
       <input
+        autocomplete="new-password"
         type="password"
         class="form-control"
-        id="password"
+        id="passwordInput"
         :placeholder="t('loginForm.passwordPlaceholder')"
         v-model="userForm.password"
       />
-      <label for="password" class="form-label">{{ t('loginForm.password') }}</label>
+      <label for="passwordInput" class="form-label">{{ t('loginForm.password') }}</label>
+    </div>
+    <!-- Remember me check -->
+    <div class="form-check mt-2">
+      <input
+        class="form-check-input"
+        id="rememberMe"
+        type="checkbox"
+        v-model="userForm.rememberMe"
+      />
+      <label for="rememberMe" class="form-check-label ms-0">
+        {{ t('loginForm.rememberMe') }}
+      </label>
     </div>
     <!-- Login button -->
-    <button @click.prevent="onLogin" type="submit" class="btn btn-primary">
+    <button @click.prevent="onLogin" type="submit" class="btn btn-primary mt-3">
       {{ t('loginForm.loginButton') }}
     </button>
   </form>
@@ -35,12 +49,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
+import sjcl from 'sjcl';
 
 import { showError, showOk } from '@/utils/messages';
 import { useAuthStore } from '@/stores/authStore';
 import router from '@/router';
+
+const encryptationPassword = import.meta.env.VITE_ENCRYPTATION_PASSWORD;
 
 interface User {
   email: string;
@@ -50,15 +67,30 @@ interface User {
 const { t } = useI18n();
 const auth = useAuthStore();
 
-const userForm = ref({
+const userForm = reactive({
   email: '',
   password: '',
+  rememberMe: false,
+});
+
+onMounted(() => {
+  const rememberMe = localStorage.getItem('rememberMe');
+  if (rememberMe && rememberMe === 'true') {
+    userForm.rememberMe = true;
+    userForm.email = localStorage.getItem('email') || '';
+    const pwd = JSON.parse(atob(localStorage.getItem('password') || ''));
+    userForm.password = sjcl.decrypt(encryptationPassword, pwd);
+  } else {
+    userForm.rememberMe = false;
+    userForm.email = '';
+    userForm.password = '';
+  }
 });
 
 async function onLogin() {
   const user: User = {
-    email: userForm.value.email,
-    password: userForm.value.password,
+    email: userForm.email,
+    password: userForm.password,
   };
   const { ok, message } = await auth.login(user);
 
@@ -66,6 +98,16 @@ async function onLogin() {
     showError(t('loginForm.loginError'), message);
   } else {
     showOk(t('loginForm.loginOk'), message);
+    if (userForm.rememberMe) {
+      localStorage.setItem('email', userForm.email);
+      const pwd = sjcl.encrypt(encryptationPassword, userForm.password);
+      localStorage.setItem('password', btoa(JSON.stringify(pwd)));
+      localStorage.setItem('rememberMe', 'true');
+    } else {
+      localStorage.removeItem('email');
+      localStorage.removeItem('password');
+      localStorage.removeItem('rememberMe');
+    }
   }
 
   const currentRoute = router.currentRoute.value.name;

@@ -53,6 +53,7 @@
     "password": "Contraseña",
     "passwordPlaceholder": "Contraseña",
     "loginButton": "Iniciar sesión",
+    "rememberMe": "Recuérdame",
     "registerLink": "¿Nuevo por aquí? Regístrate",
     "forgotPassword": "¿Olvidaste la contraseña?",
     "loginOk": "¡Bienvenido!"

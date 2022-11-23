@@ -53,6 +53,7 @@
     "password": "Password",
     "passwordPlaceholder": "Password",
     "loginButton": "Login",
+    "rememberMe": "Remember me",
     "registerLink": "New around here? Register",
     "forgotPassword": "Forgot password?",
     "loginOk": "Welcome!"
