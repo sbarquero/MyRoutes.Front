@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar navbar-light bg-light" :class="globalStore.isEditing ? 'navbar-disabled' : ''">
     <div class="container-fluid">
-      <RouterLink to="/" class="navbar-brand mb-0 h1">{{ t('appName') }}</RouterLink>
+      <RouterLink to="/" class="navbar-brand mb-0 h1">
+        <img src="/public/assets/img/logo-my-routes-text.svg" alt="logo" height="30" />
+      </RouterLink>
       <div class="d-flex">
         <div class="mt-1">{{ auth.userName }}</div>
         <!-- User Dropdown -->

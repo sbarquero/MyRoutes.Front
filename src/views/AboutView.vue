@@ -1,9 +1,12 @@
 <template>
   <DefaultContainer background-image="/assets/img/about.jpg">
-    <template #title>{{ t('aboutView.title') }} {{ t('appName') }} </template>
+    <template #title>{{ t('aboutView.title') }}</template>
     <template #content>
       <div class="card mb-4 p-4 fs-4">
         <div id="info" class="row">
+          <div class="col-12 text-center m-3">
+            <img src="/public/assets/img/logo-my-routes-text.svg" alt="logo" height="100" />
+          </div>
           <div class="info-item col-12 col-xl-5">
             <b>{{ t('aboutView.developedBy') }}</b> {{ author }}
           </div>
