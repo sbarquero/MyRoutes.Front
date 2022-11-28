@@ -1,6 +1,59 @@
-# my-routes
+# MyRoutes.Front
 
-This template should help get you started developing with Vue 3 in Vite.
+This is the Vue.js Application of MyRoutes project.
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Environment configuration
+We have to configure the environment file. We can see an example in the file ```.env.example```. 
+```conf
+# Environment file example
+
+# Auth API
+VITE_AUTH_BASE_URL=http://localhost:3000/auth
+
+# User API
+VITE_USER_BASE_URL=http://localhost:3000/user
+
+# File API
+VITE_FILE_BASE_URL=http://localhost:3000/file
+
+# Track API
+VITE_TRACK_BASE_URL=http://localhost:3000/track
+
+# Configuration API
+VITE_CONFIGURATION_BASE_URL=http://localhost:3000/Configuration
+
+# MapBox Access token
+# See: https://docs.mapbox.com/help/getting-started/access-tokens/
+VITE_MAPBOX_ACCESS_TOKEN=Here_goes_your_MapBox_access_token
+
+# Encryptation password
+VITE_ENCRYPTATION_PASSWORD=Here_goes_your_encryptation_password
+```
+For local use in development mode the file will be named as `.env.local`.
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
 
 ## Recommended IDE Setup
 
@@ -20,27 +73,3 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 ## Customize configuration
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
