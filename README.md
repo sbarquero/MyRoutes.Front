@@ -1,9 +1,15 @@
 # MyRoutes.Front
 
+## Translations
+
+- [ES Español](./README.es.md)
+
 This is the Vue.js Application of MyRoutes project.
 
 ## Project Setup
 
+### Dependency installation
+This install all necesary packages.
 ```sh
 npm install
 ```
