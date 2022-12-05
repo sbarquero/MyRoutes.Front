@@ -9,11 +9,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '@/assets/css/custom.scss';
 import 'bootstrap';
 
-// Imports Sweetalert2
-import 'sweetalert2/dist/sweetalert2.all.min.js';
-import 'sweetalert2/dist/sweetalert2.min.css';
-import '@/assets/css/sweetalert-custom.scss';
-
 // Imports Base CSS
 import '@/assets/css/base.scss';
 

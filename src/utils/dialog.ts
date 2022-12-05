@@ -1,3 +1,8 @@
+// Imports Sweetalert2
+import 'sweetalert2/dist/sweetalert2.all.min.js';
+import 'sweetalert2/dist/sweetalert2.min.css';
+import '@/assets/css/sweetalert-custom.scss';
+
 import Swal, { type SweetAlertResult } from 'sweetalert2';
 
 export const showError = (title: string, text = '') => {
