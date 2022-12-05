@@ -1,0 +1,44 @@
+import Swal, { type SweetAlertResult } from 'sweetalert2';
+
+export const showError = (title: string, text = '') => {
+  Swal.fire({
+    title,
+    text,
+    icon: 'error',
+    customClass: {
+      confirmButton: 'swal-btn-confirm',
+    },
+  });
+};
+
+export function showOk(title: string, text = '') {
+  Swal.fire({
+    title,
+    text,
+    icon: 'success',
+    timer: 3000,
+    customClass: {
+      confirmButton: 'swal-btn-confirm',
+    },
+  });
+}
+
+export async function confirm(
+  title: string,
+  text: string,
+  confirmButtonText: string,
+  cancelButtonText: string,
+): Promise<SweetAlertResult<any>> {
+  return await Swal.fire({
+    title,
+    text,
+    icon: 'question',
+    showCancelButton: true,
+    customClass: {
+      confirmButton: 'swal-btn-danger',
+      cancelButton: 'swal-btn-cancel',
+    },
+    confirmButtonText,
+    cancelButtonText,
+  });
+}

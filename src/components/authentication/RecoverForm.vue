@@ -34,7 +34,7 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import useVuelidate from '@vuelidate/core';
 
-import { showError, showOk } from '@/utils/messages';
+import { showError, showOk } from '@/utils/dialog';
 import { useAuthStore } from '@/stores/authStore';
 import authApi from '@/api/authApi';
 import { email, helpers, required } from '@vuelidate/validators';

@@ -208,11 +208,10 @@
 import { helpers, minLength, required } from '@vuelidate/validators';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
-import Swal from 'sweetalert2';
 import useVuelidate from '@vuelidate/core';
 
 import { convertDateToLocaleDateString } from '@/utils/date';
-import { showError, showOk } from '@/utils/messages';
+import { confirm, showError, showOk } from '@/utils/dialog';
 import { useAuthStore } from '@/stores/authStore';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
@@ -297,48 +296,38 @@ const onCancelTrack = (): void => {
 };
 
 const onDeleteTrack = async (): Promise<void> => {
-  Swal.fire({
-    title: t('trackView.trackCard.trackDelete.deleteQuestion'),
-    text: selectedTrack.value.name,
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: t('trackView.trackCard.trackDelete.confirmDeleteButton'),
-    cancelButtonText: t('trackView.trackCard.trackDelete.cancelDeleteButton'),
-  }).then(async result => {
-    if (result.isConfirmed) {
-      const result = await trackStore.deleteById(selectedTrack.value._id);
-      trackStore.getTrackListByUserId(authStore.userId);
-      initializeForm();
-      if (result.ok) {
-        showOk(t('trackView.trackCard.trackDelete.deleteSuccess'));
-      } else {
-        showError(result.message);
-      }
+  const result = await confirm(
+    t('trackView.trackCard.trackDelete.deleteQuestion'),
+    selectedTrack.value.name,
+    t('trackView.trackCard.trackDelete.confirmDeleteButton'),
+    t('trackView.trackCard.trackDelete.cancelDeleteButton'),
+  );
+  if (result.isConfirmed) {
+    const result = await trackStore.deleteById(selectedTrack.value._id);
+    trackStore.getTrackListByUserId(authStore.userId);
+    initializeForm();
+    if (result.ok) {
+      showOk(t('trackView.trackCard.trackDelete.deleteSuccess'));
+    } else {
+      showError(result.message);
     }
-  });
+  }
 };
 
 const trackHasChanged = (): boolean => {
   return trackStore.trackInitialState !== trackStore.getTrackState;
 };
 
-const confirmTrackCancellation = (): void => {
-  Swal.fire({
-    title: t('trackView.trackCard.cancellation.title'),
-    text: t('trackView.trackCard.cancellation.text'),
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: t('trackView.trackCard.cancellation.confirmButtonText'),
-    cancelButtonText: t('trackView.trackCard.cancellation.cancelButtonText'),
-  }).then(result => {
-    if (result.isConfirmed) {
-      initializeForm();
-    }
-  });
+const confirmTrackCancellation = async () => {
+  const result = await confirm(
+    t('trackView.trackCard.cancellation.title'),
+    t('trackView.trackCard.cancellation.text'),
+    t('trackView.trackCard.cancellation.confirmButtonText'),
+    t('trackView.trackCard.cancellation.cancelButtonText'),
+  );
+  if (result.isConfirmed) {
+    initializeForm();
+  }
 };
 
 function getDataFromKML(xmlString: string | ArrayBuffer | null | undefined): void {
@@ -355,7 +344,8 @@ function getDataFromGPX(xmlString: string | ArrayBuffer | null | undefined) {
   if (!xmlString) return;
 
   const xmlDOM = new DOMParser().parseFromString(xmlString as string, 'text/xml');
-  trackStore.selectedTrack.name = xmlDOM.getElementsByTagName('name')[0].textContent || trackStore.fileName;
+  trackStore.selectedTrack.name =
+    xmlDOM.getElementsByTagName('name')[0].textContent || trackStore.fileName;
   trackStore.selectedTrack.description = xmlDOM.getElementsByTagName('desc')[0].textContent || '';
   const time = xmlDOM.getElementsByTagName('time')[0].textContent;
   trackStore.creationDate = time?.substring(0, 19) || trackStore.creationDate;

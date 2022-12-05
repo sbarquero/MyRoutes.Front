@@ -113,9 +113,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import Swal from 'sweetalert2';
 
-import { showError, showOk } from '@/utils/messages';
+import { confirm, showError, showOk } from '@/utils/dialog';
 import { useAuthStore } from '../../stores/authStore';
 import { useGlobalStore } from '../../stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
@@ -139,29 +138,25 @@ const trackStore = useTrackStore();
 const userStore = useUserStore();
 
 async function onLogout() {
-  Swal.fire({
-    title: t('navBar.onLogout.question.title'),
-    text: t('navBar.onLogout.question.text'),
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: t('navBar.onLogout.question.confirmButtonText'),
-    cancelButtonText: t('navBar.onLogout.question.cancelButtonText'),
-  }).then(async result => {
-    if (result.isConfirmed) {
-      const result = await auth.logout();
-      userStore.$reset();
-      trackStore.$reset();
-      if (result.ok) {
-        showOk(t('navBar.onLogout.success.title'));
-      } else {
-        showError(result.message);
-      }
-      await router.push({ name: 'home' });
-      router.go(0);
+  const result = await confirm(
+    t('navBar.onLogout.question.title'),
+    t('navBar.onLogout.question.text'),
+    t('navBar.onLogout.question.confirmButtonText'),
+    t('navBar.onLogout.question.cancelButtonText'),
+  );
+  console.log('Result', result);
+  if (result.isConfirmed) {
+    const result = await auth.logout();
+    userStore.$reset();
+    trackStore.$reset();
+    if (result.ok) {
+      showOk(t('navBar.onLogout.success.title'));
+    } else {
+      showError(result.message);
     }
-  });
+    await router.push({ name: 'home' });
+    router.go(0);
+  }
 }
 </script>
 

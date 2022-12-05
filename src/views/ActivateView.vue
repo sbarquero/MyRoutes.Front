@@ -4,7 +4,7 @@
 -->
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { showError, showOk } from '@/utils/messages';
+import { showError, showOk } from '@/utils/dialog';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import authApi from '@/api/authApi';

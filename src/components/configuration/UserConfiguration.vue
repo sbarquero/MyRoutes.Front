@@ -133,10 +133,9 @@ import { helpers, minLength, required } from '@vuelidate/validators';
 import { onMounted, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
-import Swal from 'sweetalert2';
 import useVuelidate from '@vuelidate/core';
 
-import { showError, showOk } from '@/utils/messages';
+import { confirm, showError, showOk } from '@/utils/dialog';
 import { useAuthStore } from '@/stores/authStore';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useUserStore } from '@/stores/userStore';
@@ -277,21 +276,16 @@ const userHasChanged = () => {
   );
 };
 
-const confirmUserCancellation = () => {
-  Swal.fire({
-    title: t('configurationView.userConfiguration.cancellation.title'),
-    text: t('configurationView.userConfiguration.cancellation.text'),
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: t('configurationView.userConfiguration.cancellation.confirmButtonText'),
-    cancelButtonText: t('configurationView.userConfiguration.cancellation.cancelButtonText'),
-  }).then(result => {
-    if (result.isConfirmed) {
-      goHomePage();
-    }
-  });
+const confirmUserCancellation = async () => {
+  const result = await confirm(
+    t('configurationView.userConfiguration.cancellation.title'),
+    t('configurationView.userConfiguration.cancellation.text'),
+    t('configurationView.userConfiguration.cancellation.confirmButtonText'),
+    t('configurationView.userConfiguration.cancellation.cancelButtonText'),
+  );
+  if (result.isConfirmed) {
+    goHomePage();
+  }
 };
 
 const updateUserConfiguration = async () => {

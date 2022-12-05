@@ -60,7 +60,7 @@
 import authApi from '@/api/authApi';
 import router from '@/router';
 import { useRoute } from 'vue-router';
-import { showError, showOk } from '@/utils/messages';
+import { showError, showOk } from '@/utils/dialog';
 import { reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 

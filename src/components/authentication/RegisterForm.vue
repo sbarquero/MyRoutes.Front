@@ -88,7 +88,7 @@ import { reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 import useVuelidate from '@vuelidate/core';
 import { useAuthStore } from '@/stores/authStore';
-import { showError, showOk } from '@/utils/messages';
+import { showError, showOk } from '@/utils/dialog';
 import type { RegisterUserDto } from '@/interfaces/auth.interface';
 
 const { t } = useI18n();

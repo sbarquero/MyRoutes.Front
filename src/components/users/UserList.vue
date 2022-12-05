@@ -24,7 +24,7 @@ import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
-import { showError } from '@/utils/messages';
+import { showError } from '@/utils/dialog';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useUserStore } from '@/stores/userStore';
 import UserListItem from './UserListItem.vue';

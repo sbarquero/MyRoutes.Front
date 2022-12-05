@@ -83,7 +83,7 @@
 import { reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { showError, showOk } from '@/utils/messages';
+import { showError, showOk } from '@/utils/dialog';
 import { useAuthStore } from '@/stores/authStore';
 import { useTrackStore } from '@/stores/trackStore';
 import IconUpload from '../icons/IconUpload.vue';

@@ -41,7 +41,7 @@
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
-import { showError, showOk } from '@/utils/messages';
+import { showError, showOk } from '@/utils/dialog';
 import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
 import IconDelete from '../icons/IconDelete.vue';

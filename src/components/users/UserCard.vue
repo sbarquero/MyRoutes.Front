@@ -176,10 +176,9 @@ import { email, helpers, minLength, required } from '@vuelidate/validators';
 import { reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
-import Swal from 'sweetalert2';
 import useVuelidate from '@vuelidate/core';
 
-import { showError, showOk } from '@/utils/messages';
+import { confirm, showError, showOk } from '@/utils/dialog';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useUserStore } from '@/stores/userStore';
 import IconSave from '../icons/IconSave.vue';
@@ -312,21 +311,16 @@ const userHasChanged = () => {
   );
 };
 
-const confirmUserCancellation = () => {
-  Swal.fire({
-    title: t('userView.userCard.cancellation.title'),
-    text: t('userView.userCard.cancellation.text'),
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: t('userView.userCard.cancellation.confirmButtonText'),
-    cancelButtonText: t('userView.userCard.cancellation.cancelButtonText'),
-  }).then(result => {
-    if (result.isConfirmed) {
-      initialize();
-    }
-  });
+const confirmUserCancellation = async () => {
+  const result = await confirm(
+    t('userView.userCard.cancellation.title'),
+    t('userView.userCard.cancellation.text'),
+    t('userView.userCard.cancellation.confirmButtonText'),
+    t('userView.userCard.cancellation.cancelButtonText'),
+  );
+  if (result.isConfirmed) {
+    initialize();
+  }
 };
 
 const createUser = async () => {

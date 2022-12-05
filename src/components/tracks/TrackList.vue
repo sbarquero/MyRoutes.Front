@@ -22,7 +22,7 @@ import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 
 import { onMounted } from 'vue';
-import { showError } from '@/utils/messages';
+import { showError } from '@/utils/dialog';
 import { useAuthStore } from '@/stores/authStore';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
