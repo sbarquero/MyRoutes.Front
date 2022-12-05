@@ -274,5 +274,9 @@
       "reject": "Reject",
       "rejectButtonText": "Reject session"
     }
+  },
+  "notAuthorized": {
+    "message": "You are not authorized!",
+    "goHomePage": "Go to homepage"
   }
 }

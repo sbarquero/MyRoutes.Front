@@ -274,5 +274,9 @@
       "reject": "Desconectar",
       "rejectButtonText": "Cierra sesión"
     }
+  },
+  "notAuthorized": {
+    "message": "¡No estas autorizado!",
+    "goHomePage": "Ir a la página de inicio"
   }
 }

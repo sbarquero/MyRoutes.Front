@@ -2,7 +2,10 @@
   <div class="background" :style="{ background: `url(${props.backgroundImage}) no-repeat center` }">
     <div class="filter">
       <div class="container-fluid container-lg mt-0">
-        <h1 class="title mt-4"><slot name="title"></slot></h1>
+        <h1 class="pt-3">
+          <div v-if="!!$slots.title" class="title show"><slot name="title"></slot></div>
+          <div v-else class="title hide"></div>
+        </h1>
         <div class="card p-4 mt-4">
           <slot name="content"></slot>
         </div>
@@ -40,11 +43,18 @@ const props = defineProps({
 }
 
 .title {
-  background-color: var(--default-container-title-background-color);
   border-radius: 10px;
   border-radius: 0.35rem;
   display: inline-block;
   margin-top: 1rem;
   padding: 0.1rem 1rem 0.35rem 1rem;
+}
+
+.show {
+  background-color: var(--default-container-title-background-color);
+}
+
+.hide {
+  background-color: transparent;
 }
 </style>

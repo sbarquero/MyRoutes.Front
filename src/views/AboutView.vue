@@ -213,8 +213,6 @@ import DefaultContainer from '@/components/shared/DefaultContainer.vue';
 
 const { t } = useI18n();
 
-// const version = __APP_VERSION__;
-
 const MODE = import.meta.env.MODE;
 const BASE_URL = import.meta.env.BASE_URL;
 const DEV = import.meta.env.DEV;
