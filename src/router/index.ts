@@ -32,7 +32,7 @@ const router = createRouter({
       name: 'tracks',
       component: () => import('../views/TrackView.vue'),
       meta: {
-        requiresAuth: false,
+        requiresAuth: true,
         authorizedRol: 'user',
       },
     },
