@@ -1,6 +1,5 @@
 <template>
   <DefaultContainer background-image="/assets/img/not-authorized.jpg">
-    <!-- <template #title></template> -->
     <template #content>
       <div class="row h-100 d-flex justify-content-center align-content-center">
         <h1 class="col-12 display-1 text-center mb-5">

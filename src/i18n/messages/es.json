@@ -278,5 +278,9 @@
   "notAuthorized": {
     "message": "¡No estas autorizado!",
     "goHomePage": "Ir a la página de inicio"
+  },
+  "notFound": {
+    "message": "¡Página no encontrada!",
+    "goHomePage": "Ir a la página de inicio"
   }
 }
