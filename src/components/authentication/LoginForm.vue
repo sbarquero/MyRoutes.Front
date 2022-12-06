@@ -99,14 +99,9 @@ async function onLogin() {
   } else {
     showOk(t('loginForm.loginOk'), message);
     if (userForm.rememberMe) {
-      localStorage.setItem('email', userForm.email);
-      const pwd = sjcl.encrypt(encryptationPassword, userForm.password);
-      localStorage.setItem('password', btoa(JSON.stringify(pwd)));
-      localStorage.setItem('rememberMe', 'true');
+      rememberUserCredentials();
     } else {
-      localStorage.removeItem('email');
-      localStorage.removeItem('password');
-      localStorage.removeItem('rememberMe');
+      forgetUserCredentials();
     }
   }
 
@@ -114,6 +109,19 @@ async function onLogin() {
   if (currentRoute === 'not-authorized') {
     router.push('/');
   }
+}
+
+function rememberUserCredentials() {
+  localStorage.setItem('email', userForm.email);
+  const pwd = sjcl.encrypt(encryptationPassword, userForm.password);
+  localStorage.setItem('password', btoa(JSON.stringify(pwd)));
+  localStorage.setItem('rememberMe', 'true');
+}
+
+function forgetUserCredentials() {
+  localStorage.removeItem('email');
+  localStorage.removeItem('password');
+  localStorage.removeItem('rememberMe');
 }
 </script>
 
