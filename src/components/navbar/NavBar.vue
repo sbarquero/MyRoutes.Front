@@ -145,7 +145,7 @@ async function onLogout() {
     t('navBar.onLogout.question.confirmButtonText'),
     t('navBar.onLogout.question.cancelButtonText'),
   );
-  console.log('Result', result);
+
   if (result.isConfirmed) {
     const result = await auth.logout();
     userStore.$reset();
