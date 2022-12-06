@@ -19,7 +19,7 @@ import 'leaflet/dist/leaflet.css';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
-import L from 'leaflet';
+import L, { type LatLngExpression } from 'leaflet';
 
 import { useGlobalStore } from '@/stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
@@ -65,7 +65,7 @@ watch(hideTrackIndex, () => {
 });
 
 watch(userLocation, () => {
-  L.marker(userLocation.value)
+  L.marker(userLocation.value as LatLngExpression)
     .addTo(map)
     .bindPopup(
       `<div style="text-align: center">
@@ -75,7 +75,7 @@ watch(userLocation, () => {
       </div>`,
     )
     .openPopup();
-  map.flyTo(userLocation.value, 11);
+  map.flyTo(userLocation.value as LatLngExpression, 11);
 });
 
 async function initMap() {
@@ -96,7 +96,7 @@ async function initMap() {
     zoomDelta: 0.5, // Zoom level using keyboard or zoom controls
     zoomControl: false, // zoom control off
     wheelPxPerZoomLevel: 128, // Zoom level in pixels using mouse wheel
-  }).setView(initialLocation.value, zoom.value);
+  }).setView(initialLocation.value as LatLngExpression, zoom.value);
   map.addLayer(mapsProviders.mapboxOsm);
 
   map.on('zoom', () => {
