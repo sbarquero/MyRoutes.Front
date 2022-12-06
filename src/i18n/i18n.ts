@@ -1,4 +1,3 @@
-// import { createI18n } from 'vue-i18n/dist/vue-i18n.esm-browser'
 import { createI18n } from 'vue-i18n';
 import en from './messages/en.json';
 import es from './messages/es.json';
