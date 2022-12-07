@@ -115,7 +115,6 @@ import { RouterLink } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import { confirm, showError, showOk } from '@/utils/dialog';
-import { sleep } from '@/utils/timer';
 import { useAuthStore } from '../../stores/authStore';
 import { useGlobalStore } from '../../stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
@@ -151,13 +150,11 @@ async function onLogout() {
     userStore.$reset();
     trackStore.$reset();
     if (result.ok) {
-      showOk(t('navBar.onLogout.success.title'));
+      showOk(t('navBar.onLogout.success.title'), '', 1000);
     } else {
       showError(result.message);
     }
-    await sleep(2000);
-    await router.push({ name: 'home' });
-    router.go(0);
+    router.push('/');
   }
 }
 </script>

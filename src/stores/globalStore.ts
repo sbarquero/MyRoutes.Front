@@ -5,7 +5,7 @@ export const useGlobalStore = defineStore({
   state: () => ({
     userLocation: [0, 0],
     initialLocation: [40, -4.25],
-    zoom: 2.75,
+    zoom: 5,
     isEditing: false,
   }),
   getters: {

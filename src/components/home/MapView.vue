@@ -21,6 +21,7 @@ import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import L, { type LatLngExpression } from 'leaflet';
 
+import { useAuthStore } from '@/stores/authStore';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
 import mapsProviders from '@/components/home/mapsProviders';
@@ -31,6 +32,7 @@ const globalStore = useGlobalStore();
 const mapElement = ref<HTMLDivElement>();
 const trackStore = useTrackStore();
 const { hideTrackIndex, selectedTrackIndex } = storeToRefs(useTrackStore());
+const { userId } = storeToRefs(useAuthStore());
 
 let map: L.Map;
 
@@ -75,7 +77,14 @@ watch(userLocation, () => {
       </div>`,
     )
     .openPopup();
-  map.flyTo(userLocation.value as LatLngExpression, 11);
+  flyToLocation();
+});
+
+watch(userId, async () => {
+  trackStore.unselectTrack();
+  geojsonLayers.forEach(layer => map.removeLayer(layer));
+  geojsonLayers = [];
+  flyToLocation();
 });
 
 async function initMap() {
@@ -112,6 +121,14 @@ async function initMap() {
       zoomOutTitle: t('homeView.mapView.zoomControl.zoomOutTitle'),
     })
     .addTo(map);
+}
+
+function flyToLocation() {
+  if (isUserLocationReady.value) {
+    map.flyTo(userLocation.value as LatLngExpression, 11);
+  } else {
+    map.flyTo(initialLocation.value as LatLngExpression, 5);
+  }
 }
 </script>
 

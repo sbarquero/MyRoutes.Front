@@ -97,7 +97,7 @@ async function onLogin() {
   if (!ok) {
     showError(t('loginForm.loginError'), message);
   } else {
-    showOk(t('loginForm.loginOk'), message);
+    showOk(t('loginForm.loginOk'), message, 1500);
     if (userForm.rememberMe) {
       rememberUserCredentials();
     } else {
