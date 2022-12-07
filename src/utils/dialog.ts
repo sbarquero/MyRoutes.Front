@@ -16,12 +16,12 @@ export const showError = (title: string, text = '') => {
   });
 };
 
-export function showOk(title: string, text = '') {
+export function showOk(title: string, text = '', timer = 3000) {
   Swal.fire({
     title,
     text,
     icon: 'success',
-    timer: 3000,
+    timer,
     customClass: {
       confirmButton: 'swal-btn-confirm',
     },
