@@ -188,16 +188,16 @@
         <h3>{{ t('aboutView.viteEnvVarTitle') }}</h3>
         <ul class="mb-0 mt-3">
           <li>
-            import.meta.env.MODE: <b>{{ MODE }}</b>
+            meta.env.MODE: <b>{{ MODE }}</b>
           </li>
           <li>
-            import.meta.env.BASE_URL: <b>{{ BASE_URL }}</b>
+            meta.env.BASE_URL: <b>{{ BASE_URL }}</b>
           </li>
           <li>
-            import.meta.env.DEV: <b>{{ DEV }}</b>
+            meta.env.DEV: <b>{{ DEV }}</b>
           </li>
           <li>
-            import.meta.env.PROD: <b>{{ PROD }}</b> (opposite of import.meta.env.DEV)
+            meta.env.PROD: <b>{{ PROD }}</b> (opposite of meta.env.DEV)
           </li>
         </ul>
       </div>
