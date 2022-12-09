@@ -241,6 +241,9 @@
       "myLocation": "My location",
       "latitude": "Lat",
       "longitude": "Lng",
+      "distance": "Distance",
+      "maxHeight": "Maximum height",
+      "minHeight": "Minimun height",
       "zoomControl": {
         "zoomInTitle": "Zoom in",
         "zoomOutTitle": "Zoom out"

@@ -9,7 +9,7 @@
         <IconVisible class="icon" v-if="props.track.visible" @click="hideTrack" />
         <IconNoVisible class="icon no-visible" v-else @click="showTrack" />
       </div>
-      <div class="track-name">
+      <div :title="props.track.description" class="track-name">
         {{ props.track.name }}
       </div>
       <div

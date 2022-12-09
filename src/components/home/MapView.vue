@@ -7,7 +7,7 @@
     <!-- Location tag-->
     <div v-if="isUserLocationReady" class="fixed-bottom d-flex justify-content-center">
       <div class="location">
-        <b>{{ t('homeView.mapView.myLocation') }}</b> Lng: {{ userLocation[0] }}, Lat:
+        <b>{{ t('homeView.mapView.myLocation') }}</b> Lat: {{ userLocation[0] }}, Lng:
         {{ userLocation[1] }}
       </div>
     </div>
@@ -20,6 +20,7 @@ import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import L, { type LatLngExpression } from 'leaflet';
+import * as turf from '@turf/turf';
 
 import { useAuthStore } from '@/stores/authStore';
 import { useGlobalStore } from '@/stores/globalStore';
@@ -40,7 +41,7 @@ let geojsonLayers: L.GeoJSON[];
 
 onMounted(async () => {
   globalStore.getUserLocation();
-  initMap();
+  initializeMap();
   geojsonLayers = [];
 });
 
@@ -49,23 +50,31 @@ onUnmounted(() => {
   map.remove();
 });
 
+// Watch if Selected Track Index changes and then display and fly to it
 watch(selectedTrackIndex, async () => {
   if (selectedTrackIndex.value === -1) return;
   const index = selectedTrackIndex.value;
 
   if (!geojsonLayers[index]) {
-    geojsonLayers[index] = new L.GeoJSON(trackStore.trackList[index].geojsonData);
+    geojsonLayers[index] = new L.GeoJSON(trackStore.trackList[index].geojsonData, {
+      onEachFeature: showPopup,
+      style: function () {
+        return { color: '#ff0000' };
+      },
+    });
   }
-  geojsonLayers[index].addTo(map);
-  map.flyToBounds(geojsonLayers[index].getBounds());
+  const layer = geojsonLayers[index].addTo(map);
+  map.flyToBounds(layer.getBounds());
 });
 
+// Watch if Hide Track Index changes and then remove it from the map
 watch(hideTrackIndex, () => {
   if (hideTrackIndex.value === -1) return;
   const index = trackStore.hideTrackIndex;
   map.removeLayer(geojsonLayers[index]);
 });
 
+// Watch if the user's location changes and then show a popup with the location on the map
 watch(userLocation, () => {
   L.marker(userLocation.value as LatLngExpression)
     .addTo(map)
@@ -80,6 +89,7 @@ watch(userLocation, () => {
   flyToLocation();
 });
 
+// Watch if logged user id changes and then removes the layers
 watch(userId, async () => {
   trackStore.unselectTrack();
   geojsonLayers.forEach(layer => map.removeLayer(layer));
@@ -87,7 +97,7 @@ watch(userId, async () => {
   flyToLocation();
 });
 
-async function initMap() {
+async function initializeMap() {
   if (!mapElement.value) throw new Error('Div Element no exists');
   if (!userLocation.value) throw new Error('UserLocation no exists');
 
@@ -129,6 +139,57 @@ function flyToLocation() {
   } else {
     map.flyTo(initialLocation.value as LatLngExpression, 5);
   }
+}
+
+function showPopup(feature: any, layer: any) {
+  if (!feature.properties) return;
+  if (!feature.geometry) return;
+
+  const geometry = feature.geometry;
+
+  if (geometry.type === 'LineString') {
+    showPopupTrackInformation(feature, layer);
+  } else {
+    showPopupPointInformation(feature, layer);
+  }
+}
+
+function showPopupTrackInformation(feature: any, layer: any) {
+  const selectedTrack = trackStore.trackList[trackStore.selectedTrackIndex];
+
+  const line = turf.lineString(feature.geometry.coordinates);
+  const distanceKm = turf.round(turf.length(line, { units: 'kilometers' }), 2);
+  const distanceMi = turf.round(turf.length(line, { units: 'miles' }), 2);
+  const coordinates = feature.geometry.coordinates as number[][];
+  const heights = coordinates.map(x => x[2]);
+  const maxHeight = Math.max(...heights);
+  const minHeight = Math.min(...heights);
+  let message = `
+    <h5>${selectedTrack.name}</h5>
+    <p>${selectedTrack.description}</p>
+    <h6><b>${t('homeView.mapView.distance')}:</b> ${distanceKm} km (${distanceMi} mi)</h6>
+    <p>
+      <b>${t('homeView.mapView.maxHeight')}:</b> ${maxHeight} m<br>
+      <b>${t('homeView.mapView.minHeight')}:</b> ${minHeight} m<br>
+    </p>
+  `;
+  layer.bindPopup(message);
+}
+
+function showPopupPointInformation(feature: any, layer: any) {
+  let message = '';
+
+  let name: string = feature.properties.name;
+  name = name.replace(/^\((.+)\)$/, '$1'); // Remove leading and trailing parentheses
+  message = name ? `<h5>${name}</h5>` : '';
+
+  const description = feature.properties.description;
+  if (description) {
+    const xmlDOM = new DOMParser().parseFromString(description.value, 'text/html');
+    xmlDOM.getElementsByTagName('img')[0]?.remove();
+    message += xmlDOM.body.innerHTML;
+  }
+  layer.bindPopup(message);
 }
 </script>
 

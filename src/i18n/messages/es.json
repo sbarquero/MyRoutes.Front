@@ -241,6 +241,9 @@
       "myLocation": "Mi localización",
       "latitude": "Lat",
       "longitude": "Lng",
+      "distance": "Distancia",
+      "maxHeight": "Altura máxima",
+      "minHeight": "Altura mínima",
       "zoomControl": {
         "zoomInTitle": "Ampliar",
         "zoomOutTitle": "Disminuir"
