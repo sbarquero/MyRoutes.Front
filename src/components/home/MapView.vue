@@ -54,9 +54,8 @@ onUnmounted(() => {
 // Watch if Selected Track Index changes and then display and fly to it
 watch(selectedTrackIndex, async () => {
   if (selectedTrackIndex.value === -1) return;
-  const index = selectedTrackIndex.value;
 
-  console.log(selectedTrackIndex.value % trackColors.length);
+  const index = selectedTrackIndex.value;
   const color = trackColors[selectedTrackIndex.value % trackColors.length];
 
   if (!geojsonLayers[index]) {
