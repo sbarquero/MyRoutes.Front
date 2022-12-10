@@ -6,7 +6,12 @@
   >
     <div class="track-item">
       <div :title="t('homeView.sliderBox.trackList.noVisibleButton')" class="track-visible">
-        <IconVisible class="icon" v-if="props.track.visible" @click="hideTrack" />
+        <IconVisible
+          :style="{ backgroundColor: trackColor }"
+          class="icon"
+          v-if="props.track.visible"
+          @click="hideTrack"
+        />
         <IconNoVisible class="icon no-visible" v-else @click="showTrack" />
       </div>
       <div :title="props.track.description" class="track-name">
@@ -26,6 +31,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 
+import { getTrackColor } from '@/utils/colors';
 import { useTrackStore } from '@/stores/trackStore';
 import IconNoVisible from '../icons/IconNoVisible.vue';
 import IconVisible from '../icons/IconVisible.vue';
@@ -38,6 +44,8 @@ const props = defineProps({
   track: { type: Object, required: true },
   index: { type: Number, required: true },
 });
+
+const trackColor = getTrackColor(props.index);
 
 async function showTrack(event: Event) {
   await trackStore.selectTrack(props.index);
@@ -82,12 +90,12 @@ div.list-group-item {
   white-space: nowrap;
 }
 .icon {
-  color: var(--primary-color);
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 8px;
+  border-radius: 5px;
+  color: #ffffff;
+  height: 2rem;
+  width: 2rem;
+  padding: 4px;
   &:hover {
-    border-radius: 5px;
     background-color: var(--primary-color);
     color: #ffffff;
   }

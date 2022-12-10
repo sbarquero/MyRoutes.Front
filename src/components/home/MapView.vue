@@ -19,9 +19,10 @@ import 'leaflet/dist/leaflet.css';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
-import L, { type LatLngExpression } from 'leaflet';
 import * as turf from '@turf/turf';
+import L, { type LatLngExpression } from 'leaflet';
 
+import { trackColors } from '@/utils/colors';
 import { useAuthStore } from '@/stores/authStore';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
@@ -55,11 +56,14 @@ watch(selectedTrackIndex, async () => {
   if (selectedTrackIndex.value === -1) return;
   const index = selectedTrackIndex.value;
 
+  console.log(selectedTrackIndex.value % trackColors.length);
+  const color = trackColors[selectedTrackIndex.value % trackColors.length];
+
   if (!geojsonLayers[index]) {
     geojsonLayers[index] = new L.GeoJSON(trackStore.trackList[index].geojsonData, {
       onEachFeature: showPopup,
       style: function () {
-        return { color: '#ff0000' };
+        return { color, opacity: 0.8 };
       },
     });
   }
