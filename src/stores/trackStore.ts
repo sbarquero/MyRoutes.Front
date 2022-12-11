@@ -83,9 +83,6 @@ export const useTrackStore = defineStore({
           },
         });
         this.tracks.push(track.data as Track);
-        this.tracks.sort((a, b) =>
-          a.name.toLocaleUpperCase().localeCompare(b.name.toLocaleUpperCase()),
-        );
         return { ok: true };
       } catch (error: any) {
         return { ok: false, message: error.response.data.message };
