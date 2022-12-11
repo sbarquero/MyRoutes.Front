@@ -22,7 +22,7 @@ import { useI18n } from 'vue-i18n';
 import * as turf from '@turf/turf';
 import L, { type LatLngExpression } from 'leaflet';
 
-import { trackColors } from '@/utils/colors';
+import { getTrackColor } from '@/utils/colors';
 import { useAuthStore } from '@/stores/authStore';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useTrackStore } from '@/stores/trackStore';
@@ -53,16 +53,15 @@ onUnmounted(() => {
 
 // Watch if Selected Track Index changes and then display and fly to it
 watch(selectedTrackIndex, async () => {
-  if (selectedTrackIndex.value === -1) return;
-
   const index = selectedTrackIndex.value;
-  const color = trackColors[selectedTrackIndex.value % trackColors.length];
+
+  if (index === -1) return;
 
   if (!geojsonLayers[index]) {
     geojsonLayers[index] = new L.GeoJSON(trackStore.trackList[index].geojsonData, {
       onEachFeature: showPopup,
       style: function () {
-        return { color, opacity: 0.8 };
+        return { color: getTrackColor(index), opacity: 0.8 };
       },
     });
   }
