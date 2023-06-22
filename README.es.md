@@ -6,6 +6,10 @@
 
 Esta es la aplicación **Vue.js** del proyecto **MyRoutes**.
 
+## Requerimientos del proyecto
+
+**Nota:** Funciona con `Node JS` versión **16**, pero no con la versión 18.
+
 ## Configuración del proyecto
 
 ### Instalacion de dependencias 

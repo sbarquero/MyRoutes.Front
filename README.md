@@ -6,6 +6,10 @@
 
 This is the Vue.js Application of MyRoutes project.
 
+## Project requirements
+
+**Note**: It works with `Node JS` version **16**, but not with version 18.
+
 ## Project Setup
 
 ### Dependency installation
