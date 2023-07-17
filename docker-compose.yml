@@ -7,5 +7,6 @@ services:
     image: sbarquero/myroutes.front
     restart: always
     container_name: myroutes.front
+    hostname: myroutes-front
     ports: 
       - 8080:80
