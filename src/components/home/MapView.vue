@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import 'leaflet/dist/leaflet.css';
+import { Icon } from 'leaflet';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
@@ -44,6 +45,8 @@ onMounted(async () => {
   globalStore.getUserLocation();
   initializeMap();
   geojsonLayers = [];
+
+  fixLeafletMarkerNotFoundInProductionEnv();
 });
 
 onUnmounted(() => {
@@ -192,6 +195,21 @@ function showPopupPointInformation(feature: any, layer: any) {
     message += xmlDOM.body.innerHTML;
   }
   layer.bindPopup(message);
+}
+
+// Fix Leaflet Marker not found in production environment
+// https://stackoverflow.com/questions/41144319/leaflet-marker-not-found-production-env
+// https://vue2-leaflet.netlify.app/quickstart/#marker-icons-are-missing
+function fixLeafletMarkerNotFoundInProductionEnv() {
+  type D = Icon.Default & {
+    _getIconUrl?: string;
+  };
+  delete (Icon.Default.prototype as D)._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: '/assets/img/marker-icon-2x.png',
+    iconUrl: '/assets/img/marker-icon.png',
+    shadowUrl: '/assets/img/marker-shadow.png',
+  });
 }
 </script>
 

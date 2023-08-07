@@ -20,6 +20,7 @@ npm install
 
 ### Environment configuration
 We have to configure the environment file. We can see an example in the file ```.env.example```. 
+
 ```conf
 # Environment file example
 
@@ -83,3 +84,38 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 ## Customize configuration
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Management with Docker
+
+### Create Docker Image
+
+To create the Docker image, the following command has been used:
+
+```
+docker build -t sbarquero/myroutes.front:1.1.0 .
+docker build -t sbarquero/myroutes.front:latest .
+```
+
+### Upload image to repository
+
+To upload the image to Docker, the following command was used:
+
+```
+docker push sbarquero/myroutes.front:1.1.0
+docker push sbarquero/myroutes.front:latest
+```
+
+### Implementation of the frontend in a Docker container
+
+By running the following command, the container needed to get the frontend up and running is raised.
+
+The container created is:
+   - `myroutes.front` - Myroutes frontend in Nginx container.
+
+```
+docker-compose up
+```
+
+### Implementation of the back and front in Docker containers
+
+Visit the project [MyRoutes.Docker in Github](https://github.com/sbarquero/MyRoutes.Docker)

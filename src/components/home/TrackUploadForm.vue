@@ -162,8 +162,8 @@ function getDataFromGPX(xmlString: string | ArrayBuffer | null | undefined) {
   if (!xmlString) return;
 
   const xmlDOM = new DOMParser().parseFromString(xmlString as string, 'text/xml');
-  state.name = xmlDOM.getElementsByTagName('name')[0].textContent || state.fileName;
-  state.description = xmlDOM.getElementsByTagName('desc')[0].textContent || '';
+  state.name = xmlDOM.getElementsByTagName('name')[0]?.textContent || state.fileName;
+  state.description = xmlDOM.getElementsByTagName('desc')[0]?.textContent || '';
   const time = xmlDOM.getElementsByTagName('time')[0].textContent;
   state.createAt = time?.substring(0, 19) || state.createAt;
 }

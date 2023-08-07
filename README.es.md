@@ -84,3 +84,38 @@ Si el complemento TypeScript independiente no le parece lo suficientemente rápi
 ## Personalizar configuración
 
 Ver [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Gestión con Docker
+
+### Crear imagen Docker
+
+Para crear la imagen Docker, se ha empleado el siguiente comando:
+
+```
+docker build -t sbarquero/myroutes.front:1.1.0 .
+docker build -t sbarquero/myroutes.front:latest .
+```
+
+### Subir imagen al repositorio
+
+Para subir la imagen a Docker, se empleado el siguiente comando:
+
+```
+docker push sbarquero/myroutes.front:1.1.0
+docker push sbarquero/myroutes.front:latest
+```
+
+### Puesta en marcha del frontend en contenedor Docker
+
+Ejecutando el siguiente comando, se levanta el contenedor necesario para poner en marcha el frontend.
+
+El contenedor creado es:
+  - `myroutes.front` - Frontend de Myroutes en contendor Nginx.
+
+```
+docker-compose up
+```
+
+### Puesta en marcha del back y front en contenedores Docker
+
+Visite el proyecto [MyRoutes.Docker en Github](https://github.com/sbarquero/MyRoutes.Docker)
