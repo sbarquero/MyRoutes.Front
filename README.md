@@ -8,7 +8,7 @@ This is the Vue.js Application of MyRoutes project.
 
 ## Project requirements
 
-**Note**: It works with `Node JS` version **16**, but not with version 18.
+**Note**: It works with `Node JS` version **16.20.2**, **18.19.1**, **20.11.1**.
 
 ## Project Setup
 
@@ -19,7 +19,7 @@ npm install
 ```
 
 ### Environment configuration
-We have to configure the environment file. We can see an example in the file ```.env.example```. 
+We have to configure the environment file. We can see an example in the file ```.env.example```.
 
 ```conf
 # Environment file example
@@ -92,7 +92,7 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 To create the Docker image, the following command has been used:
 
 ```
-docker build -t sbarquero/myroutes.front:1.1.0 .
+docker build -t sbarquero/myroutes.front:1.1.4 .
 docker build -t sbarquero/myroutes.front:latest .
 ```
 
@@ -101,7 +101,7 @@ docker build -t sbarquero/myroutes.front:latest .
 To upload the image to Docker, the following command was used:
 
 ```
-docker push sbarquero/myroutes.front:1.1.0
+docker push sbarquero/myroutes.front:1.1.4
 docker push sbarquero/myroutes.front:latest
 ```
 
