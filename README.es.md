@@ -8,18 +8,18 @@ Esta es la aplicación **Vue.js** del proyecto **MyRoutes**.
 
 ## Requerimientos del proyecto
 
-**Nota:** Funciona con `Node JS` versión **16**, pero no con la versión 18.
+**Nota:** Funciona con `Node JS` versión **16.20.2**, **18.19.1**, **20.11.1**.
 
 ## Configuración del proyecto
 
-### Instalacion de dependencias 
+### Instalacion de dependencias
 Esto instala todos los paquetes necesarios.
 ```sh
 npm install
 ```
 
 ### Configuración del entorno
-Tenemos que configurar el archivo de entorno. Podemos ver un ejemplo en el archivo ```.env.example```. 
+Tenemos que configurar el archivo de entorno. Podemos ver un ejemplo en el archivo ```.env.example```.
 
 ```conf
 # Environment file example
@@ -92,7 +92,7 @@ Ver [Vite Configuration Reference](https://vitejs.dev/config/).
 Para crear la imagen Docker, se ha empleado el siguiente comando:
 
 ```
-docker build -t sbarquero/myroutes.front:1.1.0 .
+docker build -t sbarquero/myroutes.front:1.1.4 .
 docker build -t sbarquero/myroutes.front:latest .
 ```
 
@@ -101,7 +101,7 @@ docker build -t sbarquero/myroutes.front:latest .
 Para subir la imagen a Docker, se empleado el siguiente comando:
 
 ```
-docker push sbarquero/myroutes.front:1.1.0
+docker push sbarquero/myroutes.front:1.1.4
 docker push sbarquero/myroutes.front:latest
 ```
 
