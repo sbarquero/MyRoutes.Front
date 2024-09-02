@@ -92,7 +92,7 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 To create the Docker image, the following command has been used:
 
 ```
-docker build -t sbarquero/myroutes.front:1.1.5 .
+docker build -t sbarquero/myroutes.front:1.1.6 .
 docker build -t sbarquero/myroutes.front:latest .
 ```
 
@@ -101,7 +101,7 @@ docker build -t sbarquero/myroutes.front:latest .
 To upload the image to Docker, the following command was used:
 
 ```
-docker push sbarquero/myroutes.front:1.1.5
+docker push sbarquero/myroutes.front:1.1.6
 docker push sbarquero/myroutes.front:latest
 ```
 
